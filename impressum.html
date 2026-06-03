@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Impressum – ZIANI FX</title>
+<meta name="description" content="Impressum – Angaben gemäß § 5 TMG für ZIANI FX." />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Preconnect für schnelleres Laden -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Preload der wichtigsten Fonts -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
+
+<!-- Fonts laden -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
+
+<style>
+  :root {
+    --bg: #232020;
+    --text: #d3d0cb;
+    --accent: #9f0c0c;
+    --white: #FFFFFF;
+    --card: #2e2b2b;
+    --footer-bg: #1a1818;
+  }
+
+  .ziani { color: #d3d0cb; }
+  .fx    { color: #9f0c0c; }
+
+  * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* iOS-Safari-Font-Fix — verhindert Synth-Bold und erzwingt echte Webfonts */
+  @supports (-webkit-touch-callout: none) {
+    .ziani, .fx {
+      font-family: 'Anton', Impact, 'Arial Narrow', sans-serif !important;
+      font-synthesis: none;
+    }
+    h1, h2, h3 {
+      font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif !important;
+      font-synthesis: none;
+    }
+    p, a {
+      font-family: 'Arimo', Arial, Helvetica, sans-serif !important;
+      font-synthesis: none;
+    }
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .navbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    background-color: rgba(35, 32, 32, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+  .navbar.scrolled {
+    background-color: rgba(26, 24, 24, 0.92);
+    border-bottom: 1px solid var(--accent);
+  }
+  .nav-link { color: var(--text); transition: color 0.3s ease; text-decoration: none; }
+  .nav-link:hover { color: var(--accent); }
+
+  .logo {
+    font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
+    font-size: 1.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  .container-max { max-width: 1280px; margin: 0 auto; }
+
+  main { padding: 9rem 1.5rem 4rem; }
+  @media (min-width: 768px) { main { padding: 11rem 3rem 6rem; } }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text);
+    text-decoration: none;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    margin-bottom: 2.5rem;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  .page-title {
+    font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
+    color: var(--text);
+    font-size: clamp(3.5rem, 10vw, 8.5rem);
+    margin: 0 0 3rem 0;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .legal-content {
+    max-width: 56rem;
+  }
+  .legal-block { margin-bottom: 2.5rem; }
+  .legal-block:last-child { margin-bottom: 0; }
+  .legal-heading {
+    font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
+    color: var(--text);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    margin: 0 0 0.85rem 0;
+  }
+  .legal-text {
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 0.6rem 0;
+    white-space: pre-line;
+  }
+  .legal-text:last-child { margin-bottom: 0; }
+  .legal-text a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+  }
+  .legal-text a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  footer {
+    background-color: var(--footer-bg);
+    color: var(--text);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+  }
+  .footer-legal {
+    margin-top: 0.75rem;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+  .footer-legal a {
+    color: #d3d0cb;
+    opacity: 0.6;
+    text-decoration: none;
+    transition: opacity 0.3s ease, color 0.3s ease;
+  }
+  .footer-legal a:hover {
+    opacity: 1;
+    color: #9f0c0c;
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 640px) {
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.85rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar" aria-label="Hauptnavigation">
+  <div class="container-max flex items-center justify-between px-6 py-4">
+    <a href="index.html" class="logo" aria-label="ZIANI FX Home">
+      <span class="ziani">ZIANI</span><span class="fx">FX</span>
+    </a>
+    <div class="nav-links flex items-center gap-8 text-sm uppercase tracking-widest">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="index.html#portfolio">Portfolio</a>
+      <a class="nav-link" href="index.html#kontakt">Kontakt</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="container-max">
+    <a href="index.html" class="back-link">← Zurück zur Startseite</a>
+
+    <h1 class="page-title fade-up">IMPRESSUM</h1>
+
+    <div class="legal-content">
+      <div class="legal-block fade-up">
+        <h2 class="legal-heading">Angaben gemäß § 5 TMG</h2>
+        <p class="legal-text">Mohamed Ziani
+ZianiFM
+Im Grieß 18
+53179 Bonn</p>
+      </div>
+
+      <div class="legal-block fade-up">
+        <h2 class="legal-heading">Kontakt</h2>
+        <p class="legal-text">E-Mail: <a href="mailto:zianifx@outlook.com">zianifx@outlook.com</a></p>
+      </div>
+
+      <div class="legal-block fade-up">
+        <h2 class="legal-heading">Kleinunternehmerregelung</h2>
+        <p class="legal-text">Gemäß § 19 UStG wird keine Umsatzsteuer erhoben.</p>
+      </div>
+
+      <div class="legal-block fade-up">
+        <h2 class="legal-heading">Gewerbeanmeldung</h2>
+        <p class="legal-text">Eingetragen beim Gewerbeamt Bonn.</p>
+      </div>
+
+      <div class="legal-block fade-up">
+        <h2 class="legal-heading">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+        <p class="legal-text">Mohamed Ziani
+Im Grieß 18
+53179 Bonn</p>
+      </div>
+
+      <div class="legal-block fade-up">
+        <h2 class="legal-heading">Haftungsausschluss</h2>
+        <p class="legal-text">Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.</p>
+      </div>
+
+      <div class="legal-block fade-up">
+        <h2 class="legal-heading">Urheberrecht</h2>
+        <p class="legal-text">Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  © 2025 <span class="ziani">ZIANI</span><span class="fx">FX</span> – M. Ziani. Alle Rechte vorbehalten.
+  <div class="footer-legal">
+    <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('navbar');
+  const onScroll = () => {
+    if (window.scrollY > 30) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

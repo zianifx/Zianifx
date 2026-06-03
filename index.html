@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ZIANI FX – Visual Storytelling | Foto & Videography</title>
+<meta name="description" content="ZIANI FX – Mohamed Ziani. Videograf, Fotograf & Video-Editor aus Köln/Bonn. Cinematic Visual Production für Brands, Räume und Geschichten." />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Preconnect für schnelleres Laden -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Preload der wichtigsten Fonts -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
+
+<!-- Fonts laden -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
+
+<style>
+  :root {
+    --bg: #232020;
+    --text: #d3d0cb;
+    --accent: #9f0c0c;
+    --white: #FFFFFF;
+    --card: #2e2b2b;
+    --footer-bg: #1a1818;
+  }
+
+  /* Global brand color rule – ZIANI FX */
+  .ziani { color: #d3d0cb; }
+  .fx    { color: #9f0c0c; }
+
+  * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* iOS-Safari-Font-Fix — verhindert Synth-Bold und erzwingt echte Webfonts */
+  @supports (-webkit-touch-callout: none) {
+    .ziani, .fx {
+      font-family: 'Anton', Impact, 'Arial Narrow', sans-serif !important;
+      font-synthesis: none;
+    }
+    h1, h2, h3 {
+      font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif !important;
+      font-synthesis: none;
+    }
+    p, a {
+      font-family: 'Arimo', Arial, Helvetica, sans-serif !important;
+      font-synthesis: none;
+    }
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .font-anton    { font-family: 'Anton', Impact, 'Arial Narrow', sans-serif; letter-spacing: 0.02em; }
+  .font-league   { font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif; letter-spacing: 0.03em; }
+  .font-body     { font-family: 'Arimo', Arial, Helvetica, sans-serif; }
+
+  /* Navbar */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    background-color: rgba(35, 32, 32, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+  .navbar.scrolled {
+    background-color: rgba(26, 24, 24, 0.92);
+    border-bottom: 1px solid var(--accent);
+  }
+  .nav-link {
+    color: var(--text);
+    transition: color 0.3s ease;
+    text-decoration: none;
+  }
+  .nav-link:hover { color: var(--accent); }
+
+  .logo {
+    font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
+    font-size: 1.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 1.5rem 3rem;
+    background-color: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 40%, rgba(159, 12, 12, 0.08), transparent 60%);
+    pointer-events: none;
+  }
+  .hero-title {
+    font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
+    font-size: clamp(4.5rem, 16vw, 16rem);
+    line-height: 0.95;
+    margin: 0;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .hero-sub {
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    color: var(--text);
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    margin-top: 1.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  /* Buttons */
+  .btn-outline {
+    display: inline-block;
+    border: 2px solid var(--accent);
+    color: var(--text);
+    padding: 0.9rem 2.2rem;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+  }
+  .btn-outline:hover {
+    background-color: var(--accent);
+    color: var(--white);
+  }
+
+  /* Sections */
+  section { padding: 6rem 1.5rem; }
+  @media (min-width: 768px) { section { padding: 8rem 3rem; } }
+
+  .container-max {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1.1536fr 0.8464fr;
+      gap: 4rem;
+    }
+  }
+  .about-name {
+    font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
+    color: var(--text);
+    font-size: clamp(3.3rem, 9.9vw, 8.25rem);
+    line-height: 0.9;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+  .about-brand {
+    font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
+    font-size: clamp(2.75rem, 8.25vw, 6.6rem);
+    line-height: 0.9;
+    margin: 0 0 2rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+  .about-text {
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    color: var(--text);
+    font-size: 1.7325rem;
+    line-height: 1.5;
+    max-width: 46rem;
+  }
+  .about-image-wrap {
+    width: 100%;
+    background-color: #232020;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* About-Video — YouTube Short Embed (9:16, Portrait, dezent gerahmt) */
+  .about-video-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .about-video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 9/16;
+    background: #232020;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+  }
+  .about-video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .about-video-hint {
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    color: #d3d0cb;
+    opacity: 0.6;
+    font-style: italic;
+    text-align: center;
+    letter-spacing: 0.05em;
+    margin: 0;
+  }
+
+  /* Video-Wrapper (Portrait — 9:16 Hochformat) */
+  .video-wrapper-portrait {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    aspect-ratio: 9/16;
+    background: #232020;
+  }
+  .video-wrapper-portrait iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* About-Video: Play-Overlay */
+  .video-play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .video-play-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .video-play-icon {
+    color: #d3d0cb;
+    font-size: clamp(3rem, 7vw, 5rem);
+    line-height: 1;
+    transition: color 0.3s ease;
+  }
+  .video-play-overlay:hover .video-play-icon {
+    color: #9f0c0c;
+  }
+  .video-play-hint {
+    color: #d3d0cb;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  /* Approach */
+  .approach-image-block {
+    position: relative;
+    width: 75%;
+    max-width: 1100px;
+    margin: 0 auto;
+    aspect-ratio: 16/9;
+    background-color: #2a2727;
+    background-image: url('images/approach.JPG');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+  }
+  .approach-image-block::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.55) 100%);
+    pointer-events: none;
+  }
+  .approach-overlay-title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1.5rem;
+    text-align: center;
+    font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
+    color: #D3D0CB;
+    font-size: clamp(3rem, 11vw, 9rem);
+    letter-spacing: 0.08em;
+    margin: 0;
+    text-transform: uppercase;
+    z-index: 2;
+    line-height: 1;
+  }
+  @media (max-width: 700px) {
+    .approach-image-block { width: 100%; }
+  }
+  .approach-text {
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    color: var(--text);
+    text-align: center;
+    max-width: 64rem;
+    margin: 3rem auto 0;
+    font-size: 1.65rem;
+    line-height: 1.6;
+  }
+
+  /* Portfolio */
+  .section-heading {
+    font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
+    color: var(--text);
+    font-size: clamp(3rem, 8vw, 6rem);
+    text-align: center;
+    margin: 0 0 4rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .portfolio-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+  .portfolio-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 4/3;
+    background-color: var(--card);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+  }
+  .portfolio-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    mix-blend-mode: multiply;
+  }
+  .portfolio-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+  }
+  .portfolio-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 50px rgba(159, 12, 12, 0.25);
+  }
+  .portfolio-card:hover::before { opacity: 0.2; }
+  .portfolio-card:hover .portfolio-title { opacity: 1; transform: translateY(0); }
+  /* Card-Image: liegt unter den ::before/::after Overlays (z-index 1) und unter dem Titel (z-index 2) */
+  .portfolio-card > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    z-index: 0;
+  }
+  .portfolio-title {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+    font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
+    color: var(--white);
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.85;
+    transform: translateY(8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    line-height: 1.1;
+  }
+
+  /* Kontakt */
+  .kontakt-wrap {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .kontakt-line {
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    color: var(--text);
+    font-size: 1.1rem;
+    margin: 0.6rem 0;
+    letter-spacing: 0.05em;
+  }
+  .kontakt-note {
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    color: rgba(211, 208, 203, 0.6);
+    font-size: 1.1rem;
+    font-style: italic;
+    text-align: center;
+    margin-top: 1.25rem;
+    letter-spacing: 0.05em;
+  }
+  .kontakt-link {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+  .kontakt-link:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* Footer */
+  footer {
+    background-color: var(--footer-bg);
+    color: var(--text);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+  }
+  .footer-legal {
+    margin-top: 0.75rem;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+  .footer-legal a {
+    color: #d3d0cb;
+    opacity: 0.6;
+    text-decoration: none;
+    transition: opacity 0.3s ease, color 0.3s ease;
+  }
+  .footer-legal a:hover {
+    opacity: 1;
+    color: #9f0c0c;
+  }
+
+  /* Fade-in animation */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============================================================
+     MOBILE (≤ 768px) – Desktop in klein
+     Schriftarten, Gewichte, letter-spacing, text-transform, Farben
+     bleiben identisch zum Desktop. Nur Größen + Abstände + Layout.
+     ============================================================ */
+  @media (max-width: 768px) {
+    /* === Schriftarten + Gewichte auf Mobile erzwingen ===
+       Fix: manche mobilen Browser/Renderer fallen auf System-Schriften
+       zurück oder rendern Anton/League Gothic zu dünn. !important
+       garantiert dass Desktop-Schriften + Farben greifen. */
+    .ziani {
+      font-family: 'Anton', Impact, 'Arial Narrow', sans-serif !important;
+      font-weight: 400 !important;
+      color: #d3d0cb !important;
+    }
+    .fx {
+      font-family: 'Anton', Impact, 'Arial Narrow', sans-serif !important;
+      font-weight: 400 !important;
+      color: #9f0c0c !important;
+    }
+    h1, h2, h3,
+    .section-title,
+    .page-title {
+      font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif !important;
+      font-weight: 400 !important;
+    }
+    p, a, span:not(.ziani):not(.fx) {
+      font-family: 'Arimo', Arial, Helvetica, sans-serif !important;
+      font-weight: 400 !important;
+    }
+
+    /* === Navbar: Logo Zeile 1, Menü Zeile 2 (linksbündig) === */
+    .navbar > .container-max {
+      flex-wrap: wrap;
+      row-gap: 0.4rem;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
+    }
+    .navbar .logo {
+      flex-basis: 100%;
+      font-size: 1.3rem;
+      order: 1;
+    }
+    .navbar .nav-links {
+      flex-basis: 100%;
+      order: 2;
+      gap: 1.4rem;
+      justify-content: flex-start;
+    }
+    .navbar .nav-links a {
+      font-size: 0.78rem;
+    }
+
+    /* === Sektionsabstände kompakter === */
+    section { padding: 3.5rem 1.25rem; }
+
+    /* === Hero === */
+    .hero { padding: 6rem 1.25rem 2.5rem; }
+    /* Logo wuchtiger – Anton, identisches Gewicht zum Desktop */
+    .hero-title { font-size: 5.5rem; }
+    /* Subline in EINER Zeile halten – kleiner + nowrap + leicht reduziertes Tracking */
+    .hero-sub {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      margin-top: 1rem;
+    }
+
+    /* === About — Schriftgrößen ~55–65% Desktop === */
+    .about-grid { gap: 2rem; }
+    .about-name { font-size: 3.12rem; }
+    .about-brand { font-size: 2.52rem; margin-bottom: 1.25rem; }
+    .about-text { font-size: 1.05rem; line-height: 1.55; }
+    .about-video-wrapper { max-width: 260px; }
+    .about-video-hint { font-size: 0.72rem; }
+
+    /* === Approach === */
+    .approach-image-block { width: 100%; aspect-ratio: 16/10; }
+    .approach-overlay-title { font-size: 2.88rem; bottom: 1rem; }
+    .approach-text { font-size: 1.05rem; margin-top: 2rem; line-height: 1.55; }
+
+    /* === Section-Heading (Featured Work, Kontakt) ~65% Desktop === */
+    .section-heading { font-size: 2.4rem; margin: 0 0 2rem 0; }
+
+    /* === Portfolio === */
+    .portfolio-grid { gap: 1rem; }
+    .portfolio-title { font-size: 1.5rem; padding: 1rem; }
+    /* Portfolio-Karten-Titel: League Gothic erzwingen (kein Synth-Bold/dünn auf Safari iOS) */
+    .portfolio-card .portfolio-title,
+    .portfolio-card h3,
+    .portfolio-card .card-title,
+    .featured-work .card h3,
+    .featured-work .card-title {
+      font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif !important;
+      font-weight: 400 !important;
+      -webkit-font-smoothing: antialiased !important;
+      font-synthesis: none !important;
+      text-transform: uppercase !important;
+    }
+
+    /* === Kontakt === */
+    .kontakt-line { font-size: 0.95rem; }
+    .kontakt-note { font-size: 0.95rem; margin-top: 1rem; }
+    .btn-outline { font-size: 0.82rem; padding: 0.75rem 1.7rem; }
+
+    /* === Footer === */
+    footer { padding: 1.75rem 1.25rem; font-size: 0.8rem; }
+    .footer-legal { font-size: 0.72rem; }
+
+    /* === Schriftart-Fix Mobile: League Gothic für Portfolio-Titel,
+       Approach- und Featured-Work-Überschriften erzwingen.
+       Verhindert dass Safari/Mobile auf System-Schrift zurückfällt oder
+       künstlich Bold/Italic synthetisiert. Nur Schriftart + Gewicht +
+       Stil — Größen/Farben/Layout bleiben unverändert. === */
+
+    /* Portfolio-Karten Titel */
+    .portfolio-card h3,
+    .portfolio-card .card-title,
+    .portfolio-card [class*="title"] {
+      font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif !important;
+      font-weight: 400 !important;
+      font-style: normal !important;
+      text-transform: uppercase !important;
+      -webkit-font-smoothing: antialiased !important;
+      -moz-osx-font-smoothing: grayscale !important;
+      font-synthesis: none !important;
+    }
+
+    /* Approach Überschrift */
+    .approach-title,
+    #approach h2,
+    #approach h1,
+    section[id*="approach"] h1,
+    section[id*="approach"] h2 {
+      font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif !important;
+      font-weight: 400 !important;
+      font-style: normal !important;
+      text-transform: uppercase !important;
+      -webkit-font-smoothing: antialiased !important;
+      font-synthesis: none !important;
+    }
+
+    /* Featured Work Überschrift */
+    .featured-title,
+    #portfolio h2,
+    #portfolio h1,
+    section[id*="portfolio"] h1,
+    section[id*="portfolio"] h2 {
+      font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif !important;
+      font-weight: 400 !important;
+      font-style: normal !important;
+      text-transform: uppercase !important;
+      -webkit-font-smoothing: antialiased !important;
+      font-synthesis: none !important;
+    }
+
+    /* === Portfolio-Karten Titel: Mobile = Desktop ===
+       League Gothic von Google Fonts liefert nur Weight 400. Damit der
+       Titel auf Mobile genauso kräftig wirkt wie auf Desktop, muss die
+       Browser-Synthese erlaubt sein (font-synthesis: weight). Ein vorher
+       gesetztes 'font-synthesis: none' würde Safari iOS zwingen, bei 400
+       zu bleiben oder auf eine dünne System-Schrift zurückzufallen.
+       Muss NACH dem vorigen Portfolio-Karten-Block stehen. */
+    .portfolio-card h3,
+    .portfolio-card h2,
+    .portfolio-card h1,
+    .portfolio-card [class*="title"],
+    .portfolio-card p,
+    .portfolio-card span {
+      font-weight: bold !important;
+      font-style: normal !important;
+      font-synthesis: weight !important;
+      -webkit-font-smoothing: subpixel-antialiased !important;
+      -moz-osx-font-smoothing: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar" aria-label="Hauptnavigation">
+  <div class="container-max flex items-center justify-between px-6 py-4">
+    <a href="index.html" class="logo" aria-label="ZIANI FX Home">
+      <span class="ziani">ZIANI</span><span class="fx">FX</span>
+    </a>
+    <div class="nav-links flex items-center gap-8 text-sm uppercase tracking-widest">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="#portfolio">Portfolio</a>
+      <a class="nav-link" href="#kontakt">Kontakt</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- 2.2 Hero -->
+<section class="hero" aria-label="Hero">
+  <h1 class="hero-title">
+    <span class="ziani">ZIANI</span><span class="fx">FX</span>
+  </h1>
+  <p class="hero-sub">Visual Storytelling &nbsp;|&nbsp; Foto &amp; Videography</p>
+  <a href="mailto:zianifx@outlook.com" class="btn-outline mt-10">Projekt anfragen</a>
+</section>
+
+<!-- 2.3 About -->
+<section id="about" class="fade-up" aria-label="Über mich">
+  <div class="container-max">
+    <div class="about-grid">
+      <div>
+        <h1 class="about-name">MOHAMED ZIANI</h1>
+        <h2 class="about-brand">
+          <span class="ziani">ZIANI</span><span class="fx">FX</span>
+        </h2>
+        <p class="about-text">
+          Mein Name ist Mohamed Ziani, Gründer von <span class="ziani">ZIANI</span><span class="fx">FX</span>.
+          Ich bin Videograf, Fotograf und Video-Editor mit Fokus
+          auf moderne visuelle Produktionen für Brands,
+          Unternehmen und kreative Projekte.
+        </p>
+        <p class="about-text" style="margin-top: 1.25rem;">
+          Mein Schwerpunkt liegt auf hochwertiger
+          Videoproduktion, Fotografie, Postproduktion sowie
+          Social-Media- und UGC-Content mit cineastischer
+          Bildsprache und moderner Ästhetik.
+        </p>
+      </div>
+      <div class="about-video-container">
+        <div class="video-wrapper-portrait">
+          <iframe
+            src="https://www.youtube.com/embed/Pj0I6JVkhmw?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <p class="about-video-hint">▶ Klicke um mich vorzustellen</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2.4 Approach -->
+<section id="approach" class="fade-up" aria-label="Approach">
+  <div class="container-max">
+    <div class="approach-image-block" role="img" aria-label="Approach – cinematic visual">
+      <h2 class="approach-overlay-title">APPROACH</h2>
+    </div>
+    <p class="approach-text">
+      Bilder und Videos beeinflussen, wie wir Menschen, Orte und Momente wahrnehmen
+      und uns an sie erinnern.
+      <br><br>
+      Mit <span class="ziani">ZIANI</span><span class="fx">FX</span> erschaffe ich visuelle Inhalte, die Atmosphäre,
+      Emotion und Identität transportieren — mit dem Ziel, Marken, Räume und
+      Geschichten cinematisch erlebbar zu machen.
+    </p>
+  </div>
+</section>
+
+<!-- 2.5 Portfolio -->
+<section id="portfolio" class="fade-up" aria-label="Featured Work">
+  <div class="container-max">
+    <h2 class="section-heading">FEATURED WORK</h2>
+    <div class="portfolio-grid">
+      <a href="interior.html" class="portfolio-card" aria-label="Interieur & Hospitality">
+        <img src="images/Portfolio/Interieur/Milo7.jpg" alt="Interieur & Hospitality" loading="eager" decoding="async">
+        <span class="portfolio-title">Interieur &amp;<br>Hospitality</span>
+      </a>
+      <a href="events.html" class="portfolio-card" aria-label="Event & Weddings">
+        <img src="images/Portfolio/Events/Stuttgart1.jpg" alt="Event & Weddings" loading="eager" decoding="async">
+        <span class="portfolio-title">Event &amp;<br>Weddings</span>
+      </a>
+      <a href="commercial.html" class="portfolio-card" aria-label="Product & Commercial">
+        <img src="images/Portfolio/Product/Prestij9.jpg" alt="Product & Commercial" loading="eager" decoding="async">
+        <span class="portfolio-title">Product &amp;<br>Commercial</span>
+      </a>
+      <a href="lifestyle.html" class="portfolio-card" aria-label="People, Sports & Lifestyle">
+        <img src="images/Portfolio/Portrait/Lifestyle1.jpg" alt="People, Sports & Lifestyle" loading="eager" decoding="async">
+        <span class="portfolio-title">People, Sports<br>&amp; Lifestyle</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 2.6 Kontakt -->
+<section id="kontakt" class="fade-up" aria-label="Kontakt">
+  <div class="container-max">
+    <h2 class="section-heading">KONTAKT</h2>
+    <div class="kontakt-wrap">
+      <p class="kontakt-line">Standort: Köln / Bonn</p>
+      <p class="kontakt-line">
+        Instagram:
+        <a class="kontakt-link" href="https://instagram.com/zianifx" target="_blank" rel="noopener noreferrer">@ZianiFX</a>
+      </p>
+      <p class="kontakt-line">
+        E-Mail:
+        <a class="kontakt-link" href="mailto:zianifx@outlook.com">zianifx@outlook.com</a>
+      </p>
+      <div class="mt-10">
+        <a href="mailto:zianifx@outlook.com" class="btn-outline">Projekt anfragen</a>
+      </div>
+      <p class="kontakt-note">Ich antworte meist innerhalb von 24 Stunden.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+  © 2025 <span class="ziani">ZIANI</span><span class="fx">FX</span> – M. Ziani. Alle Rechte vorbehalten.
+  <div class="footer-legal">
+    <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+  </div>
+</footer>
+
+<script>
+  // Navbar scroll state
+  const nav = document.getElementById('navbar');
+  const onScroll = () => {
+    if (window.scrollY > 30) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Fade-up on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // About-Video: Vorschauframe aus Sekunde 12 + Play-Overlay (ein-/ausblenden bei play/pause/ended)
+  (function() {
+    const v  = document.getElementById('about-video');
+    const ov = document.getElementById('about-video-overlay');
+    if (!v || !ov) return;
+
+    const PREVIEW_TIME = 12;
+    let hasStartedPlaying = false;
+
+    // Vorschau-Frame setzen sobald Metadaten geladen sind
+    const seekToPreview = () => {
+      if (isFinite(v.duration) && v.duration > PREVIEW_TIME) {
+        try { v.currentTime = PREVIEW_TIME; } catch (e) {}
+      }
+    };
+    if (v.readyState >= 1) seekToPreview();
+    else v.addEventListener('loadedmetadata', seekToPreview, { once: true });
+
+    // Beim ersten Play: zurück auf Sekunde 0 und von Anfang starten.
+    // Bei späterem pause→resume: aus aktueller Position weiterspielen (normales UX).
+    const startPlay = () => {
+      if (!hasStartedPlaying) {
+        try { v.currentTime = 0; } catch (e) {}
+      }
+      v.play().catch(() => {});
+    };
+
+    ov.addEventListener('click', startPlay);
+    ov.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startPlay(); }
+    });
+    v.addEventListener('click', () => {
+      if (v.paused) startPlay();
+      else v.pause();
+    });
+    v.addEventListener('play',  () => { hasStartedPlaying = true; ov.classList.add('hidden'); });
+    v.addEventListener('pause', () => ov.classList.remove('hidden'));
+    v.addEventListener('ended', () => {
+      hasStartedPlaying = false;
+      try { v.currentTime = PREVIEW_TIME; } catch (e) {}
+      ov.classList.remove('hidden');
+    });
+  })();
+
+  // Portfolio-Karten Bild-Fallback: testet alternative Dateiendungen
+  // falls die ursprüngliche Schreibweise auf dem Server nicht existiert
+  // (Netlify ist case-sensitive, macOS lokal nicht).
+  document.querySelectorAll('.portfolio-card img').forEach(img => {
+    img.addEventListener('error', function() {
+      const src = this.src;
+      if (src.endsWith('.jpg')) {
+        this.src = src.replace(/\.jpg$/, '.JPG');
+      } else if (src.endsWith('.JPG')) {
+        this.src = src.replace(/\.JPG$/, '.jpeg');
+      } else if (src.endsWith('.jpeg')) {
+        this.src = src.replace(/\.jpeg$/, '.JPEG');
+      } else {
+        this.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

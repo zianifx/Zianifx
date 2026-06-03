@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>People, Sports & Lifestyle – ZIANI FX</title>
+<meta name="description" content="People, Sports & Lifestyle – cinematic visuals von ZIANI FX." />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Preconnect für schnelleres Laden -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Preload der wichtigsten Fonts -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
+
+<!-- Fonts laden -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
+
+<style>
+  :root {
+    --bg: #232020;
+    --text: #d3d0cb;
+    --accent: #9f0c0c;
+    --white: #FFFFFF;
+    --card: #2e2b2b;
+    --footer-bg: #1a1818;
+  }
+
+  .ziani { color: #d3d0cb; }
+  .fx    { color: #9f0c0c; }
+
+  * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* iOS-Safari-Font-Fix — verhindert Synth-Bold und erzwingt echte Webfonts */
+  @supports (-webkit-touch-callout: none) {
+    .ziani, .fx {
+      font-family: 'Anton', Impact, 'Arial Narrow', sans-serif !important;
+      font-synthesis: none;
+    }
+    h1, h2, h3 {
+      font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif !important;
+      font-synthesis: none;
+    }
+    p, a {
+      font-family: 'Arimo', Arial, Helvetica, sans-serif !important;
+      font-synthesis: none;
+    }
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .navbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    background-color: rgba(35, 32, 32, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+  .navbar.scrolled {
+    background-color: rgba(26, 24, 24, 0.92);
+    border-bottom: 1px solid var(--accent);
+  }
+  .nav-link { color: var(--text); transition: color 0.3s ease; text-decoration: none; }
+  .nav-link:hover { color: var(--accent); }
+
+  .logo {
+    font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
+    font-size: 1.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* Subnav (Tab-Leiste) – integriert in die Navbar */
+  .subnav { display: flex; align-items: center; }
+  .subnav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .subnav-link {
+    font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
+    color: #d3d0cb;
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.25rem 0.15rem;
+    border-bottom: 2px solid transparent;
+    opacity: 0.5;
+    transition: opacity 0.3s ease, color 0.3s ease, border-bottom-color 0.3s ease;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+  .subnav-link:hover { opacity: 1; color: #9f0c0c; }
+  .subnav-link.active {
+    opacity: 1;
+    color: #d3d0cb;
+    border-bottom-color: #9f0c0c;
+  }
+  .subsection { scroll-margin-top: 90px; }
+
+  /* Subpage-Tabs Desktop bleiben unverändert — Mobile-Layout siehe unten */
+
+  .container-max { max-width: 1280px; margin: 0 auto; }
+
+  main { padding: 9rem 1.5rem 4rem; }
+  @media (min-width: 768px) { main { padding: 11rem 3rem 6rem; } }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text);
+    text-decoration: none;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    margin-bottom: 2.5rem;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  .page-title {
+    font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
+    color: var(--text);
+    font-size: clamp(3.5rem, 10vw, 8.5rem);
+    margin: 0;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .page-sub {
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    color: var(--text);
+    opacity: 0.85;
+    max-width: 60rem;
+    margin: 1.5rem 0 4rem;
+    font-size: 1.575rem;
+    line-height: 1.4;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .work-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  }
+  @media (min-width: 1024px) {
+    .work-grid { grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+  }
+  .placeholder {
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #2a2727 0%, #1f1d1d 100%);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s ease;
+  }
+  .placeholder::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3));
+  }
+  .placeholder:hover { transform: scale(1.01); }
+  .placeholder.wide  { aspect-ratio: 16/10; }
+  .placeholder.video { aspect-ratio: 16/9; }
+  .placeholder.reel  { aspect-ratio: 9/16; }
+
+  /* YouTube-Grid (Films & Vlogs) — 2×2 Desktop, 1 Spalte Mobile */
+  .youtube-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 768px) {
+    .youtube-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .video-card {
+    display: block;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .video-thumbnail {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+  .video-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    display: block;
+  }
+  .video-card:hover .video-thumbnail img {
+    transform: scale(1.03);
+  }
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+  }
+  .video-card:hover .video-overlay {
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .play-button {
+    font-size: 3rem;
+    color: #d3d0cb;
+    transition: color 0.3s ease;
+    line-height: 1;
+  }
+  .video-card:hover .play-button {
+    color: #9f0c0c;
+  }
+  .watch-text {
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 0.875rem;
+    color: #d3d0cb;
+    margin: 8px 0 0 0;
+    letter-spacing: 0.05em;
+  }
+
+  /* Edits-Gruppen — 3-Spalten Desktop / 1-Spalte Mobile, Gruppenabstand 60px */
+  .edits-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 60px;
+  }
+  .edits-group:last-child { margin-bottom: 0; }
+  @media (min-width: 768px) {
+    .edits-group { grid-template-columns: repeat(3, 1fr); }
+    .edits-group.two-col { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Video-Wrapper (eingebettete YouTube-Player) */
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #232020;
+  }
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* Subsections (FILMS & VLOGS / EDITS / PHOTOGRAPHY) */
+  .subsection { margin-top: 6rem; }
+  .subsection:first-of-type { margin-top: 4rem; }
+  .subsection-heading {
+    font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
+    color: var(--text);
+    font-size: clamp(3rem, 8vw, 6rem);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin: 0 0 1.5rem 0;
+  }
+  .subsection-text {
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    color: var(--text);
+    opacity: 0.85;
+    max-width: 60rem;
+    margin: 0 0 3rem 0;
+    font-size: 1.575rem;
+    line-height: 1.4;
+  }
+
+  /* Reel grid (3-col at sm+) — vertikale Reels */
+  .reel-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .reel-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  }
+
+  /* Image grid (Portrait gallery) — Row-based flex layout, editorial */
+  .image-group { margin-bottom: 60px; }
+  .image-group:last-child { margin-bottom: 0; }
+
+  .image-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .image-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+  .image-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .image-grid img {
+    flex: 1 1 0;
+    min-width: 0;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    background-color: #2a2727;
+    transition: transform 0.4s ease;
+    cursor: pointer;
+  }
+  .image-grid img:hover { transform: scale(1.01); }
+
+  /* Override: Bilder im Grid IMMER sichtbar (kein opacity 0 Bug) */
+  .image-grid img.fade-up {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .image-grid img.fade-up:hover {
+    transform: scale(1.01) !important;
+  }
+
+  /* Portrait-Format (2:3) */
+  .image-grid img.portrait { aspect-ratio: 2 / 3; }
+
+  /* Hero: single Bild zentriert */
+  .image-row.hero { justify-content: center; }
+  .image-row.hero > img { flex: 0 1 50%; max-width: 50%; }
+
+  /* Asymmetric: großes Bild (flex 2) neben Stack (flex 1) */
+  .image-row > .big { flex: 2; }
+
+  /* Tablet */
+  @media (max-width: 1023px) and (min-width: 640px) {
+    .image-row.hero > img { flex: 0 1 60%; max-width: 60%; }
+    .image-group { margin-bottom: 48px; }
+  }
+
+  /* Mobile — Reihen werden zu Spalten (1-col stack) */
+  @media (max-width: 639px) {
+    .image-row { flex-direction: column; }
+    .image-row.hero > img { flex: 1 1 0; max-width: 100%; }
+    .image-group { margin-bottom: 36px; }
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .lightbox.open {
+    opacity: 1;
+    visibility: visible;
+  }
+  .lightbox-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+  }
+  .lightbox-close,
+  .lightbox-prev,
+  .lightbox-next {
+    position: absolute;
+    background: transparent;
+    border: none;
+    color: #d3d0cb;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    z-index: 2;
+    padding: 0.5rem 1rem;
+    line-height: 1;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .lightbox-close {
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 2rem;
+  }
+  .lightbox-prev,
+  .lightbox-next {
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+  }
+  .lightbox-prev { left: 1.5rem; }
+  .lightbox-next { right: 1.5rem; }
+  .lightbox-close:hover,
+  .lightbox-prev:hover,
+  .lightbox-next:hover {
+    color: #9f0c0c;
+  }
+  @media (max-width: 640px) {
+    .lightbox-prev, .lightbox-next { font-size: 2.2rem; }
+    .lightbox-close { font-size: 1.75rem; top: 1rem; right: 1rem; }
+    .lightbox-prev { left: 0.5rem; }
+    .lightbox-next { right: 0.5rem; }
+  }
+
+  /* Kontakt */
+  .kontakt-section { padding: 6rem 1.5rem; }
+  @media (min-width: 768px) { .kontakt-section { padding: 8rem 3rem; } }
+
+  .section-heading {
+    font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
+    color: var(--text);
+    font-size: clamp(3rem, 8vw, 6rem);
+    text-align: center;
+    margin: 0 0 4rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .kontakt-wrap {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .kontakt-line {
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    color: var(--text);
+    font-size: 1.1rem;
+    margin: 0.6rem 0;
+    letter-spacing: 0.05em;
+  }
+  .kontakt-link {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    border-bottom: 1px solid transparent;
+  }
+  .kontakt-link:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .kontakt-note {
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    color: rgba(211, 208, 203, 0.6);
+    font-size: 1.1rem;
+    font-style: italic;
+    text-align: center;
+    margin-top: 1.25rem;
+    letter-spacing: 0.05em;
+  }
+  .btn-outline {
+    display: inline-block;
+    border: 2px solid var(--accent);
+    color: var(--text);
+    padding: 0.9rem 2.2rem;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+  }
+  .btn-outline:hover {
+    background-color: var(--accent);
+    color: var(--white);
+  }
+
+  footer {
+    background-color: var(--footer-bg);
+    color: var(--text);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+  }
+  .footer-legal {
+    margin-top: 0.75rem;
+    font-family: 'Arimo', Arial, Helvetica, sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+  .footer-legal a {
+    color: #d3d0cb;
+    opacity: 0.6;
+    text-decoration: none;
+    transition: opacity 0.3s ease, color 0.3s ease;
+  }
+  .footer-legal a:hover {
+    opacity: 1;
+    color: #9f0c0c;
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* ============================================================
+     MOBILE (≤ 768px) – Desktop in klein
+     Schriftarten, Gewichte, letter-spacing, text-transform, Farben
+     bleiben identisch zum Desktop. Nur Größen + Abstände + Layout.
+     ============================================================ */
+  @media (max-width: 768px) {
+    /* === Schriftarten + Gewichte auf Mobile erzwingen ===
+       Fix: manche mobilen Browser/Renderer fallen auf System-Schriften
+       zurück oder rendern Anton/League Gothic zu dünn. !important
+       garantiert dass Desktop-Schriften + Farben greifen. */
+    .ziani {
+      font-family: 'Anton', Impact, 'Arial Narrow', sans-serif !important;
+      font-weight: 400 !important;
+      color: #d3d0cb !important;
+    }
+    .fx {
+      font-family: 'Anton', Impact, 'Arial Narrow', sans-serif !important;
+      font-weight: 400 !important;
+      color: #9f0c0c !important;
+    }
+    h1, h2, h3,
+    .section-title,
+    .page-title {
+      font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif !important;
+      font-weight: 400 !important;
+    }
+    p, a, span:not(.ziani):not(.fx) {
+      font-family: 'Arimo', Arial, Helvetica, sans-serif !important;
+      font-weight: 400 !important;
+    }
+
+    /* === Navbar: Logo Zeile 1, Menü Zeile 2, Tabs Zeile 3 === */
+    .navbar > .container-max {
+      flex-wrap: wrap;
+      row-gap: 0.4rem;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
+    }
+    .navbar .logo {
+      flex-basis: 100%;
+      font-size: 1.3rem;
+      order: 1;
+    }
+    .navbar .nav-links {
+      flex-basis: 100%;
+      order: 2;
+      gap: 1.4rem;
+      justify-content: flex-start;
+    }
+    .navbar .nav-links a {
+      font-size: 0.78rem;
+    }
+    /* Tab-Nav Zeile 3 — horizontal scrollbar wenn zu breit */
+    .subnav {
+      flex-basis: 100%;
+      order: 3;
+      justify-content: flex-start;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .subnav::-webkit-scrollbar { display: none; }
+    .subnav-inner {
+      gap: 1.4rem;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      justify-content: flex-start;
+    }
+    .subnav-link {
+      font-size: 0.78rem;
+    }
+    .subsection { scroll-margin-top: 160px; }
+
+    /* === Main Padding kompakter === */
+    main { padding: 8.5rem 1.25rem 2.5rem; }
+    .back-link { font-size: 0.78rem; margin-bottom: 1.75rem; }
+
+    /* === Seitentitel H1 ~55% Desktop === */
+    .page-title { font-size: 2.5rem; line-height: 0.95; }
+    .page-sub { font-size: 1.05rem; margin: 1.25rem 0 2.5rem; line-height: 1.5; }
+
+    /* === Subsection: H2 ~65% Desktop === */
+    .subsection { margin-top: 3rem; }
+    .subsection:first-of-type { margin-top: 2rem; }
+    .subsection-heading { font-size: 1.9rem; margin: 0 0 1rem 0; }
+    .subsection-text { font-size: 1.05rem; line-height: 1.5; margin: 0 0 2rem 0; }
+
+    /* === Kontakt-Sektion === */
+    .kontakt-section { padding: 3.5rem 1.25rem; }
+    .section-heading { font-size: 2rem; margin: 0 0 2rem 0; }
+    .kontakt-line { font-size: 0.95rem; }
+    .kontakt-note { font-size: 0.95rem; margin-top: 1rem; }
+    .btn-outline { font-size: 0.82rem; padding: 0.75rem 1.7rem; }
+
+    /* === Footer === */
+    footer { padding: 1.75rem 1.25rem; font-size: 0.8rem; }
+    .footer-legal { font-size: 0.72rem; }
+
+    /* === Image-Grid auf Mobile: Bilder gestapelt mit nativer Aspect-Ratio === */
+    .image-grid,
+    .image-row,
+    .image-col {
+      display: block;
+    }
+    .image-grid img,
+    .image-row.hero > img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto !important;
+      aspect-ratio: unset !important;
+      object-fit: cover;
+      margin-bottom: 8px;
+    }
+
+    /* === Lazy-Load Mobile-Fix: Container brauchen sichtbare Mindesthöhe,
+       damit native loading="lazy" auf Mobile zuverlässig greift === */
+    .image-grid,
+    .image-row,
+    .image-col {
+      min-height: 10px;
+    }
+    .image-grid img,
+    .image-row.hero > img {
+      min-height: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar" aria-label="Hauptnavigation">
+  <div class="container-max flex items-center justify-between px-6 py-4">
+    <a href="index.html" class="logo" aria-label="ZIANI FX Home">
+      <span class="ziani">ZIANI</span><span class="fx">FX</span>
+    </a>
+    <div class="subnav" id="subnav" aria-label="Unterkategorien">
+      <div class="subnav-inner">
+        <a class="subnav-link" href="#films-vlogs" data-target="films-vlogs">Films &amp; Vlogs</a>
+        <a class="subnav-link" href="#edits" data-target="edits">Edits</a>
+        <a class="subnav-link" href="#photography" data-target="photography">Photography</a>
+      </div>
+    </div>
+    <div class="nav-links flex items-center gap-8 text-sm uppercase tracking-widest">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="index.html#portfolio">Portfolio</a>
+      <a class="nav-link" href="index.html#kontakt">Kontakt</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="container-max">
+    <a href="index.html#portfolio" class="back-link">← Zurück zum Portfolio</a>
+
+    <h1 class="page-title fade-up">PEOPLE, SPORTS<br>&amp; LIFESTYLE</h1>
+
+    <!-- Sektion 1: FILMS & VLOGS -->
+    <section class="subsection fade-up" id="films-vlogs" aria-label="Films & Vlogs">
+      <h2 class="subsection-heading">FILMS &amp; VLOGS</h2>
+      <p class="subsection-text">
+        Dynamische Lifestyle-Videos, Creator-Begleitungen und Vlog-Produktionen – authentisch, modern und auf den Punkt geschnitten.
+      </p>
+      <div class="youtube-grid" aria-label="YouTube-Videos">
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/X1SLA60rJlg?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/4jAfQIirb5s?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/XlEk7_ruv2Q?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/O9BJSfo5xEA?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sektion 2: EDITS -->
+    <section class="subsection fade-up" id="edits" aria-label="Edits">
+      <h2 class="subsection-heading">EDITS</h2>
+      <p class="subsection-text">
+        Schnelle, kreative Videoschnitte für Social Media – Reels, Sportclips und Lifestyle-Content mit cinematischer Bildsprache.
+      </p>
+
+      <!-- Gruppe 1 -->
+      <div class="edits-group" aria-label="Edits Gruppe 1">
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/9edC3EWNKhM?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/jtX5n_oecac?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/CCzL7mqyoOw?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Gruppe 2 -->
+      <div class="edits-group" aria-label="Edits Gruppe 2">
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/nOxOBnNg-G8?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/5S5k4usjq3I?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/OYITbJRbNEE?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Gruppe 3 -->
+      <div class="edits-group" aria-label="Edits Gruppe 3">
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/gs8T-cRSuSA?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/3OCfBLQbkK8?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/p2uN3J0YMho?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Gruppe 4 (2 Videos) -->
+      <div class="edits-group two-col" aria-label="Edits Gruppe 4">
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/OgdBjmHnrHQ?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-wrapper fade-up">
+          <iframe
+            src="https://www.youtube.com/embed/U5PYL7fQukE?rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sektion 3: PHOTOGRAPHY -->
+    <section class="subsection fade-up" id="photography" aria-label="Photography">
+      <h2 class="subsection-heading">PHOTOGRAPHY</h2>
+      <p class="subsection-text">
+        Authentische Portrait-, Sport- und Lifestylefotos mit Fokus auf Persönlichkeit, Bewegung und natürliche Bildsprache.
+      </p>
+      <div class="image-group fade-up">
+        <div class="image-grid" aria-label="Projektgalerie Portraits">
+          <!-- Reihe 1: Alan-Block — Asymmetric BIG-LEFT (Alan1 groß links + Alan2/Alan3 stacked rechts) -->
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Alan1.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait big">
+            <div class="image-col">
+              <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Alan2.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+              <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Alan3.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+            </div>
+          </div>
+          <!-- Reihe 2: Triplet — Alan4 | Alan5 | Random (Random integriert) -->
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Alan4.JPG"  alt="ZIANI FX – Portrait" class="fade-up portrait">
+            <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Alan5.JPG"  alt="ZIANI FX – Portrait" class="fade-up portrait">
+            <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Random.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+          </div>
+          <!-- Reihe 3: Pair — Furkan1 | Furkan2 (Furkan zusammen) -->
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Furkan1.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+            <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Furkan2.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+          </div>
+          <!-- Reihe 4: Seyyid-Block — Asymmetric BIG-RIGHT (Seyyid1/Seyyid2 stacked links + Seyyid3 groß rechts) -->
+          <div class="image-row">
+            <div class="image-col">
+              <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Seyyid1.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+              <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Seyyid2.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+            </div>
+            <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Seyyid3.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait big">
+          </div>
+          <!-- Reihe 5: Yasin-Block — 2x2 Grid (alle 4 Yasin als geschlossener Block) -->
+          <div class="image-row">
+            <div class="image-col">
+              <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Yasin1.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+              <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Yasin2.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+            </div>
+            <div class="image-col">
+              <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Yasin3.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+              <img loading="lazy" decoding="async" src="images/Portfolio/Portrait/Yasin4.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- Kontakt -->
+<section id="kontakt" class="kontakt-section fade-up" aria-label="Kontakt">
+  <div class="container-max">
+    <h2 class="section-heading">KONTAKT</h2>
+    <div class="kontakt-wrap">
+      <p class="kontakt-line">Standort: Köln / Bonn</p>
+      <p class="kontakt-line">
+        Instagram:
+        <a class="kontakt-link" href="https://instagram.com/zianifx" target="_blank" rel="noopener noreferrer">@ZianiFX</a>
+      </p>
+      <p class="kontakt-line">
+        E-Mail:
+        <a class="kontakt-link" href="mailto:zianifx@outlook.com">zianifx@outlook.com</a>
+      </p>
+      <div class="mt-10">
+        <a href="mailto:zianifx@outlook.com" class="btn-outline">Projekt anfragen</a>
+      </div>
+      <p class="kontakt-note">Ich antworte meist innerhalb von 24 Stunden.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 <span class="ziani">ZIANI</span><span class="fx">FX</span> – M. Ziani. Alle Rechte vorbehalten.
+  <div class="footer-legal">
+    <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Bildvorschau">
+  <button type="button" class="lightbox-prev" aria-label="Vorheriges Bild">&#8592;</button>
+  <img loading="lazy" decoding="async" class="lightbox-img" alt="">
+  <button type="button" class="lightbox-next" aria-label="Nächstes Bild">&#8594;</button>
+  <button type="button" class="lightbox-close" aria-label="Schließen">&#10005;</button>
+</div>
+
+<script>
+  const nav = document.getElementById('navbar');
+  const onScroll = () => {
+    if (window.scrollY > 30) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Sticky Subnav: aktiver Tab via IntersectionObserver (Smooth-Scroll via CSS scroll-behavior)
+  (function() {
+    const links = Array.from(document.querySelectorAll('.subnav-link'));
+    if (!links.length) return;
+    const sections = links
+      .map(a => document.getElementById(a.dataset.target))
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    const setActive = (id) => {
+      links.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+    };
+    let activeId = sections[0].id;
+    setActive(activeId);
+
+    const ratios = new Map();
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => ratios.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0));
+      let best = activeId, bestRatio = 0;
+      ratios.forEach((r, id) => { if (r > bestRatio) { bestRatio = r; best = id; } });
+      if (best !== activeId) { activeId = best; setActive(best); }
+    }, {
+      rootMargin: '-130px 0px -40% 0px',
+      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1]
+    });
+    sections.forEach(s => obs.observe(s));
+  })();
+
+  // Lightbox (Portrait gallery)
+  (function() {
+    const grids = document.querySelectorAll('.image-grid');
+    if (!grids.length) return;
+    const images = Array.from(grids).flatMap(g => Array.from(g.querySelectorAll('img')));
+    if (!images.length) return;
+
+    const lightbox = document.getElementById('lightbox');
+    const lbImg    = lightbox.querySelector('.lightbox-img');
+    const lbClose  = lightbox.querySelector('.lightbox-close');
+    const lbPrev   = lightbox.querySelector('.lightbox-prev');
+    const lbNext   = lightbox.querySelector('.lightbox-next');
+
+    let currentIdx = 0;
+
+    function setImage(idx) {
+      currentIdx = (idx + images.length) % images.length;
+      lbImg.src = images[currentIdx].src;
+      lbImg.alt = images[currentIdx].alt || '';
+    }
+    function open(idx) {
+      setImage(idx);
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    function next() { setImage(currentIdx + 1); }
+    function prev() { setImage(currentIdx - 1); }
+
+    images.forEach((img, i) => {
+      img.addEventListener('click', () => open(i));
+    });
+
+    lbClose.addEventListener('click', (e) => { e.stopPropagation(); close(); });
+    lbPrev.addEventListener('click',  (e) => { e.stopPropagation(); prev(); });
+    lbNext.addEventListener('click',  (e) => { e.stopPropagation(); next(); });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape')          close();
+      else if (e.key === 'ArrowLeft')  prev();
+      else if (e.key === 'ArrowRight') next();
+    });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    lightbox.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    lightbox.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].screenX - touchStartX;
+      const dy = e.changedTouches[0].screenY - touchStartY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        if (dx < 0) next();
+        else prev();
+      }
+    }, { passive: true });
+  })();
+
+  // YouTube-Thumbnail Fallback: maxresdefault → hqdefault → mqdefault → default
+  document.querySelectorAll('.video-thumbnail img').forEach(img => {
+    img.addEventListener('error', function() {
+      const src = this.src;
+      if (src.includes('maxresdefault')) {
+        this.src = src.replace('maxresdefault', 'hqdefault');
+      } else if (src.includes('hqdefault')) {
+        this.src = src.replace('hqdefault', 'mqdefault');
+      } else if (src.includes('mqdefault')) {
+        this.src = src.replace('mqdefault', 'default');
+      }
+    });
+  });
+
+  // Lazy-Load Fallback (Intersection Observer)
+  // Sicherstellen dass Lazy Loading auch auf Mobile zuverlässig greift,
+  // selbst wenn native loading="lazy" im Browser nicht korrekt feuert.
+  document.addEventListener('DOMContentLoaded', function() {
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    if (!('IntersectionObserver' in window) || !lazyImages.length) return;
+
+    const imageObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+          }
+          img.style.opacity = '1';
+          imageObserver.unobserve(img);
+        }
+      });
+    }, {
+      rootMargin: '200px 0px',
+      threshold: 0.01
+    });
+
+    lazyImages.forEach(function(img) {
+      img.style.opacity = '0';
+      img.style.transition = 'opacity 0.3s ease';
+      imageObserver.observe(img);
+    });
+  });
+</script>
+
+</body>
+</html>
