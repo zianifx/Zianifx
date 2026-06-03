@@ -630,6 +630,33 @@
     .image-grid img {
       min-height: 10px;
     }
+
+    /* === Vorschau-Fix Mobile: Grid-Container haben sonst Höhe 0 ===
+       Grid komplett deaktivieren, alle Spans/Aspect-Ratios resetten,
+       Bilder bekommen native Höhe aus dem Bild selbst. */
+    .image-grid {
+      display: block !important;
+      width: 100% !important;
+    }
+    .image-grid a,
+    .image-grid div {
+      display: block !important;
+      width: 100% !important;
+      height: auto !important;
+      min-height: unset !important;
+    }
+    .image-grid img {
+      display: block !important;
+      width: 100% !important;
+      height: auto !important;
+      min-height: unset !important;
+      aspect-ratio: unset !important;
+      object-fit: cover !important;
+      margin-bottom: 8px !important;
+    }
+    .image-group {
+      margin-bottom: 40px !important;
+    }
   }
 </style>
 </head>
