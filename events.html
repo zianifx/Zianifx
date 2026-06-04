@@ -572,6 +572,36 @@
     .image-grid img {
       min-height: 10px;
     }
+
+    /* === Vorschau-Fix Mobile: aspect-ratio bricht auf Mobile, Container
+       kollabieren auf Höhe 0. Lösung: explizite min-height pro Bildtyp. === */
+    .image-row,
+    .image-col,
+    .image-row > *,
+    .image-col > * {
+      display: block !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+    .image-row img,
+    .image-col img,
+    .portrait img,
+    .landscape img,
+    .big img {
+      display: block !important;
+      width: 100% !important;
+      height: auto !important;
+      min-height: 200px !important;
+      object-fit: cover !important;
+      aspect-ratio: unset !important;
+      margin-bottom: 8px !important;
+    }
+    .portrait {
+      min-height: 300px !important;
+    }
+    .landscape {
+      min-height: 200px !important;
+    }
   }
 </style>
 </head>
