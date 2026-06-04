@@ -281,16 +281,27 @@
 
   /* Image grid (Visual Branding) — Original 6-col Mosaic mit span/row Klassen */
   .image-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-auto-rows: 200px;
-    grid-auto-flow: dense;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .image-row {
+    display: flex;
     gap: 0.75rem;
     align-items: stretch;
   }
+  .image-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1 1 0;
+    min-width: 0;
+  }
   .image-grid img {
+    flex: 1 1 0;
+    min-width: 0;
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
     display: block;
     margin: 0;
@@ -309,40 +320,20 @@
     transform: scale(1.01) !important;
   }
 
-  /* Column spans */
-  .image-grid .span-2 { grid-column: span 2; }
-  .image-grid .span-3 { grid-column: span 3; }
-  .image-grid .span-4 { grid-column: span 4; }
-  .image-grid .span-6 { grid-column: span 6; }
-  /* Row spans */
-  .image-grid .row-1 { grid-row: span 1; }
-  .image-grid .row-2 { grid-row: span 2; }
+  /* Portrait-Format (2:3) */
+  .image-grid img.portrait { aspect-ratio: 2 / 3; }
 
-  /* Tablet — 4-col base */
+  /* Asymmetric: großes Bild (flex 2) neben Stack (flex 1) */
+  .image-row > .big { flex: 2; }
+
+  /* Tablet */
   @media (max-width: 1023px) and (min-width: 640px) {
-    .image-grid {
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 180px;
-      gap: 0.75rem;
-    }
-    .image-grid .span-2,
-    .image-grid .span-3 { grid-column: span 2; }
-    .image-grid .span-4,
-    .image-grid .span-6 { grid-column: span 4; }
     .image-group { margin-bottom: 48px; }
   }
 
-  /* Mobile — 1-col, full width */
+  /* Mobile — Reihen werden zu Spalten (1-col stack) */
   @media (max-width: 639px) {
-    .image-grid {
-      grid-template-columns: 1fr;
-      grid-auto-rows: 240px;
-      gap: 0.75rem;
-    }
-    .image-grid .span-2,
-    .image-grid .span-3,
-    .image-grid .span-4,
-    .image-grid .span-6 { grid-column: span 1; }
+    .image-row { flex-direction: column; }
     .image-group { margin-bottom: 36px; }
   }
 
@@ -610,12 +601,15 @@
     .footer-legal { font-size: 0.72rem; }
 
     /* === Image-Grid auf Mobile: Bilder gestapelt mit nativer Aspect-Ratio === */
-    .image-grid {
+    .image-grid,
+    .image-row,
+    .image-col {
       display: block;
     }
     .image-grid img {
       display: block;
       width: 100%;
+      max-width: 100%;
       height: auto !important;
       aspect-ratio: unset !important;
       object-fit: cover;
@@ -624,38 +618,13 @@
 
     /* === Lazy-Load Mobile-Fix: Container brauchen sichtbare Mindesthöhe,
        damit native loading="lazy" auf Mobile zuverlässig greift === */
-    .image-grid {
+    .image-grid,
+    .image-row,
+    .image-col {
       min-height: 10px;
     }
     .image-grid img {
       min-height: 10px;
-    }
-
-    /* === Vorschau-Fix Mobile: Grid-Container haben sonst Höhe 0 ===
-       Grid komplett deaktivieren, alle Spans/Aspect-Ratios resetten,
-       Bilder bekommen native Höhe aus dem Bild selbst. */
-    .image-grid {
-      display: block !important;
-      width: 100% !important;
-    }
-    .image-grid a,
-    .image-grid div {
-      display: block !important;
-      width: 100% !important;
-      height: auto !important;
-      min-height: unset !important;
-    }
-    .image-grid img {
-      display: block !important;
-      width: 100% !important;
-      height: auto !important;
-      min-height: unset !important;
-      aspect-ratio: unset !important;
-      object-fit: cover !important;
-      margin-bottom: 8px !important;
-    }
-    .image-group {
-      margin-bottom: 40px !important;
     }
   }
 </style>
@@ -712,61 +681,107 @@
       <!-- Gruppe 1 — Espresso (14 imgs · Original 6-col Mosaic: A → B → C → E → B → A) -->
       <div class="image-group">
         <div class="image-grid" aria-label="Projektgalerie Espresso">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso1.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up span-4 row-2">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso2.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso3.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso4.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up span-3 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso5.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up span-3 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso6.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso7.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso8.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso9.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up span-6 row-2">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso10.JPG" alt="ZIANI FX – Espresso Interieur" class="fade-up span-3 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso11.JPG" alt="ZIANI FX – Espresso Interieur" class="fade-up span-3 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso12.JPG" alt="ZIANI FX – Espresso Interieur" class="fade-up span-4 row-2">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso13.JPG" alt="ZIANI FX – Espresso Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso14.JPG" alt="ZIANI FX – Espresso Interieur" class="fade-up span-2 row-1">
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso1.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up big landscape">
+            <div class="image-col">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso2.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up landscape">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso3.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up landscape">
+            </div>
+          </div>
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso4.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso5.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up landscape">
+          </div>
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso6.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso7.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso8.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up landscape">
+          </div>
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso9.JPG"  alt="ZIANI FX – Espresso Interieur" class="fade-up landscape">
+          </div>
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso10.JPG" alt="ZIANI FX – Espresso Interieur" class="fade-up landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso11.JPG" alt="ZIANI FX – Espresso Interieur" class="fade-up landscape">
+          </div>
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso12.JPG" alt="ZIANI FX – Espresso Interieur" class="fade-up big landscape">
+            <div class="image-col">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso13.JPG" alt="ZIANI FX – Espresso Interieur" class="fade-up landscape">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Espresso14.JPG" alt="ZIANI FX – Espresso Interieur" class="fade-up landscape">
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Gruppe 2 — Prestij (9 imgs · B → A → C → D) -->
       <div class="image-group">
         <div class="image-grid" aria-label="Projektgalerie Prestij">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij1.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up span-3 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij2.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up span-3 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij3.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up span-4 row-2">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij4.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij5.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij6.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij7.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij8.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij9.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up span-6 row-1">
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij1.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij2.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up landscape">
+          </div>
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij3.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up big landscape">
+            <div class="image-col">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij4.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up landscape">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij5.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up landscape">
+            </div>
+          </div>
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij6.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij7.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij8.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up landscape">
+          </div>
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Prestij9.JPG" alt="ZIANI FX – Prestij Interieur" class="fade-up landscape">
+          </div>
         </div>
       </div>
 
       <!-- Gruppe 3 — TangerSeafood (4 imgs · A → D) -->
       <div class="image-group">
         <div class="image-grid" aria-label="Projektgalerie Tanger Seafood">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/TangerSeafood1.JPG" alt="ZIANI FX – Tanger Seafood Interieur" class="fade-up span-4 row-2">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/TangerSeafood2.JPG" alt="ZIANI FX – Tanger Seafood Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/TangerSeafood3.JPG" alt="ZIANI FX – Tanger Seafood Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/TangerSeafood4.JPG" alt="ZIANI FX – Tanger Seafood Interieur" class="fade-up span-6 row-1">
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/TangerSeafood1.JPG" alt="ZIANI FX – Tanger Seafood Interieur" class="fade-up big landscape">
+            <div class="image-col">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/TangerSeafood2.JPG" alt="ZIANI FX – Tanger Seafood Interieur" class="fade-up landscape">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/TangerSeafood3.JPG" alt="ZIANI FX – Tanger Seafood Interieur" class="fade-up landscape">
+            </div>
+          </div>
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/TangerSeafood4.JPG" alt="ZIANI FX – Tanger Seafood Interieur" class="fade-up landscape">
+          </div>
         </div>
       </div>
 
       <!-- Gruppe 4 — Milo (10 imgs · A → D → B → A → D) -->
       <div class="image-group">
         <div class="image-grid" aria-label="Projektgalerie Milo">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo1.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up span-4 row-2">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo2.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo3.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo4.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up span-6 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo5.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up span-3 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo6.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up span-3 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo7.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up span-4 row-2">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo8.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo9.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up span-2 row-1">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo10.JPG" alt="ZIANI FX – Milo Interieur" class="fade-up span-6 row-1">
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo1.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up big landscape">
+            <div class="image-col">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo2.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up landscape">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo3.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up landscape">
+            </div>
+          </div>
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo4.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up landscape">
+          </div>
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo5.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo6.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up landscape">
+          </div>
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo7.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up big landscape">
+            <div class="image-col">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo8.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up landscape">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo9.JPG"  alt="ZIANI FX – Milo Interieur" class="fade-up landscape">
+            </div>
+          </div>
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Interieur/Milo10.JPG" alt="ZIANI FX – Milo Interieur" class="fade-up landscape">
+          </div>
         </div>
       </div>
     </section>

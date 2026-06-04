@@ -205,16 +205,27 @@
   .image-group:last-child { margin-bottom: 0; }
 
   .image-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-auto-rows: 200px;
-    grid-auto-flow: dense;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .image-row {
+    display: flex;
     gap: 0.75rem;
     align-items: stretch;
   }
+  .image-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1 1 0;
+    min-width: 0;
+  }
   .image-grid img {
+    flex: 1 1 0;
+    min-width: 0;
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: cover;
     display: block;
     margin: 0;
@@ -233,42 +244,20 @@
     transform: scale(1.01) !important;
   }
 
-  /* Column spans */
-  .image-grid .span-2 { grid-column: span 2; }
-  .image-grid .span-3 { grid-column: span 3; }
-  .image-grid .span-4 { grid-column: span 4; }
-  .image-grid .span-6 { grid-column: span 6; }
-  /* Row spans */
-  .image-grid .row-1 { grid-row: span 1; }
-  .image-grid .row-2 { grid-row: span 2; }
-  .image-grid .row-3 { grid-row: span 3; }
-  .image-grid .row-4 { grid-row: span 4; }
+  /* Portrait-Format (2:3) */
+  .image-grid img.portrait { aspect-ratio: 2 / 3; }
 
-  /* Tablet — 4-col base */
+  /* Asymmetric: großes Bild (flex 2) neben Stack (flex 1) */
+  .image-row > .big { flex: 2; }
+
+  /* Tablet */
   @media (max-width: 1023px) and (min-width: 640px) {
-    .image-grid {
-      grid-template-columns: repeat(4, 1fr);
-      grid-auto-rows: 180px;
-      gap: 0.75rem;
-    }
-    .image-grid .span-2,
-    .image-grid .span-3 { grid-column: span 2; }
-    .image-grid .span-4,
-    .image-grid .span-6 { grid-column: span 4; }
     .image-group { margin-bottom: 48px; }
   }
 
-  /* Mobile — 1-col, full width */
+  /* Mobile — Reihen werden zu Spalten (1-col stack) */
   @media (max-width: 639px) {
-    .image-grid {
-      grid-template-columns: 1fr;
-      grid-auto-rows: 240px;
-      gap: 0.75rem;
-    }
-    .image-grid .span-2,
-    .image-grid .span-3,
-    .image-grid .span-4,
-    .image-grid .span-6 { grid-column: span 1; }
+    .image-row { flex-direction: column; }
     .image-group { margin-bottom: 36px; }
   }
 
@@ -558,12 +547,15 @@
     .footer-legal { font-size: 0.72rem; }
 
     /* === Image-Grid auf Mobile: Bilder gestapelt mit nativer Aspect-Ratio === */
-    .image-grid {
+    .image-grid,
+    .image-row,
+    .image-col {
       display: block;
     }
     .image-grid img {
       display: block;
       width: 100%;
+      max-width: 100%;
       height: auto !important;
       aspect-ratio: unset !important;
       object-fit: cover;
@@ -572,38 +564,13 @@
 
     /* === Lazy-Load Mobile-Fix: Container brauchen sichtbare Mindesthöhe,
        damit native loading="lazy" auf Mobile zuverlässig greift === */
-    .image-grid {
+    .image-grid,
+    .image-row,
+    .image-col {
       min-height: 10px;
     }
     .image-grid img {
       min-height: 10px;
-    }
-
-    /* === Vorschau-Fix Mobile: Grid-Container haben sonst Höhe 0 ===
-       Grid komplett deaktivieren, alle Spans/Aspect-Ratios resetten,
-       Bilder bekommen native Höhe aus dem Bild selbst. */
-    .image-grid {
-      display: block !important;
-      width: 100% !important;
-    }
-    .image-grid a,
-    .image-grid div {
-      display: block !important;
-      width: 100% !important;
-      height: auto !important;
-      min-height: unset !important;
-    }
-    .image-grid img {
-      display: block !important;
-      width: 100% !important;
-      height: auto !important;
-      min-height: unset !important;
-      aspect-ratio: unset !important;
-      object-fit: cover !important;
-      margin-bottom: 8px !important;
-    }
-    .image-group {
-      margin-bottom: 40px !important;
     }
   }
 </style>
@@ -660,35 +627,57 @@
       <div class="image-group">
         <div class="image-grid" aria-label="Moments-Galerie Stuttgart">
           <!-- Stripe 1: 2 Querformat -->
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart1.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-2">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart14.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-2">
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart1.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart14.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up landscape">
+          </div>
           <!-- Stripe 2: 3 Hochformat -->
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart6.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-2 row-3">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart10.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-2 row-3">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart3.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-2 row-3">
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart6.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart10.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart3.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up portrait">
+          </div>
           <!-- Stripe 3: Hero Querformat -->
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart13.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-6 row-4">
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart13.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up landscape">
+          </div>
           <!-- Stripe 4: 2 Querformat -->
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart2.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-2">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart17.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-2">
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart2.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart17.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up landscape">
+          </div>
           <!-- Stripe 5: 1 Hochformat breit + 2 Querformat gestapelt -->
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart11.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-4">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart4.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-2">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart9.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-2">
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart11.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up portrait">
+            <div class="image-col">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart4.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up landscape">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart9.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up landscape">
+            </div>
+          </div>
           <!-- Stripe 6: 3 Hochformat -->
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart8.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-2 row-3">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart16.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-2 row-3">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart15.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-2 row-3">
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart8.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart16.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart15.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up portrait">
+          </div>
           <!-- Stripe 7: 2 Querformat -->
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart5.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-2">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart12.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-2">
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart5.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart12.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up landscape">
+          </div>
           <!-- Stripe 8: 2 Hochformat breit -->
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart18.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-4">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart20.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-4">
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart18.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart20.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up portrait">
+          </div>
           <!-- Stripe 9: 1 Hochformat breit + 2 Querformat gestapelt -->
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart7.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-4">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart19.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-2">
-          <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart21.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up span-3 row-2">
+          <div class="image-row">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart7.JPG"  alt="ZIANI FX – Event & Wedding Moment" class="fade-up portrait">
+            <div class="image-col">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart19.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up landscape">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Events/Stuttgart21.JPG" alt="ZIANI FX – Event & Wedding Moment" class="fade-up landscape">
+            </div>
+          </div>
         </div>
       </div>
     </section>
