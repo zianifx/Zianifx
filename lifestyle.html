@@ -274,6 +274,47 @@
     border: none;
   }
 
+  /* YouTube Facade — lädt erst beim Klick den echten Player */
+  .yt-facade {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    cursor: pointer;
+    background: #1a1818;
+    overflow: hidden;
+  }
+  .yt-facade img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  .yt-facade:hover img {
+    transform: scale(1.03);
+  }
+  .yt-facade-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+  }
+  .yt-facade:hover .yt-facade-overlay {
+    background: rgba(0, 0, 0, 0.55);
+  }
+  .yt-facade-play {
+    font-size: 3.5rem;
+    color: #d3d0cb;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  .yt-facade:hover .yt-facade-play {
+    color: #9f0c0c;
+    transform: scale(1.1);
+  }
+
   /* Subsections (FILMS & VLOGS / EDITS / PHOTOGRAPHY) */
   .subsection { margin-top: 6rem; }
   .subsection:first-of-type { margin-top: 4rem; }
@@ -704,36 +745,56 @@
       </p>
       <div class="youtube-grid" aria-label="YouTube-Videos">
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/X1SLA60rJlg?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="X1SLA60rJlg">
+            <img
+              src="https://img.youtube.com/vi/X1SLA60rJlg/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/4jAfQIirb5s?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="4jAfQIirb5s">
+            <img
+              src="https://img.youtube.com/vi/4jAfQIirb5s/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/XlEk7_ruv2Q?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="XlEk7_ruv2Q">
+            <img
+              src="https://img.youtube.com/vi/XlEk7_ruv2Q/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/O9BJSfo5xEA?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="O9BJSfo5xEA">
+            <img
+              src="https://img.youtube.com/vi/O9BJSfo5xEA/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -748,104 +809,159 @@
       <!-- Gruppe 1 -->
       <div class="edits-group" aria-label="Edits Gruppe 1">
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/9edC3EWNKhM?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="9edC3EWNKhM">
+            <img
+              src="https://img.youtube.com/vi/9edC3EWNKhM/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/jtX5n_oecac?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="jtX5n_oecac">
+            <img
+              src="https://img.youtube.com/vi/jtX5n_oecac/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/CCzL7mqyoOw?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="CCzL7mqyoOw">
+            <img
+              src="https://img.youtube.com/vi/CCzL7mqyoOw/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Gruppe 2 -->
       <div class="edits-group" aria-label="Edits Gruppe 2">
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/nOxOBnNg-G8?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="nOxOBnNg-G8">
+            <img
+              src="https://img.youtube.com/vi/nOxOBnNg-G8/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/5S5k4usjq3I?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="5S5k4usjq3I">
+            <img
+              src="https://img.youtube.com/vi/5S5k4usjq3I/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/OYITbJRbNEE?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="OYITbJRbNEE">
+            <img
+              src="https://img.youtube.com/vi/OYITbJRbNEE/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Gruppe 3 -->
       <div class="edits-group" aria-label="Edits Gruppe 3">
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/gs8T-cRSuSA?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="gs8T-cRSuSA">
+            <img
+              src="https://img.youtube.com/vi/gs8T-cRSuSA/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/3OCfBLQbkK8?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="3OCfBLQbkK8">
+            <img
+              src="https://img.youtube.com/vi/3OCfBLQbkK8/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/p2uN3J0YMho?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="p2uN3J0YMho">
+            <img
+              src="https://img.youtube.com/vi/p2uN3J0YMho/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Gruppe 4 (2 Videos) -->
       <div class="edits-group two-col" aria-label="Edits Gruppe 4">
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/OgdBjmHnrHQ?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="OgdBjmHnrHQ">
+            <img
+              src="https://img.youtube.com/vi/OgdBjmHnrHQ/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
         <div class="video-wrapper fade-up">
-          <iframe
-            src="https://www.youtube.com/embed/U5PYL7fQukE?rel=0"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
+          <div class="yt-facade" data-video-id="U5PYL7fQukE">
+            <img
+              src="https://img.youtube.com/vi/U5PYL7fQukE/maxresdefault.jpg"
+              loading="lazy"
+              decoding="async"
+              alt="Video Vorschau"
+              onerror="this.src=this.src.replace('maxresdefault','hqdefault')">
+            <div class="yt-facade-overlay">
+              <div class="yt-facade-play">▶</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1097,6 +1213,28 @@
       img.style.opacity = '0';
       img.style.transition = 'opacity 0.3s ease';
       imageObserver.observe(img);
+    });
+  });
+
+  // YouTube Facade — Player erst beim Klick laden
+  document.querySelectorAll('.yt-facade').forEach(function(facade) {
+    facade.addEventListener('click', function() {
+      const videoId = this.dataset.videoId;
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+      iframe.frameBorder = '0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+      iframe.style.position = 'absolute';
+      iframe.style.top = '0';
+      iframe.style.left = '0';
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      iframe.style.border = 'none';
+
+      this.style.position = 'relative';
+      this.innerHTML = '';
+      this.appendChild(iframe);
     });
   });
 </script>
