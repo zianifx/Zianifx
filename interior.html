@@ -626,48 +626,6 @@
     .image-grid img {
       min-height: 10px;
     }
-
-    /* === Vorschau-Fix Mobile: aspect-ratio bricht auf Mobile, Container
-       kollabieren auf Höhe 0. Lösung: explizite min-height pro Bildtyp. === */
-    .image-row,
-    .image-col,
-    .image-row > *,
-    .image-col > * {
-      display: block !important;
-      width: 100% !important;
-      height: auto !important;
-    }
-    .image-row img,
-    .image-col img,
-    .portrait img,
-    .landscape img,
-    .big img {
-      display: block !important;
-      width: 100% !important;
-      height: auto !important;
-      min-height: 200px !important;
-      object-fit: cover !important;
-      aspect-ratio: unset !important;
-      margin-bottom: 8px !important;
-    }
-    .portrait {
-      min-height: 300px !important;
-    }
-    .landscape {
-      min-height: 200px !important;
-    }
-
-    /* === Visibility-Fix Mobile: Die "Visual Branding" Subsection enthält 4
-       Galerien (37 Bilder) und ist auf Mobile so hoch, dass der
-       IntersectionObserver-Threshold von 0.12 nie erreicht wird
-       (Section ~9850px vs. Viewport ~850px → max. ratio ~0.086).
-       Folge: .fade-up.visible wird nie gesetzt, Section bleibt opacity:0
-       und versteckt alle Bilder. Auf Mobile sofort sichtbar machen —
-       Fade-Animation auf Desktop bleibt unangetastet. */
-    .subsection.fade-up {
-      opacity: 1 !important;
-      transform: none !important;
-    }
   }
 </style>
 </head>
@@ -876,6 +834,16 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
   // Sticky Subnav: aktiver Tab via IntersectionObserver (Smooth-Scroll via CSS scroll-behavior)
   (function() {
     const links = Array.from(document.querySelectorAll('.subnav-link'));
@@ -1018,46 +986,23 @@
     }, { passive: true });
   })();
 
-  // Vereinheitlichter Fade-up + Lazy-Load Observer
-  // Mobile (≤768px): sofortige Sichtbarkeit + eager Loading (kein Observer).
-  // Desktop: ein gemeinsamer Observer für .fade-up und Lazy-Bilder.
+  // Lazy-Load Fallback (Intersection Observer)
+  // Sicherstellen dass Lazy Loading auch auf Mobile zuverlässig greift,
+  // selbst wenn native loading="lazy" im Browser nicht korrekt feuert.
   document.addEventListener('DOMContentLoaded', function() {
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    if (!('IntersectionObserver' in window) || !lazyImages.length) return;
 
-    const fadeElements = document.querySelectorAll('.fade-up, img[loading="lazy"]');
-
-    // Sofort alle Bilder sichtbar machen die bereits im Viewport sind
-    function makeVisible(el) {
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-      el.style.visibility = 'visible';
-    }
-
-    // Auf Mobile alle Bilder sofort sichtbar machen
-    if (window.innerWidth <= 768) {
-      fadeElements.forEach(function(el) {
-        makeVisible(el);
-      });
-
-      // Alle Bilder direkt laden ohne Lazy Loading
-      document.querySelectorAll('img[loading="lazy"]').forEach(function(img) {
-        img.loading = 'eager';
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-        }
-        makeVisible(img);
-      });
-      return; // Kein Observer auf Mobile nötig
-    }
-
-    // Desktop: normaler Intersection Observer
-    const observer = new IntersectionObserver(function(entries) {
+    const imageObserver = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
-          makeVisible(entry.target);
-          if (entry.target.dataset.src) {
-            entry.target.src = entry.target.dataset.src;
+          const img = entry.target;
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
           }
-          observer.unobserve(entry.target);
+          img.style.opacity = '1';
+          imageObserver.unobserve(img);
         }
       });
     }, {
@@ -1065,8 +1010,10 @@
       threshold: 0.01
     });
 
-    fadeElements.forEach(function(el) {
-      observer.observe(el);
+    lazyImages.forEach(function(img) {
+      img.style.opacity = '0';
+      img.style.transition = 'opacity 0.3s ease';
+      imageObserver.observe(img);
     });
   });
 </script>
