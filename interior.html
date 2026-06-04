@@ -656,6 +656,18 @@
     .landscape {
       min-height: 200px !important;
     }
+
+    /* === Visibility-Fix Mobile: Die "Visual Branding" Subsection enthält 4
+       Galerien (37 Bilder) und ist auf Mobile so hoch, dass der
+       IntersectionObserver-Threshold von 0.12 nie erreicht wird
+       (Section ~9850px vs. Viewport ~850px → max. ratio ~0.086).
+       Folge: .fade-up.visible wird nie gesetzt, Section bleibt opacity:0
+       und versteckt alle Bilder. Auf Mobile sofort sichtbar machen —
+       Fade-Animation auf Desktop bleibt unangetastet. */
+    .subsection.fade-up {
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 </style>
 </head>
