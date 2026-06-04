@@ -572,6 +572,24 @@
       min-height: 10px;
     }
   }
+
+  /* === Sicherheitsnetz Mobile: Fade-Animationen deaktivieren,
+     damit Bilder garantiert sichtbar sind, auch wenn IntersectionObserver
+     auf Mobile nicht greift. Desktop bleibt unverändert. === */
+  @media (max-width: 768px) {
+    .fade-up,
+    [class*="fade"],
+    .image-row,
+    .image-col,
+    .image-row img,
+    .image-col img {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      transition: none !important;
+      animation: none !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -870,6 +888,27 @@
       imageObserver.observe(img);
     });
   });
+
+  // Sicherheits-Fallback: Nach 2 Sekunden alle noch unsichtbaren Bilder einblenden
+  setTimeout(function() {
+    document.querySelectorAll('img').forEach(function(img) {
+      if (getComputedStyle(img).opacity === '0' ||
+          getComputedStyle(img).visibility === 'hidden') {
+        img.style.opacity = '1';
+        img.style.visibility = 'visible';
+        img.style.transform = 'none';
+      }
+    });
+
+    document.querySelectorAll('.image-row, .image-col, .fade-up, [class*="fade"]').forEach(function(el) {
+      if (getComputedStyle(el).opacity === '0' ||
+          getComputedStyle(el).visibility === 'hidden') {
+        el.style.opacity = '1';
+        el.style.visibility = 'visible';
+        el.style.transform = 'none';
+      }
+    });
+  }, 2000);
 </script>
 
 </body>
