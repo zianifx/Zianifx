@@ -258,7 +258,7 @@ span.tr-line.tr-line.tr-line {
   margin: auto;
   width: auto;
   height: auto;
-  max-width: 92vw;
+  max-width: calc(100vw - 10rem);
   max-height: 86vh;
   max-height: 86dvh;
   object-fit: contain;
