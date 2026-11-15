@@ -167,7 +167,7 @@
     function linkFor(hash) {
       return links.filter(function (a) { return (a.getAttribute('href') || '').indexOf(hash) !== -1; })[0] || null;
     }
-    var hero = doc.querySelector('.hero');
+    var hero = doc.querySelector('section.hero');
     var heroInner = doc.querySelector('.hero-inner');
     var isIndex = !!hero;
     var spy = isIndex ? [

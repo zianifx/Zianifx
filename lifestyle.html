@@ -6,6 +6,8 @@
 <title>People, Sports & Lifestyle – ZIANI FX</title>
 <meta name="description" content="People, Sports & Lifestyle – cinematic visuals von ZIANI FX." />
 
+<!-- Motion: hidden reveal states only while JS is active; safety timer shows everything if zfx.js never boots -->
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.zfxReady)document.documentElement.classList.remove('js')},5000);</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- Preconnect für schnelleres Laden -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,22 +66,7 @@
     overflow-x: hidden;
   }
 
-  .navbar {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 50;
-    background-color: rgba(35, 32, 32, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: all 0.3s ease;
-    border-bottom: 1px solid transparent;
-  }
-  .navbar.scrolled {
-    background-color: rgba(26, 24, 24, 0.92);
-    border-bottom: 1px solid var(--accent);
-  }
-  .nav-link { color: var(--text); transition: color 0.3s ease; text-decoration: none; }
-  .nav-link:hover { color: var(--accent); }
-
+  /* Navbar: Material, Fortschrittslinie & Link-Zustände kommen aus assets/zfx.css */
   .logo {
     font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
     font-size: 1.75rem;
@@ -282,37 +269,63 @@
     cursor: pointer;
     background: #1a1818;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
   .yt-facade img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.3s ease;
-  }
-  .yt-facade:hover img {
-    transform: scale(1.03);
+    transition: transform 900ms var(--ease-out);
   }
   .yt-facade-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.35);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.45) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.3s ease;
   }
-  .yt-facade:hover .yt-facade-overlay {
-    background: rgba(0, 0, 0, 0.55);
-  }
+  /* Runder Play-Button; das Dreieck kommt aus CSS (das ▶-Zeichen rendert auf iOS sonst als Emoji) */
   .yt-facade-play {
-    font-size: 3.5rem;
+    width: 72px;
+    height: 72px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-size: 0;
     color: #d3d0cb;
-    transition: color 0.3s ease, transform 0.3s ease;
+    background: rgba(20, 18, 18, 0.55);
+    border: 1px solid rgba(211, 208, 203, 0.28);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    transition: transform 400ms var(--ease-out), background-color 300ms ease, border-color 300ms ease, color 300ms ease;
   }
-  .yt-facade:hover .yt-facade-play {
-    color: #9f0c0c;
-    transform: scale(1.1);
+  .yt-facade-play::before {
+    content: "";
+    margin-left: 5px;
+    border-left: 16px solid currentColor;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+  }
+  .yt-facade:active .yt-facade-play { transform: scale(0.94); transition-duration: 160ms; }
+  @media (hover: hover) and (pointer: fine) {
+    .yt-facade:hover img { transform: scale(1.04); }
+    .yt-facade:hover .yt-facade-play {
+      background: #9f0c0c;
+      border-color: #9f0c0c;
+      color: #fff;
+      transform: scale(1.06);
+    }
+  }
+  /* Während der Player lädt, bleibt das Vorschaubild stehen und der Button atmet leise */
+  .yt-facade.is-loading .yt-facade-play { animation: yt-wait 1.2s ease-in-out infinite; }
+  @keyframes yt-wait { 50% { opacity: 0.55; transform: scale(0.96); } }
+  @media (prefers-reduced-motion: reduce) {
+    .yt-facade.is-loading .yt-facade-play { animation: none; }
+  }
+  @media (max-width: 768px) {
+    .yt-facade-play { width: 56px; height: 56px; }
+    .yt-facade-play::before { border-left-width: 13px; border-top-width: 8px; border-bottom-width: 8px; margin-left: 4px; }
   }
 
   /* Subsections (FILMS & VLOGS / EDITS / PHOTOGRAPHY) */
@@ -377,22 +390,14 @@
     display: block;
     margin: 0;
     background-color: #2a2727;
-    transition: transform 0.4s ease;
+    transition: transform 0.6s ease;
     cursor: pointer;
   }
-  .image-grid img:hover { transform: scale(1.01); }
 
-  /* Override: Bilder im Grid IMMER sichtbar (kein opacity 0 Bug) */
-  .image-grid img.fade-up {
-    opacity: 1 !important;
-    transform: none !important;
+  /* Portrait-Format (2:3) – nur Desktop; mobil gilt das echte Seitenverhältnis aus width/height */
+  @media (min-width: 769px) {
+    .image-grid img.portrait { aspect-ratio: 2 / 3; }
   }
-  .image-grid img.fade-up:hover {
-    transform: scale(1.01) !important;
-  }
-
-  /* Portrait-Format (2:3) */
-  .image-grid img.portrait { aspect-ratio: 2 / 3; }
 
   /* Hero: single Bild zentriert */
   .image-row.hero { justify-content: center; }
@@ -414,71 +419,7 @@
     .image-group { margin-bottom: 36px; }
   }
 
-  /* Lightbox */
-  .lightbox {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background-color: rgba(0, 0, 0, 0.92);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-  .lightbox.open {
-    opacity: 1;
-    visibility: visible;
-  }
-  .lightbox-img {
-    max-width: 90vw;
-    max-height: 90vh;
-    object-fit: contain;
-    display: block;
-    user-select: none;
-    -webkit-user-drag: none;
-    pointer-events: none;
-  }
-  .lightbox-close,
-  .lightbox-prev,
-  .lightbox-next {
-    position: absolute;
-    background: transparent;
-    border: none;
-    color: #d3d0cb;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    font-family: 'Arimo', Arial, Helvetica, sans-serif;
-    z-index: 2;
-    padding: 0.5rem 1rem;
-    line-height: 1;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .lightbox-close {
-    top: 1.5rem;
-    right: 1.5rem;
-    font-size: 2rem;
-  }
-  .lightbox-prev,
-  .lightbox-next {
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 3rem;
-  }
-  .lightbox-prev { left: 1.5rem; }
-  .lightbox-next { right: 1.5rem; }
-  .lightbox-close:hover,
-  .lightbox-prev:hover,
-  .lightbox-next:hover {
-    color: #9f0c0c;
-  }
-  @media (max-width: 640px) {
-    .lightbox-prev, .lightbox-next { font-size: 2.2rem; }
-    .lightbox-close { font-size: 1.75rem; top: 1rem; right: 1rem; }
-    .lightbox-prev { left: 0.5rem; }
-    .lightbox-next { right: 0.5rem; }
-  }
+  /* Lightbox: Styles & Verhalten kommen aus assets/zfx.css / zfx.js */
 
   /* Kontakt */
   .kontakt-section { padding: 6rem 1.5rem; }
@@ -537,7 +478,6 @@
     text-decoration: none;
     background-color: transparent;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-size: 0.95rem;
   }
   .btn-outline:hover {
@@ -570,13 +510,6 @@
     opacity: 1;
     color: #9f0c0c;
   }
-
-  .fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
 
   /* ============================================================
      MOBILE (≤ 768px) – Desktop in klein
@@ -690,7 +623,6 @@
       width: 100%;
       max-width: 100%;
       height: auto !important;
-      aspect-ratio: unset !important;
       object-fit: cover;
       margin-bottom: 8px;
     }
@@ -708,6 +640,8 @@
     }
   }
 </style>
+<link rel="stylesheet" href="assets/zfx.css?v=1">
+<script src="assets/zfx.js?v=1" defer></script>
 </head>
 <body>
 
@@ -733,18 +667,18 @@
 
 <main>
   <div class="container-max">
-    <a href="index.html#portfolio" class="back-link">← Zurück zum Portfolio</a>
+    <a href="index.html#portfolio" class="back-link zr">← Zurück zum Portfolio</a>
 
-    <h1 class="page-title fade-up">PEOPLE, SPORTS<br>&amp; LIFESTYLE</h1>
+    <h1 class="page-title zr-lines">PEOPLE, SPORTS<br>&amp; LIFESTYLE</h1>
 
     <!-- Sektion 1: FILMS & VLOGS -->
-    <section class="subsection fade-up" id="films-vlogs" aria-label="Films & Vlogs">
-      <h2 class="subsection-heading">FILMS &amp; VLOGS</h2>
-      <p class="subsection-text">
+    <section class="subsection" id="films-vlogs" aria-label="Films & Vlogs">
+      <h2 class="subsection-heading zr-lines">FILMS &amp; VLOGS</h2>
+      <p class="subsection-text zr">
         Dynamische Lifestyle-Videos, Creator-Begleitungen und Vlog-Produktionen – authentisch, modern und auf den Punkt geschnitten.
       </p>
       <div class="youtube-grid" aria-label="YouTube-Videos">
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="X1SLA60rJlg">
             <img
               src="https://img.youtube.com/vi/X1SLA60rJlg/maxresdefault.jpg"
@@ -757,7 +691,7 @@
             </div>
           </div>
         </div>
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="4jAfQIirb5s">
             <img
               src="https://img.youtube.com/vi/4jAfQIirb5s/maxresdefault.jpg"
@@ -770,7 +704,7 @@
             </div>
           </div>
         </div>
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="XlEk7_ruv2Q">
             <img
               src="https://img.youtube.com/vi/XlEk7_ruv2Q/maxresdefault.jpg"
@@ -783,7 +717,7 @@
             </div>
           </div>
         </div>
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="O9BJSfo5xEA">
             <img
               src="https://img.youtube.com/vi/O9BJSfo5xEA/maxresdefault.jpg"
@@ -800,15 +734,15 @@
     </section>
 
     <!-- Sektion 2: EDITS -->
-    <section class="subsection fade-up" id="edits" aria-label="Edits">
-      <h2 class="subsection-heading">EDITS</h2>
-      <p class="subsection-text">
+    <section class="subsection" id="edits" aria-label="Edits">
+      <h2 class="subsection-heading zr-lines">EDITS</h2>
+      <p class="subsection-text zr">
         Schnelle, kreative Videoschnitte für Social Media – Reels, Sportclips und Lifestyle-Content mit cinematischer Bildsprache.
       </p>
 
       <!-- Gruppe 1 -->
       <div class="edits-group" aria-label="Edits Gruppe 1">
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="9edC3EWNKhM">
             <img
               src="https://img.youtube.com/vi/9edC3EWNKhM/maxresdefault.jpg"
@@ -821,7 +755,7 @@
             </div>
           </div>
         </div>
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="jtX5n_oecac">
             <img
               src="https://img.youtube.com/vi/jtX5n_oecac/maxresdefault.jpg"
@@ -834,7 +768,7 @@
             </div>
           </div>
         </div>
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="CCzL7mqyoOw">
             <img
               src="https://img.youtube.com/vi/CCzL7mqyoOw/maxresdefault.jpg"
@@ -851,7 +785,7 @@
 
       <!-- Gruppe 2 -->
       <div class="edits-group" aria-label="Edits Gruppe 2">
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="nOxOBnNg-G8">
             <img
               src="https://img.youtube.com/vi/nOxOBnNg-G8/maxresdefault.jpg"
@@ -864,7 +798,7 @@
             </div>
           </div>
         </div>
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="5S5k4usjq3I">
             <img
               src="https://img.youtube.com/vi/5S5k4usjq3I/maxresdefault.jpg"
@@ -877,7 +811,7 @@
             </div>
           </div>
         </div>
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="OYITbJRbNEE">
             <img
               src="https://img.youtube.com/vi/OYITbJRbNEE/maxresdefault.jpg"
@@ -894,7 +828,7 @@
 
       <!-- Gruppe 3 -->
       <div class="edits-group" aria-label="Edits Gruppe 3">
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="gs8T-cRSuSA">
             <img
               src="https://img.youtube.com/vi/gs8T-cRSuSA/maxresdefault.jpg"
@@ -907,7 +841,7 @@
             </div>
           </div>
         </div>
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="3OCfBLQbkK8">
             <img
               src="https://img.youtube.com/vi/3OCfBLQbkK8/maxresdefault.jpg"
@@ -920,7 +854,7 @@
             </div>
           </div>
         </div>
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="p2uN3J0YMho">
             <img
               src="https://img.youtube.com/vi/p2uN3J0YMho/maxresdefault.jpg"
@@ -937,7 +871,7 @@
 
       <!-- Gruppe 4 (2 Videos) -->
       <div class="edits-group two-col" aria-label="Edits Gruppe 4">
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="OgdBjmHnrHQ">
             <img
               src="https://img.youtube.com/vi/OgdBjmHnrHQ/maxresdefault.jpg"
@@ -950,7 +884,7 @@
             </div>
           </div>
         </div>
-        <div class="video-wrapper fade-up">
+        <div class="video-wrapper zr">
           <div class="yt-facade" data-video-id="U5PYL7fQukE">
             <img
               src="https://img.youtube.com/vi/U5PYL7fQukE/maxresdefault.jpg"
@@ -967,49 +901,49 @@
     </section>
 
     <!-- Sektion 3: PHOTOGRAPHY -->
-    <section class="subsection fade-up" id="photography" aria-label="Photography">
-      <h2 class="subsection-heading">PHOTOGRAPHY</h2>
-      <p class="subsection-text">
+    <section class="subsection" id="photography" aria-label="Photography">
+      <h2 class="subsection-heading zr-lines">PHOTOGRAPHY</h2>
+      <p class="subsection-text zr">
         Authentische Portrait-, Sport- und Lifestylefotos mit Fokus auf Persönlichkeit, Bewegung und natürliche Bildsprache.
       </p>
-      <div class="image-group fade-up">
+      <div class="image-group">
         <div class="image-grid" aria-label="Projektgalerie Portraits">
           <!-- Reihe 1: Alan-Block — Asymmetric BIG-LEFT (Alan1 groß links + Alan2/Alan3 stacked rechts) -->
           <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Alan1.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait big">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Alan1.JPG" width="4128" height="6192" alt="ZIANI FX – Portrait" class="zr portrait big">
             <div class="image-col">
-              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Alan2.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
-              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Alan3.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Alan2.JPG" width="4128" height="6192" alt="ZIANI FX – Portrait" class="zr portrait">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Alan3.JPG" width="4128" height="6192" alt="ZIANI FX – Portrait" class="zr portrait">
             </div>
           </div>
           <!-- Reihe 2: Triplet — Alan4 | Alan5 | Random (Random integriert) -->
           <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Alan4.JPG"  alt="ZIANI FX – Portrait" class="fade-up portrait">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Alan5.JPG"  alt="ZIANI FX – Portrait" class="fade-up portrait">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Random.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Alan4.JPG" width="4128" height="6192"  alt="ZIANI FX – Portrait" class="zr portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Alan5.JPG" width="4128" height="6192"  alt="ZIANI FX – Portrait" class="zr portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Random.JPG" width="4128" height="6192" alt="ZIANI FX – Portrait" class="zr portrait">
           </div>
           <!-- Reihe 3: Pair — Furkan1 | Furkan2 (Furkan zusammen) -->
           <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Furkan1.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Furkan2.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Furkan1.JPG" width="4128" height="6192" alt="ZIANI FX – Portrait" class="zr portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Furkan2.JPG" width="4128" height="6192" alt="ZIANI FX – Portrait" class="zr portrait">
           </div>
           <!-- Reihe 4: Seyyid-Block — Asymmetric BIG-RIGHT (Seyyid1/Seyyid2 stacked links + Seyyid3 groß rechts) -->
           <div class="image-row">
             <div class="image-col">
-              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Seyyid1.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
-              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Seyyid2.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Seyyid1.JPG" width="4128" height="6192" alt="ZIANI FX – Portrait" class="zr portrait">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Seyyid2.JPG" width="4128" height="6192" alt="ZIANI FX – Portrait" class="zr portrait">
             </div>
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Seyyid3.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait big">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Seyyid3.JPG" width="4128" height="6192" alt="ZIANI FX – Portrait" class="zr portrait big">
           </div>
           <!-- Reihe 5: Yasin-Block — 2x2 Grid (alle 4 Yasin als geschlossener Block) -->
           <div class="image-row">
             <div class="image-col">
-              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Yasin1.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
-              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Yasin2.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Yasin1.JPG" width="4128" height="6192" alt="ZIANI FX – Portrait" class="zr portrait">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Yasin2.JPG" width="4128" height="6192" alt="ZIANI FX – Portrait" class="zr portrait">
             </div>
             <div class="image-col">
-              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Yasin3.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
-              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Yasin4.JPG" alt="ZIANI FX – Portrait" class="fade-up portrait">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Yasin3.JPG" width="4128" height="6192" alt="ZIANI FX – Portrait" class="zr portrait">
+              <img loading="lazy" decoding="async" src="Images/Portfolio/Portrait/Yasin4.JPG" width="4128" height="6192" alt="ZIANI FX – Portrait" class="zr portrait">
             </div>
           </div>
         </div>
@@ -1019,23 +953,23 @@
 </main>
 
 <!-- Kontakt -->
-<section id="kontakt" class="kontakt-section fade-up" aria-label="Kontakt">
+<section id="kontakt" class="kontakt-section" aria-label="Kontakt">
   <div class="container-max">
-    <h2 class="section-heading">KONTAKT</h2>
+    <h2 class="section-heading zr-lines">KONTAKT</h2>
     <div class="kontakt-wrap">
-      <p class="kontakt-line">Standort: Köln / Bonn</p>
-      <p class="kontakt-line">
+      <p class="kontakt-line zr">Standort: Köln / Bonn</p>
+      <p class="kontakt-line zr">
         Instagram:
         <a class="kontakt-link" href="https://instagram.com/zianifx" target="_blank" rel="noopener noreferrer">@ZianiFX</a>
       </p>
-      <p class="kontakt-line">
+      <p class="kontakt-line zr">
         E-Mail:
         <a class="kontakt-link" href="mailto:zianifx@outlook.com">zianifx@outlook.com</a>
       </p>
-      <div class="mt-10">
+      <div class="mt-10 zr">
         <a href="mailto:zianifx@outlook.com" class="btn-outline">Projekt anfragen</a>
       </div>
-      <p class="kontakt-note">Ich antworte meist innerhalb von 24 Stunden.</p>
+      <p class="kontakt-note zr">Ich antworte meist innerhalb von 24 Stunden.</p>
     </div>
   </div>
 </section>
@@ -1055,189 +989,7 @@
   <button type="button" class="lightbox-close" aria-label="Schließen">&#10005;</button>
 </div>
 
-<script>
-  const nav = document.getElementById('navbar');
-  const onScroll = () => {
-    if (window.scrollY > 30) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  // Sticky Subnav: aktiver Tab via IntersectionObserver (Smooth-Scroll via CSS scroll-behavior)
-  (function() {
-    const links = Array.from(document.querySelectorAll('.subnav-link'));
-    if (!links.length) return;
-    const sections = links
-      .map(a => document.getElementById(a.dataset.target))
-      .filter(Boolean);
-    if (!sections.length) return;
-
-    const setActive = (id) => {
-      links.forEach(a => a.classList.toggle('active', a.dataset.target === id));
-    };
-    let activeId = sections[0].id;
-    setActive(activeId);
-
-    const ratios = new Map();
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => ratios.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0));
-      let best = activeId, bestRatio = 0;
-      ratios.forEach((r, id) => { if (r > bestRatio) { bestRatio = r; best = id; } });
-      if (best !== activeId) { activeId = best; setActive(best); }
-    }, {
-      rootMargin: '-130px 0px -40% 0px',
-      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1]
-    });
-    sections.forEach(s => obs.observe(s));
-  })();
-
-  // Lightbox (Portrait gallery)
-  (function() {
-    const grids = document.querySelectorAll('.image-grid');
-    if (!grids.length) return;
-    const images = Array.from(grids).flatMap(g => Array.from(g.querySelectorAll('img')));
-    if (!images.length) return;
-
-    const lightbox = document.getElementById('lightbox');
-    const lbImg    = lightbox.querySelector('.lightbox-img');
-    const lbClose  = lightbox.querySelector('.lightbox-close');
-    const lbPrev   = lightbox.querySelector('.lightbox-prev');
-    const lbNext   = lightbox.querySelector('.lightbox-next');
-
-    let currentIdx = 0;
-
-    function setImage(idx) {
-      currentIdx = (idx + images.length) % images.length;
-      lbImg.src = images[currentIdx].src;
-      lbImg.alt = images[currentIdx].alt || '';
-    }
-    function open(idx) {
-      setImage(idx);
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-    function close() {
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-    function next() { setImage(currentIdx + 1); }
-    function prev() { setImage(currentIdx - 1); }
-
-    images.forEach((img, i) => {
-      img.addEventListener('click', () => open(i));
-    });
-
-    lbClose.addEventListener('click', (e) => { e.stopPropagation(); close(); });
-    lbPrev.addEventListener('click',  (e) => { e.stopPropagation(); prev(); });
-    lbNext.addEventListener('click',  (e) => { e.stopPropagation(); next(); });
-
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) close();
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('open')) return;
-      if (e.key === 'Escape')          close();
-      else if (e.key === 'ArrowLeft')  prev();
-      else if (e.key === 'ArrowRight') next();
-    });
-
-    let touchStartX = 0;
-    let touchStartY = 0;
-    lightbox.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-      touchStartY = e.changedTouches[0].screenY;
-    }, { passive: true });
-    lightbox.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].screenX - touchStartX;
-      const dy = e.changedTouches[0].screenY - touchStartY;
-      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-        if (dx < 0) next();
-        else prev();
-      }
-    }, { passive: true });
-  })();
-
-  // YouTube-Thumbnail Fallback: maxresdefault → hqdefault → mqdefault → default
-  document.querySelectorAll('.video-thumbnail img').forEach(img => {
-    img.addEventListener('error', function() {
-      const src = this.src;
-      if (src.includes('maxresdefault')) {
-        this.src = src.replace('maxresdefault', 'hqdefault');
-      } else if (src.includes('hqdefault')) {
-        this.src = src.replace('hqdefault', 'mqdefault');
-      } else if (src.includes('mqdefault')) {
-        this.src = src.replace('mqdefault', 'default');
-      }
-    });
-  });
-
-  // Lazy-Load Fallback (Intersection Observer)
-  // Sicherstellen dass Lazy Loading auch auf Mobile zuverlässig greift,
-  // selbst wenn native loading="lazy" im Browser nicht korrekt feuert.
-  document.addEventListener('DOMContentLoaded', function() {
-    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-    if (!('IntersectionObserver' in window) || !lazyImages.length) return;
-
-    const imageObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          if (img.dataset.src) {
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
-          }
-          img.style.opacity = '1';
-          imageObserver.unobserve(img);
-        }
-      });
-    }, {
-      rootMargin: '200px 0px',
-      threshold: 0.01
-    });
-
-    lazyImages.forEach(function(img) {
-      img.style.opacity = '0';
-      img.style.transition = 'opacity 0.3s ease';
-      imageObserver.observe(img);
-    });
-  });
-
-  // YouTube Facade — Player erst beim Klick laden
-  document.querySelectorAll('.yt-facade').forEach(function(facade) {
-    facade.addEventListener('click', function() {
-      const videoId = this.dataset.videoId;
-      const iframe = document.createElement('iframe');
-      iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
-      iframe.frameBorder = '0';
-      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-      iframe.allowFullscreen = true;
-      iframe.style.position = 'absolute';
-      iframe.style.top = '0';
-      iframe.style.left = '0';
-      iframe.style.width = '100%';
-      iframe.style.height = '100%';
-      iframe.style.border = 'none';
-
-      this.style.position = 'relative';
-      this.innerHTML = '';
-      this.appendChild(iframe);
-    });
-  });
-</script>
+<!-- Navbar, Tabs, Reveals, Lightbox, Video-Facades & Lazy-Load-Absicherung: assets/zfx.js -->
 
 </body>
 </html>
