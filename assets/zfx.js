@@ -145,9 +145,10 @@
     window.addEventListener('resize', scheduleCheck);
     window.addEventListener('load', scheduleCheck);
     doc.addEventListener('visibilitychange', scheduleCheck);
+    var runs = 0;
     var interval = setInterval(function () {
       check();
-      if (!pending.size) clearInterval(interval);
+      if (!pending.size || ++runs > 20) clearInterval(interval);
     }, 1500);
     if (!io) check();
   }
@@ -609,6 +610,12 @@
         if (e.type === 'pointerup' && elapsed < 500) close();
         return;
       }
+      if (e.type === 'pointercancel') {
+        lb.classList.remove('is-dragging-y');
+        backdrop.style.opacity = '';
+        layout({ dur: 320, ease: EASE_DRAWER });
+        return;
+      }
       if (axis === 'x') {
         var w = window.innerWidth;
         var commit = Math.abs(dx) > w * 0.18 || Math.abs(v.x) > 0.35;
@@ -677,6 +684,9 @@
   }
 
   /* ---------- Boot ---------- */
+  // iOS Safari only applies :active (press feedback) when a touch listener exists
+  doc.addEventListener('touchstart', function () {}, { passive: true });
+
   var revealOk = safe(initReveal);
   if (revealOk) window.zfxReady = true;
   else root.classList.remove('js');
