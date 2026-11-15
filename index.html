@@ -6,6 +6,8 @@
 <title>ZIANI FX – Visual Storytelling | Foto & Videography</title>
 <meta name="description" content="ZIANI FX – Mohamed Ziani. Videograf, Fotograf & Video-Editor aus Köln/Bonn. Cinematic Visual Production für Brands, Räume und Geschichten." />
 
+<!-- Motion: hidden reveal states only while JS is active; safety timer shows everything if zfx.js never boots -->
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.zfxReady)document.documentElement.classList.remove('js')},5000);</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- Preconnect für schnelleres Laden -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,28 +72,7 @@
   .font-league   { font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif; letter-spacing: 0.03em; }
   .font-body     { font-family: 'Arimo', Arial, Helvetica, sans-serif; }
 
-  /* Navbar */
-  .navbar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 50;
-    background-color: rgba(35, 32, 32, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: all 0.3s ease;
-    border-bottom: 1px solid transparent;
-  }
-  .navbar.scrolled {
-    background-color: rgba(26, 24, 24, 0.92);
-    border-bottom: 1px solid var(--accent);
-  }
-  .nav-link {
-    color: var(--text);
-    transition: color 0.3s ease;
-    text-decoration: none;
-  }
-  .nav-link:hover { color: var(--accent); }
-
+  /* Navbar: Material, Fortschrittslinie & Link-Zustände kommen aus assets/zfx.css */
   .logo {
     font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
     font-size: 1.75rem;
@@ -110,13 +91,90 @@
     background-color: var(--bg);
     position: relative;
     overflow: hidden;
+    isolation: isolate;
   }
+  /* Langsam wandernder roter Lichtschein */
   .hero::before {
     content: "";
     position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 40%, rgba(159, 12, 12, 0.08), transparent 60%);
+    inset: -12%;
+    z-index: -1;
+    background: radial-gradient(circle at 50% 42%, rgba(159, 12, 12, 0.13), transparent 58%);
     pointer-events: none;
+    animation: zfx-fade 2400ms ease-out backwards, hero-drift 26s ease-in-out infinite alternate both;
+  }
+  /* Filmkorn – nur im Hero, liegt unter dem Text und nie über Fotos.
+     Statischer Container mit Maske, damit das Korn nach unten weich ausläuft (keine Kante zur nächsten Sektion). */
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 50%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 50%, transparent 100%);
+  }
+  .hero-grain::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 220px 220px;
+    opacity: 0.06;
+    animation: hero-grain 0.9s steps(5) infinite;
+  }
+  .hero.is-off::before,
+  .hero.is-off .hero-grain::before { animation-play-state: paused; }
+  @keyframes hero-drift {
+    from { transform: translate3d(-4%, -2%, 0) scale(1); }
+    to   { transform: translate3d(4%, 3%, 0) scale(1.1); }
+  }
+  @keyframes hero-grain {
+    0%   { transform: translate3d(0, 0, 0); }
+    20%  { transform: translate3d(-6%, 4%, 0); }
+    40%  { transform: translate3d(5%, -7%, 0); }
+    60%  { transform: translate3d(-3%, 8%, 0); }
+    80%  { transform: translate3d(7%, 2%, 0); }
+    100% { transform: translate3d(0, 0, 0); }
+  }
+  .hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  /* Einstieg: ZIANI und FX steigen nacheinander aus einer Maske, dann Subline und Button */
+  .hero-title .tr-mask { display: inline-block; vertical-align: top; }
+  .hero-title .tr-line { animation: zfx-rise 1200ms var(--ease-out) 150ms backwards; }
+  .hero-title .tr-mask + .tr-mask .tr-line { animation-delay: 270ms; }
+  .hero-sub { animation: zfx-fade-up 1000ms var(--ease-out) 600ms backwards; }
+  .hero-inner > .btn-outline { animation: zfx-fade-up 1000ms var(--ease-out) 740ms backwards; }
+  /* Scroll-Hinweis */
+  .hero-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 2rem;
+    width: 1px;
+    height: 52px;
+    translate: -50% 0;
+    overflow: hidden;
+    background: rgba(211, 208, 203, 0.16);
+    animation: zfx-fade 1000ms ease 1300ms backwards;
+  }
+  .hero-cue span {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, #9f0c0c);
+    transform: translateY(-100%);
+    animation: hero-cue 2.8s var(--ease-in-out) 1.8s infinite;
+  }
+  @keyframes hero-cue {
+    0%        { transform: translateY(-100%); }
+    55%, 100% { transform: translateY(100%); }
+  }
+  @media (max-height: 560px) { .hero-cue { display: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .hero::before, .hero-grain::before, .hero-cue span { animation: none; }
+    .hero-title .tr-line, .hero-sub, .hero-inner > .btn-outline { animation: zfx-fade 500ms ease backwards; }
   }
   .hero-title {
     font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
@@ -149,7 +207,6 @@
     text-decoration: none;
     background-color: transparent;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-size: 0.95rem;
   }
   .btn-outline:hover {
@@ -317,6 +374,25 @@
     height: auto;
     display: block;
     object-fit: contain;
+    transition: scale 1600ms var(--ease-out);
+  }
+  .js .approach-image-container:not(.is-in) img { scale: 1.08; }
+  /* Parallax direkt an den Scroll gekoppelt (Compositor, kein JS) – wo unterstützt */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .approach-image-container { view-timeline: --approach block; }
+      .approach-image-container img {
+        scale: 1.12;
+        animation: approach-parallax linear both;
+        animation-timeline: --approach;
+        animation-range: cover 0% cover 100%;
+      }
+      .js .approach-image-container:not(.is-in) img { scale: 1.2; }
+    }
+  }
+  @keyframes approach-parallax {
+    from { translate: 0 -5%; }
+    to   { translate: 0 5%; }
   }
   .approach-title {
     position: absolute;
@@ -378,17 +454,19 @@
     background-position: center;
     background-repeat: no-repeat;
     overflow: hidden;
+    isolation: isolate;
     text-decoration: none;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
     cursor: pointer;
+    transition: transform 200ms var(--ease-out), box-shadow 600ms var(--ease-out);
   }
+  .js .portfolio-card.zr { transition-duration: 800ms, 1000ms, 200ms, 600ms; }
   .portfolio-card::before {
     content: "";
     position: absolute;
     inset: 0;
     background-color: var(--accent);
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 700ms var(--ease-out);
     z-index: 1;
     mix-blend-mode: multiply;
   }
@@ -396,15 +474,10 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.45);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.34) 0%, rgba(0, 0, 0, 0.56) 100%);
     z-index: 1;
+    transition: opacity 700ms var(--ease-out);
   }
-  .portfolio-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 20px 50px rgba(159, 12, 12, 0.25);
-  }
-  .portfolio-card:hover::before { opacity: 0.2; }
-  .portfolio-card:hover .portfolio-title { opacity: 1; transform: translateY(0); }
   /* Card-Image: liegt unter den ::before/::after Overlays (z-index 1) und unter dem Titel (z-index 2) */
   .portfolio-card > img {
     position: absolute;
@@ -414,11 +487,15 @@
     object-fit: cover;
     display: block;
     z-index: 0;
+    transition: transform 1400ms var(--ease-out), scale 1600ms var(--ease-out);
   }
+  /* Beim Einblenden setzt sich das Bild aus einem leichten Zoom */
+  .js .portfolio-card:not(.is-in) > img { scale: 1.12; }
   .portfolio-title {
     position: absolute;
     inset: 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -429,10 +506,33 @@
     z-index: 2;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    opacity: 0.85;
-    transform: translateY(8px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    opacity: 0.9;
+    transition: opacity 500ms var(--ease-out), transform 700ms var(--ease-out);
     line-height: 1.1;
+  }
+  .portfolio-title::after {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 2px;
+    margin-top: 0.9rem;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 600ms var(--ease-out);
+  }
+  .portfolio-card:active { transform: scale(0.985); }
+  @media (hover: hover) and (pointer: fine) {
+    .portfolio-card:hover { box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.7); }
+    .portfolio-card:hover > img { transform: scale(1.06); }
+    .portfolio-card:hover::before { opacity: 0.14; }
+    .portfolio-card:hover::after { opacity: 0.72; }
+    .portfolio-card:hover .portfolio-title { opacity: 1; transform: translateY(-6px); }
+    .portfolio-card:hover .portfolio-title::after { transform: scaleX(1); }
+  }
+  /* Touch: kein Hover – Titel und Linie sind von Anfang an voll sichtbar */
+  @media (hover: none) {
+    .portfolio-title { opacity: 1; }
+    .portfolio-title::after { transform: scaleX(1); }
   }
 
   /* Kontakt */
@@ -493,17 +593,6 @@
   .footer-legal a:hover {
     opacity: 1;
     color: #9f0c0c;
-  }
-
-  /* Fade-in animation */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   /* ============================================================
@@ -683,8 +772,12 @@
       -webkit-font-smoothing: subpixel-antialiased !important;
       -moz-osx-font-smoothing: auto !important;
     }
+
+    .hero-cue { bottom: 1.25rem; height: 40px; }
   }
 </style>
+<link rel="stylesheet" href="assets/zfx.css?v=1">
+<script src="assets/zfx.js?v=1" defer></script>
 </head>
 <body>
 
@@ -706,36 +799,40 @@
 
 <!-- 2.2 Hero -->
 <section class="hero" aria-label="Hero">
-  <h1 class="hero-title">
-    <span class="ziani">ZIANI</span><span class="fx">FX</span>
-  </h1>
-  <p class="hero-sub">Visual Storytelling &nbsp;|&nbsp; Foto &amp; Videography</p>
-  <a href="mailto:zianifx@outlook.com" class="btn-outline mt-10">Projekt anfragen</a>
+  <div class="hero-grain" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <h1 class="hero-title">
+      <span class="tr-mask"><span class="tr-line ziani">ZIANI</span></span><span class="tr-mask"><span class="tr-line fx">FX</span></span>
+    </h1>
+    <p class="hero-sub">Visual Storytelling &nbsp;|&nbsp; Foto &amp; Videography</p>
+    <a href="mailto:zianifx@outlook.com" class="btn-outline mt-10">Projekt anfragen</a>
+  </div>
+  <div class="hero-cue" aria-hidden="true"><span></span></div>
 </section>
 
 <!-- 2.3 About -->
-<section id="about" class="fade-up" aria-label="Über mich">
+<section id="about" aria-label="Über mich">
   <div class="container-max">
     <div class="about-grid">
       <div>
-        <h1 class="about-name">MOHAMED ZIANI</h1>
-        <h2 class="about-brand">
+        <h1 class="about-name zr-lines">MOHAMED ZIANI</h1>
+        <h2 class="about-brand zr-lines">
           <span class="ziani">ZIANI</span><span class="fx">FX</span>
         </h2>
-        <p class="about-text">
+        <p class="about-text zr">
           Mein Name ist Mohamed Ziani, Gründer von <span class="ziani">ZIANI</span><span class="fx">FX</span>.
           Ich bin Videograf, Fotograf und Video-Editor mit Fokus
           auf moderne visuelle Produktionen für Brands,
           Unternehmen und kreative Projekte.
         </p>
-        <p class="about-text" style="margin-top: 1.25rem;">
+        <p class="about-text zr" style="margin-top: 1.25rem;">
           Mein Schwerpunkt liegt auf hochwertiger
           Videoproduktion, Fotografie, Postproduktion sowie
           Social-Media- und UGC-Content mit cineastischer
           Bildsprache und moderner Ästhetik.
         </p>
       </div>
-      <div class="about-video-container">
+      <div class="about-video-container zr">
         <div class="video-wrapper-portrait">
           <iframe
             src="https://www.youtube.com/embed/Pj0I6JVkhmw?rel=0"
@@ -751,15 +848,15 @@
 </section>
 
 <!-- 2.4 Approach -->
-<section id="approach" class="fade-up" aria-label="Approach">
+<section id="approach" aria-label="Approach">
   <div class="container-max">
     <div class="approach-image-wrapper">
-      <div class="approach-image-container">
-        <img src="Images/Approach.JPG" alt="Approach" loading="lazy" decoding="async">
+      <div class="approach-image-container zr">
+        <img src="Images/Approach.JPG" alt="Approach" width="6141" height="2520" loading="lazy" decoding="async">
       </div>
-      <h2 class="approach-title">APPROACH</h2>
+      <h2 class="approach-title zr-lines">APPROACH</h2>
     </div>
-    <p class="approach-text">
+    <p class="approach-text zr">
       Bilder und Videos beeinflussen, wie wir Menschen, Orte und Momente wahrnehmen
       und uns an sie erinnern.
       <br><br>
@@ -771,23 +868,23 @@
 </section>
 
 <!-- 2.5 Portfolio -->
-<section id="portfolio" class="fade-up" aria-label="Featured Work">
+<section id="portfolio" aria-label="Featured Work">
   <div class="container-max">
-    <h2 class="section-heading">FEATURED WORK</h2>
+    <h2 class="section-heading zr-lines">FEATURED WORK</h2>
     <div class="portfolio-grid">
-      <a href="interior.html" class="portfolio-card" aria-label="Interieur & Hospitality">
+      <a href="interior.html" class="portfolio-card zr" data-cursor aria-label="Interieur & Hospitality">
         <img src="Images/Portfolio/Interieur/Milo7.JPG" alt="Interieur & Hospitality" loading="eager" decoding="async">
         <span class="portfolio-title">Interieur &amp;<br>Hospitality</span>
       </a>
-      <a href="events.html" class="portfolio-card" aria-label="Event & Weddings">
+      <a href="events.html" class="portfolio-card zr" data-cursor aria-label="Event & Weddings">
         <img src="Images/Portfolio/Events/Stuttgart1.JPG" alt="Event & Weddings" loading="eager" decoding="async">
         <span class="portfolio-title">Event &amp;<br>Weddings</span>
       </a>
-      <a href="commercial.html" class="portfolio-card" aria-label="Product & Commercial">
+      <a href="commercial.html" class="portfolio-card zr" data-cursor aria-label="Product & Commercial">
         <img src="Images/Portfolio/Product/Prestij9.JPG" alt="Product & Commercial" loading="eager" decoding="async">
         <span class="portfolio-title">Product &amp;<br>Commercial</span>
       </a>
-      <a href="lifestyle.html" class="portfolio-card" aria-label="People, Sports & Lifestyle">
+      <a href="lifestyle.html" class="portfolio-card zr" data-cursor aria-label="People, Sports & Lifestyle">
         <img src="Images/Portfolio/Portrait/Lifestyle1.JPG" alt="People, Sports & Lifestyle" loading="eager" decoding="async">
         <span class="portfolio-title">People, Sports<br>&amp; Lifestyle</span>
       </a>
@@ -796,23 +893,23 @@
 </section>
 
 <!-- 2.6 Kontakt -->
-<section id="kontakt" class="fade-up" aria-label="Kontakt">
+<section id="kontakt" aria-label="Kontakt">
   <div class="container-max">
-    <h2 class="section-heading">KONTAKT</h2>
+    <h2 class="section-heading zr-lines">KONTAKT</h2>
     <div class="kontakt-wrap">
-      <p class="kontakt-line">Standort: Köln / Bonn</p>
-      <p class="kontakt-line">
+      <p class="kontakt-line zr">Standort: Köln / Bonn</p>
+      <p class="kontakt-line zr">
         Instagram:
         <a class="kontakt-link" href="https://instagram.com/zianifx" target="_blank" rel="noopener noreferrer">@ZianiFX</a>
       </p>
-      <p class="kontakt-line">
+      <p class="kontakt-line zr">
         E-Mail:
         <a class="kontakt-link" href="mailto:zianifx@outlook.com">zianifx@outlook.com</a>
       </p>
-      <div class="mt-10">
+      <div class="mt-10 zr">
         <a href="mailto:zianifx@outlook.com" class="btn-outline">Projekt anfragen</a>
       </div>
-      <p class="kontakt-note">Ich antworte meist innerhalb von 24 Stunden.</p>
+      <p class="kontakt-note zr">Ich antworte meist innerhalb von 24 Stunden.</p>
     </div>
   </div>
 </section>
@@ -828,69 +925,7 @@
 </footer>
 
 <script>
-  // Navbar scroll state
-  const nav = document.getElementById('navbar');
-  const onScroll = () => {
-    if (window.scrollY > 30) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  // Fade-up on scroll
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  // About-Video: Vorschauframe aus Sekunde 12 + Play-Overlay (ein-/ausblenden bei play/pause/ended)
-  (function() {
-    const v  = document.getElementById('about-video');
-    const ov = document.getElementById('about-video-overlay');
-    if (!v || !ov) return;
-
-    const PREVIEW_TIME = 12;
-    let hasStartedPlaying = false;
-
-    // Vorschau-Frame setzen sobald Metadaten geladen sind
-    const seekToPreview = () => {
-      if (isFinite(v.duration) && v.duration > PREVIEW_TIME) {
-        try { v.currentTime = PREVIEW_TIME; } catch (e) {}
-      }
-    };
-    if (v.readyState >= 1) seekToPreview();
-    else v.addEventListener('loadedmetadata', seekToPreview, { once: true });
-
-    // Beim ersten Play: zurück auf Sekunde 0 und von Anfang starten.
-    // Bei späterem pause→resume: aus aktueller Position weiterspielen (normales UX).
-    const startPlay = () => {
-      if (!hasStartedPlaying) {
-        try { v.currentTime = 0; } catch (e) {}
-      }
-      v.play().catch(() => {});
-    };
-
-    ov.addEventListener('click', startPlay);
-    ov.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startPlay(); }
-    });
-    v.addEventListener('click', () => {
-      if (v.paused) startPlay();
-      else v.pause();
-    });
-    v.addEventListener('play',  () => { hasStartedPlaying = true; ov.classList.add('hidden'); });
-    v.addEventListener('pause', () => ov.classList.remove('hidden'));
-    v.addEventListener('ended', () => {
-      hasStartedPlaying = false;
-      try { v.currentTime = PREVIEW_TIME; } catch (e) {}
-      ov.classList.remove('hidden');
-    });
-  })();
+  // Navbar, Reveals, Cursor & Co. kommen aus assets/zfx.js
 
   // Portfolio-Karten Bild-Fallback: testet alternative Dateiendungen
   // falls die ursprüngliche Schreibweise auf dem Server nicht existiert
