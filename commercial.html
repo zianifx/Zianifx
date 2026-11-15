@@ -6,6 +6,8 @@
 <title>Product & Commercial – ZIANI FX</title>
 <meta name="description" content="Product & Commercial – cinematic visuals von ZIANI FX." />
 
+<!-- Motion: hidden reveal states only while JS is active; safety timer shows everything if zfx.js never boots -->
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.zfxReady)document.documentElement.classList.remove('js')},5000);</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- Preconnect für schnelleres Laden -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,22 +66,7 @@
     overflow-x: hidden;
   }
 
-  .navbar {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 50;
-    background-color: rgba(35, 32, 32, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: all 0.3s ease;
-    border-bottom: 1px solid transparent;
-  }
-  .navbar.scrolled {
-    background-color: rgba(26, 24, 24, 0.92);
-    border-bottom: 1px solid var(--accent);
-  }
-  .nav-link { color: var(--text); transition: color 0.3s ease; text-decoration: none; }
-  .nav-link:hover { color: var(--accent); }
-
+  /* Navbar: Material, Fortschrittslinie & Link-Zustände kommen aus assets/zfx.css */
   .logo {
     font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
     font-size: 1.75rem;
@@ -300,23 +287,15 @@
     display: block;
     margin: 0;
     background-color: #2a2727;
-    transition: transform 0.4s ease;
+    transition: transform 0.6s ease;
     cursor: pointer;
   }
-  .image-grid img:hover { transform: scale(1.01); }
 
-  /* Override: Bilder im Grid IMMER sichtbar (kein opacity 0 Bug) */
-  .image-grid img.fade-up {
-    opacity: 1 !important;
-    transform: none !important;
+  /* Format-spezifische Aspect-Ratios – nur Desktop; mobil gilt das echte Seitenverhältnis aus width/height */
+  @media (min-width: 769px) {
+    .image-grid img.landscape { aspect-ratio: 3 / 2; }
+    .image-grid img.portrait  { aspect-ratio: 2 / 3; }
   }
-  .image-grid img.fade-up:hover {
-    transform: scale(1.01) !important;
-  }
-
-  /* Format-spezifische Aspect-Ratios */
-  .image-grid img.landscape { aspect-ratio: 3 / 2; }
-  .image-grid img.portrait  { aspect-ratio: 2 / 3; }
 
   /* Tablet — gleiche Reihenstruktur, schmaler */
   @media (max-width: 1023px) and (min-width: 640px) {
@@ -329,71 +308,7 @@
     .image-group { margin-bottom: 36px; }
   }
 
-  /* Lightbox */
-  .lightbox {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background-color: rgba(0, 0, 0, 0.92);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-  .lightbox.open {
-    opacity: 1;
-    visibility: visible;
-  }
-  .lightbox-img {
-    max-width: 90vw;
-    max-height: 90vh;
-    object-fit: contain;
-    display: block;
-    user-select: none;
-    -webkit-user-drag: none;
-    pointer-events: none;
-  }
-  .lightbox-close,
-  .lightbox-prev,
-  .lightbox-next {
-    position: absolute;
-    background: transparent;
-    border: none;
-    color: #d3d0cb;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    font-family: 'Arimo', Arial, Helvetica, sans-serif;
-    z-index: 2;
-    padding: 0.5rem 1rem;
-    line-height: 1;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .lightbox-close {
-    top: 1.5rem;
-    right: 1.5rem;
-    font-size: 2rem;
-  }
-  .lightbox-prev,
-  .lightbox-next {
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 3rem;
-  }
-  .lightbox-prev { left: 1.5rem; }
-  .lightbox-next { right: 1.5rem; }
-  .lightbox-close:hover,
-  .lightbox-prev:hover,
-  .lightbox-next:hover {
-    color: #9f0c0c;
-  }
-  @media (max-width: 640px) {
-    .lightbox-prev, .lightbox-next { font-size: 2.2rem; }
-    .lightbox-close { font-size: 1.75rem; top: 1rem; right: 1rem; }
-    .lightbox-prev { left: 0.5rem; }
-    .lightbox-next { right: 0.5rem; }
-  }
+  /* Lightbox: Styles & Verhalten kommen aus assets/zfx.css / zfx.js */
 
   /* Kontakt */
   .kontakt-section { padding: 6rem 1.5rem; }
@@ -452,7 +367,6 @@
     text-decoration: none;
     background-color: transparent;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-size: 0.95rem;
   }
   .btn-outline:hover {
@@ -485,13 +399,6 @@
     opacity: 1;
     color: #9f0c0c;
   }
-
-  .fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
 
   /* ============================================================
      MOBILE (≤ 768px) – Desktop in klein
@@ -601,7 +508,6 @@
       display: block;
       width: 100%;
       height: auto !important;
-      aspect-ratio: unset !important;
       object-fit: cover;
       margin-bottom: 8px;
     }
@@ -617,6 +523,8 @@
     }
   }
 </style>
+<link rel="stylesheet" href="assets/zfx.css?v=1">
+<script src="assets/zfx.js?v=1" defer></script>
 </head>
 <body>
 
@@ -641,17 +549,17 @@
 
 <main>
   <div class="container-max">
-    <a href="index.html#portfolio" class="back-link">← Zurück zum Portfolio</a>
+    <a href="index.html#portfolio" class="back-link zr">← Zurück zum Portfolio</a>
 
-    <h1 class="page-title fade-up">PRODUCT &amp;<br>COMMERCIAL</h1>
+    <h1 class="page-title zr-lines">PRODUCT &amp;<br>COMMERCIAL</h1>
 
     <!-- Section 1: Social & UGC Content -->
-    <section class="subsection fade-up" id="social-ugc" aria-label="Social & UGC Content">
-      <h2 class="subsection-heading">SOCIAL &amp; UGC CONTENT</h2>
-      <p class="subsection-text">
+    <section class="subsection" id="social-ugc" aria-label="Social & UGC Content">
+      <h2 class="subsection-heading zr-lines">SOCIAL &amp; UGC CONTENT</h2>
+      <p class="subsection-text zr">
         Werbevideos, Social-Media-Ads und UGC-Content für Produkte und Brands – produziert für Instagram, TikTok, Google-Anzeigen und moderne digitale Markenpräsenz.
       </p>
-      <div class="video-wrapper-portrait fade-up">
+      <div class="video-wrapper-portrait zr">
         <iframe
           src="https://www.youtube.com/embed/9poqsNXv5ZU?rel=0"
           frameborder="0"
@@ -662,9 +570,9 @@
     </section>
 
     <!-- Section 2: Visual Branding -->
-    <section class="subsection fade-up" id="visual-branding" aria-label="Visual Branding">
-      <h2 class="subsection-heading">VISUAL BRANDING</h2>
-      <p class="subsection-text">
+    <section class="subsection" id="visual-branding" aria-label="Visual Branding">
+      <h2 class="subsection-heading zr-lines">VISUAL BRANDING</h2>
+      <p class="subsection-text zr">
         Hochwertige Produktfotografie für Websites, Online-Shops und digitale Markenpräsenz – ästhetisch, aufmerksamkeitsstark und markenwirksam.
       </p>
       <!-- Gruppe 1 — Prestij (11 imgs · Hero L → L-L → P×4 → P×4) -->
@@ -672,26 +580,26 @@
         <div class="image-grid" aria-label="Projektgalerie Prestij">
           <!-- Reihe 1: Hero-Landscape (3:2) -->
           <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij1.JPG"  alt="ZIANI FX – Prestij Product" class="fade-up landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij1.JPG" width="6192" height="4128"  alt="ZIANI FX – Prestij Product" class="zr landscape">
           </div>
           <!-- Reihe 2: 2× Landscape (3:2) -->
           <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij2.JPG"  alt="ZIANI FX – Prestij Product" class="fade-up landscape">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij3.JPG"  alt="ZIANI FX – Prestij Product" class="fade-up landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij2.JPG" width="6192" height="4128"  alt="ZIANI FX – Prestij Product" class="zr landscape">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij3.JPG" width="6192" height="4128"  alt="ZIANI FX – Prestij Product" class="zr landscape">
           </div>
           <!-- Reihe 3: 4× Portrait (2:3) -->
           <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij4.JPG"  alt="ZIANI FX – Prestij Product" class="fade-up portrait">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij5.JPG"  alt="ZIANI FX – Prestij Product" class="fade-up portrait">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij6.JPG"  alt="ZIANI FX – Prestij Product" class="fade-up portrait">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij7.JPG"  alt="ZIANI FX – Prestij Product" class="fade-up portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij4.JPG" width="4128" height="6192"  alt="ZIANI FX – Prestij Product" class="zr portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij5.JPG" width="4128" height="6192"  alt="ZIANI FX – Prestij Product" class="zr portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij6.JPG" width="4128" height="6192"  alt="ZIANI FX – Prestij Product" class="zr portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij7.JPG" width="4128" height="6192"  alt="ZIANI FX – Prestij Product" class="zr portrait">
           </div>
           <!-- Reihe 4: 4× Portrait (2:3) -->
           <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij8.JPG"  alt="ZIANI FX – Prestij Product" class="fade-up portrait">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij9.JPG"  alt="ZIANI FX – Prestij Product" class="fade-up portrait">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij10.JPG" alt="ZIANI FX – Prestij Product" class="fade-up portrait">
-            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij11.JPG" alt="ZIANI FX – Prestij Product" class="fade-up portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij8.JPG" width="4128" height="6192"  alt="ZIANI FX – Prestij Product" class="zr portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij9.JPG" width="4128" height="6192"  alt="ZIANI FX – Prestij Product" class="zr portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij10.JPG" width="4128" height="6192" alt="ZIANI FX – Prestij Product" class="zr portrait">
+            <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij11.JPG" width="4128" height="6192" alt="ZIANI FX – Prestij Product" class="zr portrait">
           </div>
         </div>
       </div>
@@ -700,23 +608,23 @@
 </main>
 
 <!-- Kontakt -->
-<section id="kontakt" class="kontakt-section fade-up" aria-label="Kontakt">
+<section id="kontakt" class="kontakt-section" aria-label="Kontakt">
   <div class="container-max">
-    <h2 class="section-heading">KONTAKT</h2>
+    <h2 class="section-heading zr-lines">KONTAKT</h2>
     <div class="kontakt-wrap">
-      <p class="kontakt-line">Standort: Köln / Bonn</p>
-      <p class="kontakt-line">
+      <p class="kontakt-line zr">Standort: Köln / Bonn</p>
+      <p class="kontakt-line zr">
         Instagram:
         <a class="kontakt-link" href="https://instagram.com/zianifx" target="_blank" rel="noopener noreferrer">@ZianiFX</a>
       </p>
-      <p class="kontakt-line">
+      <p class="kontakt-line zr">
         E-Mail:
         <a class="kontakt-link" href="mailto:zianifx@outlook.com">zianifx@outlook.com</a>
       </p>
-      <div class="mt-10">
+      <div class="mt-10 zr">
         <a href="mailto:zianifx@outlook.com" class="btn-outline">Projekt anfragen</a>
       </div>
-      <p class="kontakt-note">Ich antworte meist innerhalb von 24 Stunden.</p>
+      <p class="kontakt-note zr">Ich antworte meist innerhalb von 24 Stunden.</p>
     </div>
   </div>
 </section>
@@ -736,198 +644,7 @@
   <button type="button" class="lightbox-close" aria-label="Schließen">&#10005;</button>
 </div>
 
-<script>
-  const nav = document.getElementById('navbar');
-  const onScroll = () => {
-    if (window.scrollY > 30) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  // Sticky Subnav: aktiver Tab via IntersectionObserver (Smooth-Scroll via CSS scroll-behavior)
-  (function() {
-    const links = Array.from(document.querySelectorAll('.subnav-link'));
-    if (!links.length) return;
-    const sections = links
-      .map(a => document.getElementById(a.dataset.target))
-      .filter(Boolean);
-    if (!sections.length) return;
-
-    const setActive = (id) => {
-      links.forEach(a => a.classList.toggle('active', a.dataset.target === id));
-    };
-    let activeId = sections[0].id;
-    setActive(activeId);
-
-    const ratios = new Map();
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => ratios.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0));
-      let best = activeId, bestRatio = 0;
-      ratios.forEach((r, id) => { if (r > bestRatio) { bestRatio = r; best = id; } });
-      if (best !== activeId) { activeId = best; setActive(best); }
-    }, {
-      rootMargin: '-130px 0px -40% 0px',
-      threshold: [0, 0.1, 0.25, 0.5, 0.75, 1]
-    });
-    sections.forEach(s => obs.observe(s));
-  })();
-
-  // Section-Video (Social & UGC Content): Vorschauframe Sekunde 12 + Play-Overlay
-  (function() {
-    const v  = document.getElementById('section-video');
-    const ov = document.getElementById('section-video-overlay');
-    if (!v || !ov) return;
-
-    const PREVIEW_TIME = 12;
-    let hasStartedPlaying = false;
-
-    const seekToPreview = () => {
-      if (isFinite(v.duration) && v.duration > PREVIEW_TIME) {
-        try { v.currentTime = PREVIEW_TIME; } catch (e) {}
-      }
-    };
-    if (v.readyState >= 1) seekToPreview();
-    else v.addEventListener('loadedmetadata', seekToPreview, { once: true });
-
-    const startPlay = () => {
-      if (!hasStartedPlaying) {
-        try { v.currentTime = 0; } catch (e) {}
-      }
-      v.play().catch(() => {});
-    };
-
-    ov.addEventListener('click', startPlay);
-    ov.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startPlay(); }
-    });
-    v.addEventListener('click', () => {
-      if (v.paused) startPlay();
-      else v.pause();
-    });
-    v.addEventListener('play',  () => { hasStartedPlaying = true; ov.classList.add('hidden'); });
-    v.addEventListener('pause', () => ov.classList.remove('hidden'));
-    v.addEventListener('ended', () => {
-      hasStartedPlaying = false;
-      try { v.currentTime = PREVIEW_TIME; } catch (e) {}
-      ov.classList.remove('hidden');
-    });
-  })();
-
-  // Lightbox (Visual Branding image grids — multiple groups)
-  (function() {
-    const grids = document.querySelectorAll('.image-grid');
-    if (!grids.length) return;
-    const images = Array.from(grids).flatMap(g => Array.from(g.querySelectorAll('img')));
-    if (!images.length) return;
-
-    const lightbox = document.getElementById('lightbox');
-    const lbImg    = lightbox.querySelector('.lightbox-img');
-    const lbClose  = lightbox.querySelector('.lightbox-close');
-    const lbPrev   = lightbox.querySelector('.lightbox-prev');
-    const lbNext   = lightbox.querySelector('.lightbox-next');
-
-    let currentIdx = 0;
-
-    function setImage(idx) {
-      currentIdx = (idx + images.length) % images.length;
-      lbImg.src = images[currentIdx].src;
-      lbImg.alt = images[currentIdx].alt || '';
-    }
-    function open(idx) {
-      setImage(idx);
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-    function close() {
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-    function next() { setImage(currentIdx + 1); }
-    function prev() { setImage(currentIdx - 1); }
-
-    images.forEach((img, i) => {
-      img.addEventListener('click', () => open(i));
-    });
-
-    lbClose.addEventListener('click', (e) => { e.stopPropagation(); close(); });
-    lbPrev.addEventListener('click',  (e) => { e.stopPropagation(); prev(); });
-    lbNext.addEventListener('click',  (e) => { e.stopPropagation(); next(); });
-
-    // Click on backdrop closes
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) close();
-    });
-
-    // Keyboard support
-    document.addEventListener('keydown', (e) => {
-      if (!lightbox.classList.contains('open')) return;
-      if (e.key === 'Escape')          close();
-      else if (e.key === 'ArrowLeft')  prev();
-      else if (e.key === 'ArrowRight') next();
-    });
-
-    // Touch swipe (mobile)
-    let touchStartX = 0;
-    let touchStartY = 0;
-    lightbox.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-      touchStartY = e.changedTouches[0].screenY;
-    }, { passive: true });
-    lightbox.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].screenX - touchStartX;
-      const dy = e.changedTouches[0].screenY - touchStartY;
-      // Only treat as horizontal swipe if mostly horizontal and > 50px
-      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-        if (dx < 0) next();
-        else prev();
-      }
-    }, { passive: true });
-  })();
-
-  // Lazy-Load Fallback (Intersection Observer)
-  // Sicherstellen dass Lazy Loading auch auf Mobile zuverlässig greift,
-  // selbst wenn native loading="lazy" im Browser nicht korrekt feuert.
-  document.addEventListener('DOMContentLoaded', function() {
-    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-    if (!('IntersectionObserver' in window) || !lazyImages.length) return;
-
-    const imageObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          if (img.dataset.src) {
-            img.src = img.dataset.src;
-            img.removeAttribute('data-src');
-          }
-          img.style.opacity = '1';
-          imageObserver.unobserve(img);
-        }
-      });
-    }, {
-      rootMargin: '200px 0px',
-      threshold: 0.01
-    });
-
-    lazyImages.forEach(function(img) {
-      img.style.opacity = '0';
-      img.style.transition = 'opacity 0.3s ease';
-      imageObserver.observe(img);
-    });
-  });
-</script>
+<!-- Navbar, Tabs, Reveals, Lightbox, Video-Facades & Lazy-Load-Absicherung: assets/zfx.js -->
 
 </body>
 </html>
