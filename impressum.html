@@ -6,6 +6,8 @@
 <title>Impressum – ZIANI FX</title>
 <meta name="description" content="Impressum – Angaben gemäß § 5 TMG für ZIANI FX." />
 
+<!-- Motion: hidden reveal states only while JS is active; safety timer shows everything if zfx.js never boots -->
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.zfxReady)document.documentElement.classList.remove('js')},5000);</script>
 <script src="https://cdn.tailwindcss.com"></script>
 <!-- Preconnect für schnelleres Laden -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -64,22 +66,7 @@
     overflow-x: hidden;
   }
 
-  .navbar {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 50;
-    background-color: rgba(35, 32, 32, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: all 0.3s ease;
-    border-bottom: 1px solid transparent;
-  }
-  .navbar.scrolled {
-    background-color: rgba(26, 24, 24, 0.92);
-    border-bottom: 1px solid var(--accent);
-  }
-  .nav-link { color: var(--text); transition: color 0.3s ease; text-decoration: none; }
-  .nav-link:hover { color: var(--accent); }
-
+  /* Navbar: Material, Fortschrittslinie & Link-Zustände kommen aus assets/zfx.css */
   .logo {
     font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
     font-size: 1.75rem;
@@ -175,18 +162,13 @@
     color: #9f0c0c;
   }
 
-  .fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
-
   @media (max-width: 640px) {
     .nav-links { gap: 1rem; }
     .nav-links a { font-size: 0.85rem; }
   }
 </style>
+<link rel="stylesheet" href="assets/zfx.css?v=1">
+<script src="assets/zfx.js?v=1" defer></script>
 </head>
 <body>
 
@@ -205,12 +187,12 @@
 
 <main>
   <div class="container-max">
-    <a href="index.html" class="back-link">← Zurück zur Startseite</a>
+    <a href="index.html" class="back-link zr">← Zurück zur Startseite</a>
 
-    <h1 class="page-title fade-up">IMPRESSUM</h1>
+    <h1 class="page-title zr-lines">IMPRESSUM</h1>
 
     <div class="legal-content">
-      <div class="legal-block fade-up">
+      <div class="legal-block zr">
         <h2 class="legal-heading">Angaben gemäß § 5 TMG</h2>
         <p class="legal-text">Mohamed Ziani
 ZianiFM
@@ -218,34 +200,34 @@ Im Grieß 18
 53179 Bonn</p>
       </div>
 
-      <div class="legal-block fade-up">
+      <div class="legal-block zr">
         <h2 class="legal-heading">Kontakt</h2>
         <p class="legal-text">E-Mail: <a href="mailto:zianifx@outlook.com">zianifx@outlook.com</a></p>
       </div>
 
-      <div class="legal-block fade-up">
+      <div class="legal-block zr">
         <h2 class="legal-heading">Kleinunternehmerregelung</h2>
         <p class="legal-text">Gemäß § 19 UStG wird keine Umsatzsteuer erhoben.</p>
       </div>
 
-      <div class="legal-block fade-up">
+      <div class="legal-block zr">
         <h2 class="legal-heading">Gewerbeanmeldung</h2>
         <p class="legal-text">Eingetragen beim Gewerbeamt Bonn.</p>
       </div>
 
-      <div class="legal-block fade-up">
+      <div class="legal-block zr">
         <h2 class="legal-heading">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
         <p class="legal-text">Mohamed Ziani
 Im Grieß 18
 53179 Bonn</p>
       </div>
 
-      <div class="legal-block fade-up">
+      <div class="legal-block zr">
         <h2 class="legal-heading">Haftungsausschluss</h2>
         <p class="legal-text">Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.</p>
       </div>
 
-      <div class="legal-block fade-up">
+      <div class="legal-block zr">
         <h2 class="legal-heading">Urheberrecht</h2>
         <p class="legal-text">Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
       </div>
@@ -260,25 +242,7 @@ Im Grieß 18
   </div>
 </footer>
 
-<script>
-  const nav = document.getElementById('navbar');
-  const onScroll = () => {
-    if (window.scrollY > 30) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-</script>
+<!-- Navbar & Reveals: assets/zfx.js -->
 
 </body>
 </html>
