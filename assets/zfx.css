@@ -594,6 +594,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   height: 100%;
   max-width: none;
   object-fit: cover;
+  scale: 1.06; /* hides the thin black edges some YouTube thumbnails carry */
   transition: transform 1200ms var(--ease-out);
 }
 .yt-facade::after {

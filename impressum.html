@@ -2,247 +2,117 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Impressum – ZIANI FX</title>
 <meta name="description" content="Impressum – Angaben gemäß § 5 TMG für ZIANI FX." />
+<meta name="theme-color" content="#232020" />
 
-<!-- Motion: hidden reveal states only while JS is active; safety timer shows everything if zfx.js never boots -->
-<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.zfxReady)document.documentElement.classList.remove('js')},5000);</script>
-<script src="https://cdn.tailwindcss.com"></script>
-<!-- Preconnect für schnelleres Laden -->
+<!-- Boot: reveal states only while JS is active; safety timer shows everything if zfx.js never boots -->
+<script>(function(){var d=document.documentElement;d.classList.add('js');try{if(d.hasAttribute('data-intro')&&!sessionStorage.getItem('zfxSeen')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('intro-on');sessionStorage.setItem('zfxSeen','1')}}catch(e){}setTimeout(function(){d.classList.add('intro-done');if(!window.zfxReady)d.classList.remove('js')},4500)})();</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<!-- Preload der wichtigsten Fonts -->
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
-
-<!-- Fonts laden -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
-
-<style>
-  :root {
-    --bg: #232020;
-    --text: #d3d0cb;
-    --accent: #9f0c0c;
-    --white: #FFFFFF;
-    --card: #2e2b2b;
-    --footer-bg: #1a1818;
-  }
-
-  .ziani { color: #d3d0cb; }
-  .fx    { color: #9f0c0c; }
-
-  * {
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-  }
-
-  /* iOS-Safari-Font-Fix — verhindert Synth-Bold und erzwingt echte Webfonts */
-  @supports (-webkit-touch-callout: none) {
-    .ziani, .fx {
-      font-family: 'Anton', Impact, 'Arial Narrow', sans-serif !important;
-      font-synthesis: none;
-    }
-    h1, h2, h3 {
-      font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif !important;
-      font-synthesis: none;
-    }
-    p, a {
-      font-family: 'Arimo', Arial, Helvetica, sans-serif !important;
-      font-synthesis: none;
-    }
-  }
-
-  html { scroll-behavior: smooth; }
-  body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-family: 'Arimo', Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-
-  /* Navbar: Material, Fortschrittslinie & Link-Zustände kommen aus assets/zfx.css */
-  .logo {
-    font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
-    font-size: 1.75rem;
-    letter-spacing: 0.04em;
-  }
-
-  .container-max { max-width: 1280px; margin: 0 auto; }
-
-  main { padding: 9rem 1.5rem 4rem; }
-  @media (min-width: 768px) { main { padding: 11rem 3rem 6rem; } }
-
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    color: var(--text);
-    text-decoration: none;
-    font-family: 'Arimo', Arial, Helvetica, sans-serif;
-    font-size: 0.9rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    transition: color 0.3s ease;
-    margin-bottom: 2.5rem;
-  }
-  .back-link:hover { color: var(--accent); }
-
-  .page-title {
-    font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
-    color: var(--text);
-    font-size: clamp(3.5rem, 10vw, 8.5rem);
-    margin: 0 0 3rem 0;
-    line-height: 0.95;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-  }
-
-  .legal-content {
-    max-width: 56rem;
-  }
-  .legal-block { margin-bottom: 2.5rem; }
-  .legal-block:last-child { margin-bottom: 0; }
-  .legal-heading {
-    font-family: 'League Gothic', Impact, 'Arial Narrow', sans-serif;
-    color: var(--text);
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    line-height: 1.1;
-    margin: 0 0 0.85rem 0;
-  }
-  .legal-text {
-    font-family: 'Arimo', Arial, Helvetica, sans-serif;
-    color: var(--text);
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin: 0 0 0.6rem 0;
-    white-space: pre-line;
-  }
-  .legal-text:last-child { margin-bottom: 0; }
-  .legal-text a {
-    color: var(--text);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: color 0.3s ease, border-bottom-color 0.3s ease;
-  }
-  .legal-text a:hover {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-
-  footer {
-    background-color: var(--footer-bg);
-    color: var(--text);
-    padding: 2.5rem 1.5rem;
-    text-align: center;
-    font-family: 'Arimo', Arial, Helvetica, sans-serif;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-  }
-  .footer-legal {
-    margin-top: 0.75rem;
-    font-family: 'Arimo', Arial, Helvetica, sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-  }
-  .footer-legal a {
-    color: #d3d0cb;
-    opacity: 0.6;
-    text-decoration: none;
-    transition: opacity 0.3s ease, color 0.3s ease;
-  }
-  .footer-legal a:hover {
-    opacity: 1;
-    color: #9f0c0c;
-  }
-
-  @media (max-width: 640px) {
-    .nav-links { gap: 1rem; }
-    .nav-links a { font-size: 0.85rem; }
-  }
-</style>
-<link rel="stylesheet" href="assets/zfx.css?v=2">
-<script src="assets/zfx.js?v=2" defer></script>
+<link rel="stylesheet" href="assets/zfx.css?v=3">
+<script src="assets/zfx.js?v=3" defer></script>
 </head>
-<body>
+<body class="page-legal" id="top">
 
-<nav class="navbar" id="navbar" aria-label="Hauptnavigation">
-  <div class="container-max flex items-center justify-between px-6 py-4">
-    <a href="index.html" class="logo" aria-label="ZIANI FX Home">
-      <span class="ziani">ZIANI</span><span class="fx">FX</span>
-    </a>
-    <div class="nav-links flex items-center gap-8 text-sm uppercase tracking-widest">
+<!-- Header -->
+<header class="site-header" id="navbar">
+  <div class="header-inner">
+    <a href="index.html" class="logo" aria-label="ZIANI FX Home"><span class="ziani">ZIANI</span><span class="fx">FX</span></a>
+    <nav class="nav-links" aria-label="Hauptnavigation">
       <a class="nav-link" href="index.html">Home</a>
       <a class="nav-link" href="index.html#portfolio">Portfolio</a>
       <a class="nav-link" href="index.html#kontakt">Kontakt</a>
-    </div>
+    </nav>
+    <a class="btn btn-solid btn-sm nav-cta" href="mailto:zianifx@outlook.com">Projekt anfragen</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menü öffnen"><span></span><span></span></button>
   </div>
-</nav>
+</header>
 
-<main>
-  <div class="container-max">
+<!-- Menü (Handy) -->
+<div class="menu" id="menu" aria-hidden="true">
+  <nav aria-label="Menü">
+    <span class="menu-item" style="--i:0"><a class="menu-link" href="index.html"><small>01</small>Home</a></span>
+    <span class="menu-item" style="--i:1"><a class="menu-link" href="index.html#portfolio"><small>02</small>Portfolio</a></span>
+    <span class="menu-item" style="--i:2">
+      <span class="menu-sub">
+        <a href="interior.html">Interieur &amp; Hospitality</a>
+        <a href="events.html">Event &amp; Weddings</a>
+        <a href="commercial.html">Product &amp; Commercial</a>
+        <a href="lifestyle.html">People, Sports &amp; Lifestyle</a>
+      </span>
+    </span>
+    <span class="menu-item" style="--i:3"><a class="menu-link" href="index.html#kontakt"><small>03</small>Kontakt</a></span>
+  </nav>
+  <div class="menu-foot">
+    <a href="mailto:zianifx@outlook.com">zianifx@outlook.com</a>
+    <a href="https://instagram.com/zianifx" target="_blank" rel="noopener noreferrer">Instagram @ZianiFX</a>
+    <span>Köln / Bonn</span>
+  </div>
+</div>
+
+<main class="legal">
+  <div class="wrap">
     <a href="index.html" class="back-link zr">← Zurück zur Startseite</a>
-
-    <h1 class="page-title zr-lines">IMPRESSUM</h1>
+    <h1 class="page-title zr-lines">Impressum</h1>
 
     <div class="legal-content">
-      <div class="legal-block zr">
-        <h2 class="legal-heading">Angaben gemäß § 5 TMG</h2>
-        <p class="legal-text">Mohamed Ziani
-ZianiFM
-Im Grieß 18
-53179 Bonn</p>
-      </div>
+          <div class="legal-block zr">
+            <h2 class="legal-heading">Angaben gemäß § 5 TMG</h2>
+            <p class="legal-text">Mohamed Ziani
+    ZianiFM
+    Im Grieß 18
+    53179 Bonn</p>
+          </div>
 
-      <div class="legal-block zr">
-        <h2 class="legal-heading">Kontakt</h2>
-        <p class="legal-text">E-Mail: <a href="mailto:zianifx@outlook.com">zianifx@outlook.com</a></p>
-      </div>
+          <div class="legal-block zr">
+            <h2 class="legal-heading">Kontakt</h2>
+            <p class="legal-text">E-Mail: <a href="mailto:zianifx@outlook.com">zianifx@outlook.com</a></p>
+          </div>
 
-      <div class="legal-block zr">
-        <h2 class="legal-heading">Kleinunternehmerregelung</h2>
-        <p class="legal-text">Gemäß § 19 UStG wird keine Umsatzsteuer erhoben.</p>
-      </div>
+          <div class="legal-block zr">
+            <h2 class="legal-heading">Kleinunternehmerregelung</h2>
+            <p class="legal-text">Gemäß § 19 UStG wird keine Umsatzsteuer erhoben.</p>
+          </div>
 
-      <div class="legal-block zr">
-        <h2 class="legal-heading">Gewerbeanmeldung</h2>
-        <p class="legal-text">Eingetragen beim Gewerbeamt Bonn.</p>
-      </div>
+          <div class="legal-block zr">
+            <h2 class="legal-heading">Gewerbeanmeldung</h2>
+            <p class="legal-text">Eingetragen beim Gewerbeamt Bonn.</p>
+          </div>
 
-      <div class="legal-block zr">
-        <h2 class="legal-heading">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
-        <p class="legal-text">Mohamed Ziani
-Im Grieß 18
-53179 Bonn</p>
-      </div>
+          <div class="legal-block zr">
+            <h2 class="legal-heading">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+            <p class="legal-text">Mohamed Ziani
+    Im Grieß 18
+    53179 Bonn</p>
+          </div>
 
-      <div class="legal-block zr">
-        <h2 class="legal-heading">Haftungsausschluss</h2>
-        <p class="legal-text">Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.</p>
-      </div>
+          <div class="legal-block zr">
+            <h2 class="legal-heading">Haftungsausschluss</h2>
+            <p class="legal-text">Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.</p>
+          </div>
 
-      <div class="legal-block zr">
-        <h2 class="legal-heading">Urheberrecht</h2>
-        <p class="legal-text">Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
-      </div>
-    </div>
+          <div class="legal-block zr">
+            <h2 class="legal-heading">Urheberrecht</h2>
+            <p class="legal-text">Die durch den Seitenbetreiber erstellten Inhalte und Werke auf dieser Website unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+          </div>
+        </div>
   </div>
 </main>
 
-<footer>
-  © 2025 <span class="ziani">ZIANI</span><span class="fx">FX</span> – M. Ziani. Alle Rechte vorbehalten.
-  <div class="footer-legal">
-    <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a>
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-mark" aria-hidden="true"><span class="ziani">ZIANI</span><span class="fx">FX</span></div>
+  <div class="wrap footer-bar">
+    <span>© <span data-year>2026</span> <span class="ziani">ZIANI</span><span class="fx">FX</span> – M. Ziani. Alle Rechte vorbehalten.</span>
+    <span class="footer-clock">Köln <span data-clock>--:--</span></span>
+    <nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+    <a href="#top">Nach oben ↑</a>
   </div>
 </footer>
-
-<!-- Navbar & Reveals: assets/zfx.js -->
 
 </body>
 </html>
