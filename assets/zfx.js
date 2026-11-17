@@ -1044,6 +1044,16 @@
     tiles.forEach(function (tile, i) {
       var btn = tile.querySelector('.ig-load');
       if (!btn) return;
+      // Local cover image (served from this site, not from Meta); if it's missing the branded tile stays
+      var poster = tile.querySelector('.ig-poster');
+      if (poster) {
+        var dropPoster = function () { poster.remove(); tile.classList.remove('has-poster'); };
+        if (poster.complete && poster.getAttribute('src') && !poster.naturalWidth) dropPoster();
+        else {
+          tile.classList.add('has-poster');
+          poster.addEventListener('error', dropPoster, { once: true });
+        }
+      }
       var note = tile.querySelector('.ig-note');
       var cap = tile.parentNode.querySelector('.caption');
       if (note) {
