@@ -1237,7 +1237,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* Dark brand surface: warm grain, a low red glow and viewfinder corner marks — no stock imagery */
 .ph-visual,
 .yt-facade[data-video-id=""],
-.photo-soon {
+.photo-soon,
+.ig-tile {
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E") 0 0 / 220px 220px,
     radial-gradient(70% 60% at 80% 84%, rgba(159, 12, 12, 0.38) 0%, rgba(159, 12, 12, 0) 72%),
@@ -1246,7 +1247,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .ph-visual::before,
 .yt-facade[data-video-id=""]::before,
-.photo-soon::before {
+.photo-soon::before,
+.ig-tile::before {
   content: "";
   position: absolute;
   z-index: 1;
@@ -1292,7 +1294,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (hover: hover) and (pointer: fine) { .next:hover > .ph-visual { transform: scale(1.05); } }
 @media (max-width: 768px) {
   .ph-landscape::before { width: 74%; }
-  .ph-visual::before, .yt-facade[data-video-id=""]::before, .photo-soon::before { --t: 14px; }
+  .ph-visual::before, .yt-facade[data-video-id=""]::before, .photo-soon::before, .ig-tile::before { --t: 14px; }
   /* keep the frame guide clear of the card title / page title on phones */
   .stack-img.ph-visual::before, .stack-img.ph-visual::after { top: 38%; }
   .stack-img.ph-portrait::before { height: 48%; }
@@ -1313,7 +1315,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .yt-facade[data-video-id=""] .yt-play::before { border-left-width: 12px; border-top-width: 8px; border-bottom-width: 8px; margin-left: 3px; }
 .yt-facade[data-video-id=""] .yt-meta,
-.photo-soon .yt-meta { left: 28px; bottom: 26px; }
+.photo-soon .yt-meta,
+.ig-tile .yt-meta { left: 28px; bottom: 26px; }
 .yt-facade[data-video-id=""] .yt-soon,
 .photo-soon .yt-soon {
   position: absolute;
@@ -1363,6 +1366,72 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (max-width: 768px) { .photo-soon { aspect-ratio: 3 / 2; } }
 /* Hochformat-Raster (UGC & Ads): three 9:16 slots that still fit one screen */
 .video-grid.is-portrait { max-width: 1040px; margin-inline: auto; }
+
+/* ============ Instagram: two-click embeds (ugc.html) ============ */
+/* Reel grid: 3 columns only when each one is ≥ 326px (Instagram's minimum width), otherwise 2; 1 on phones; rows centred */
+.reel-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.75rem 0.75rem;
+  max-width: 1040px;
+  margin-inline: auto;
+}
+.reel-item { flex: 0 0 calc((100% - 0.75rem) / 2); min-width: 326px; max-width: 400px; }
+@media (min-width: 1090px) { .reel-item { flex-basis: calc((100% - 1.5rem) / 3); } }
+@media (max-width: 768px) { .reel-item { flex-basis: 100%; } }
+
+/* Preview tile: nothing from Meta loads until "Video laden" is clicked */
+.ig-tile {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  aspect-ratio: 9 / 16;
+  padding: 2.5rem 1.5rem;
+  border-radius: var(--r-md);
+  text-align: center;
+}
+.ig-tile::before { inset: 14px; }
+.ig-tile::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.5) 100%); }
+.ig-load { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 1.1rem; }
+.ig-load .yt-play { position: relative; left: auto; top: auto; translate: none; width: 64px; height: 64px; }
+.ig-load .yt-play::before { border-left-width: 14px; border-top-width: 9px; border-bottom-width: 9px; margin-left: 4px; }
+.ig-load:active .btn { transform: scale(0.97); }
+.ig-note { position: relative; z-index: 2; max-width: 15.5rem; font-size: 0.74rem; line-height: 1.5; color: var(--muted); }
+.ig-status {
+  display: none;
+  position: relative;
+  z-index: 2;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.ig-status a { color: var(--ink); border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
+.ig-tile.is-loading .ig-status, .ig-tile.is-failed .ig-status { display: flex; }
+.ig-tile.is-loading .ig-load, .ig-tile.is-loading .ig-note,
+.ig-tile.is-failed .ig-load, .ig-tile.is-failed .ig-note { display: none; }
+/* The embed renders hidden behind the tile, then takes its place */
+.ig-embed { position: absolute; inset: 0; opacity: 0; pointer-events: none; overflow: hidden; }
+.ig-tile.is-loaded { display: block; aspect-ratio: auto; padding: 0; background: none; overflow: visible; }
+.ig-tile.is-loaded::before, .ig-tile.is-loaded::after, .ig-tile.is-loaded > :not(.ig-embed) { display: none; }
+.ig-tile.is-loaded .ig-embed { position: static; opacity: 1; pointer-events: auto; overflow: visible; animation: zfx-fade 600ms ease; }
+.ig-embed blockquote { width: 100%; min-width: 326px; margin: 0; }
+.ig-embed iframe { display: block; width: 100% !important; max-width: 540px; margin: 0 !important; border-radius: var(--r-md) !important; }
+@media (hover: hover) and (pointer: fine) {
+  .ig-load:hover .yt-play { background: var(--accent); border-color: var(--accent); color: #fff; transform: scale(1.07); }
+  .ig-load:hover .btn { color: var(--bg); }
+  .ig-load:hover .btn::before { transform: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .page-hero-media .ph-visual { animation: none; }
 }

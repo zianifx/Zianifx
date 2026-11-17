@@ -976,6 +976,85 @@
     });
   }
 
+  /* ---------- Instagram: two-click embeds — nothing is requested from Meta until "Video laden" is clicked ---------- */
+  function initInstagram() {
+    var tiles = toArray(doc.querySelectorAll('.ig-tile[data-ig-url]'));
+    if (!tiles.length) return;
+    var script = null; // the single embed.js tag, created on the first click only
+    var ready = false;
+
+    function process() {
+      if (window.instgrm && window.instgrm.Embeds) window.instgrm.Embeds.process();
+    }
+    function fail(tile) {
+      if (!tile.classList.contains('is-loading')) return;
+      tile.classList.remove('is-loading');
+      tile.classList.add('is-failed');
+      var status = tile.querySelector('.ig-status');
+      var a = doc.createElement('a');
+      a.href = tile.getAttribute('data-ig-url');
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = 'Auf Instagram ansehen ↗';
+      status.textContent = '';
+      status.appendChild(a);
+    }
+    function load(tile) {
+      if (tile.classList.contains('is-loading') || tile.classList.contains('is-loaded')) return;
+      tile.classList.remove('is-failed');
+      tile.classList.add('is-loading');
+      var old = tile.querySelector('.ig-embed');
+      if (old) old.remove();
+      var holder = doc.createElement('div');
+      holder.className = 'ig-embed';
+      var bq = doc.createElement('blockquote');
+      bq.className = 'instagram-media';
+      bq.setAttribute('data-instgrm-permalink', tile.getAttribute('data-ig-url'));
+      bq.setAttribute('data-instgrm-version', '14');
+      holder.appendChild(bq);
+      tile.appendChild(holder);
+
+      // embed.js swaps the blockquote for an iframe: show it in place of the tile once that iframe has loaded
+      var mo = new MutationObserver(function () {
+        var frame = holder.querySelector('iframe');
+        if (!frame) return;
+        mo.disconnect();
+        frame.addEventListener('load', function () {
+          tile.classList.remove('is-loading', 'is-failed');
+          tile.classList.add('is-loaded');
+        }, { once: true });
+      });
+      mo.observe(holder, { childList: true, subtree: true });
+      setTimeout(function () { fail(tile); }, 15000);
+
+      if (ready) { process(); return; }
+      if (script) return; // still loading: embed.js renders every blockquote on the page when it arrives
+      script = doc.createElement('script');
+      script.async = true;
+      script.src = 'https://www.instagram.com/embed.js';
+      script.addEventListener('load', function () { ready = true; process(); });
+      script.addEventListener('error', function () {
+        script.remove();
+        script = null; // a later click may try again
+        tiles.forEach(fail);
+      });
+      doc.body.appendChild(script);
+    }
+
+    tiles.forEach(function (tile, i) {
+      var btn = tile.querySelector('.ig-load');
+      if (!btn) return;
+      var note = tile.querySelector('.ig-note');
+      var cap = tile.parentNode.querySelector('.caption');
+      if (note) {
+        if (!note.id) note.id = 'ig-note-' + (i + 1);
+        btn.setAttribute('aria-describedby', note.id);
+      }
+      if (cap) btn.setAttribute('aria-label', 'Video laden: ' + cap.textContent.trim());
+      btn.addEventListener('click', function () { load(tile); });
+    });
+  }
+
   /* ---------- Small things: year, local time ---------- */
   function initMeta() {
     toArray(doc.querySelectorAll('[data-year]')).forEach(function (el) { el.textContent = new Date().getFullYear(); });
@@ -1007,5 +1086,6 @@
   safe(initMagnetic);
   safe(initLightbox);
   safe(initTheater);
+  safe(initInstagram);
   safe(initMeta);
 })();
