@@ -1381,8 +1381,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 @media (min-width: 1090px) { .reel-item { flex-basis: calc((100% - 1.5rem) / 3); } }
 @media (max-width: 768px) { .reel-item { flex-basis: 100%; } }
 
-/* Preview tile: a local cover image (no request to Meta) with the same play mark as the YouTube posters;
-   nothing from Meta loads until the tile ("Video laden") is clicked */
+/* Preview tile: a local cover image (no request to Meta), identical to the YouTube posters;
+   nothing from Meta loads until the tile is clicked */
 .ig-tile {
   position: relative;
   isolation: isolate;
@@ -1417,36 +1417,23 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .reel-grid .yt-play::before { border-left-width: 14px; border-top-width: 9px; border-bottom-width: 9px; margin-left: 4px; }
 .reel-grid .yt-facade .yt-meta { top: 24px; bottom: auto; left: 26px; }
 .ig-tile.is-loading::after, .ig-tile.is-failed::after { background-color: rgba(20, 18, 18, 0.62); }
-/* The whole tile is the "Video laden" button, like a click anywhere on a YouTube poster */
+/* The whole tile is the button, like a click anywhere on a YouTube poster */
 .ig-load { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.95rem; width: 100%; }
 .ig-load:focus-visible { outline-offset: -4px; border-radius: var(--r-md); }
 .ig-load .yt-play { position: relative; left: auto; top: auto; translate: none; width: 64px; height: 64px; }
 .ig-load .yt-play::before { border-left-width: 14px; border-top-width: 9px; border-bottom-width: 9px; margin-left: 4px; }
 .ig-load:active .yt-play { transform: scale(0.94); transition-duration: 160ms; }
-.ig-load-label {
-  padding: 0.5rem 0.95rem;
-  border-radius: 999px;
-  border: 1px solid rgba(211, 208, 203, 0.3);
-  background: rgba(20, 18, 18, 0.42);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink);
+/* One shared privacy note above the reel grid (instead of text on every tile) */
+.video-note {
+  max-width: 36rem;
+  margin: 0 auto clamp(1.5rem, 3vw, 2.25rem);
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--muted);
 }
-.ig-note {
-  position: absolute;
-  left: 1.25rem; right: 1.25rem; bottom: 1.1rem;
-  z-index: 3;
-  margin-inline: auto;
-  max-width: 15.5rem;
-  font-size: 0.68rem;
-  line-height: 1.45;
-  color: rgba(211, 208, 203, 0.82);
-  pointer-events: none;
-}
+.video-note a { color: var(--ink); border-bottom: 1px solid var(--line); transition: color 250ms ease, border-color 250ms ease; }
+@media (hover: hover) and (pointer: fine) { .video-note a:hover { color: #fff; border-color: var(--accent); } }
 .ig-tile .yt-meta { top: 24px; bottom: auto; left: 26px; z-index: 3; pointer-events: none; }
 .ig-status {
   display: none;
@@ -1462,8 +1449,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .ig-status a { color: var(--ink); border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
 .ig-tile.is-loading .ig-status, .ig-tile.is-failed .ig-status { display: flex; }
-.ig-tile.is-loading .ig-load, .ig-tile.is-loading .ig-note,
-.ig-tile.is-failed .ig-load, .ig-tile.is-failed .ig-note { display: none; }
+.ig-tile.is-loading .ig-load, .ig-tile.is-failed .ig-load { display: none; }
 /* The embed renders hidden behind the tile, then takes its place */
 .ig-embed { position: absolute; inset: 0; opacity: 0; pointer-events: none; overflow: hidden; }
 .ig-tile.is-loaded { display: block; aspect-ratio: auto; padding: 0; background: none; overflow: visible; }

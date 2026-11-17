@@ -976,7 +976,7 @@
     });
   }
 
-  /* ---------- Instagram: two-click embeds — nothing is requested from Meta until "Video laden" is clicked ---------- */
+  /* ---------- Instagram: two-click embeds — nothing is requested from Meta until a tile is clicked ---------- */
   function initInstagram() {
     var tiles = toArray(doc.querySelectorAll('.ig-tile[data-ig-url]'));
     if (!tiles.length) return;
@@ -1054,13 +1054,14 @@
           poster.addEventListener('error', dropPoster, { once: true });
         }
       }
-      var note = tile.querySelector('.ig-note');
+      // One shared privacy note above the videos (#video-note) describes what a click loads
+      var note = tile.querySelector('.ig-note') || doc.getElementById('video-note');
       var cap = tile.parentNode.querySelector('.caption');
       if (note) {
         if (!note.id) note.id = 'ig-note-' + (i + 1);
         btn.setAttribute('aria-describedby', note.id);
       }
-      if (cap) btn.setAttribute('aria-label', 'Video laden: ' + cap.textContent.trim());
+      if (cap) btn.setAttribute('aria-label', 'Video abspielen: ' + cap.textContent.trim());
       btn.addEventListener('click', function () { load(tile); });
     });
   }
