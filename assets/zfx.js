@@ -824,9 +824,36 @@
     stage.addEventListener('pointercancel', endGesture);
   }
 
+  /* ---------- Video slots: data-video-id="" stays a "Coming soon" placeholder;
+     once an ID is filled in, the poster comes from YouTube and the slot plays like every other video ---------- */
+  function initVideoSlots() {
+    toArray(doc.querySelectorAll('.yt-facade')).forEach(function (f) {
+      var raw = f.getAttribute('data-video-id') || '';
+      var id = raw.trim();
+      if (id !== raw) f.setAttribute('data-video-id', id);
+      if (!id) {
+        f.removeAttribute('data-cursor');
+        f.setAttribute('role', 'img');
+        f.setAttribute('aria-label', 'Video folgt in Kürze');
+        return;
+      }
+      if (f.querySelector('img')) return; // poster already written in the markup
+      var portrait = f.getAttribute('data-ratio') === '9/16';
+      var img = doc.createElement('img');
+      img.alt = 'Video Vorschau';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.width = portrait ? 1080 : 1280;
+      img.height = portrait ? 1920 : 720;
+      img.onerror = function () { img.onerror = null; img.src = 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg'; };
+      img.src = portrait ? 'https://i.ytimg.com/vi/' + id + '/oar2.jpg' : 'https://img.youtube.com/vi/' + id + '/maxresdefault.jpg';
+      f.insertBefore(img, f.firstChild);
+    });
+  }
+
   /* ---------- Theater: video posters grow into a centred player; YouTube loads only then ---------- */
   function initTheater() {
-    var facades = toArray(doc.querySelectorAll('.yt-facade'));
+    var facades = toArray(doc.querySelectorAll('.yt-facade:not([data-video-id=""])'));
     if (!facades.length) return;
 
     var el, backdrop, frame, btn;
@@ -975,6 +1002,7 @@
   safe(initSubnav);
   safe(initHero);
   safe(initMarquee);
+  safe(initVideoSlots);
   safe(initCursor);
   safe(initMagnetic);
   safe(initLightbox);
