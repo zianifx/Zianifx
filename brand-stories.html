@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
 <!-- Sobald es ein echtes Titelbild gibt, hier zusätzlich vorladen:
      <link rel="preload" as="image" href="Images/Portfolio/ORDNER/DATEI.JPG" fetchpriority="high"> -->
-<link rel="stylesheet" href="assets/zfx.css?v=4">
-<script src="assets/zfx.js?v=4" defer></script>
+<link rel="stylesheet" href="assets/zfx.css?v=9">
+<script src="assets/zfx.js?v=9" defer></script>
 </head>
 <body class="page-sub page-brand" id="top">
 
@@ -43,6 +43,7 @@
       <span class="menu-sub">
         <a href="ugc.html">UGC &amp; Ads</a>
         <a href="brand-stories.html">Brand Stories</a>
+        <a href="events.html">Events</a>
         <a href="commercial.html">Product &amp; Jewelry</a>
         <a href="interior.html">Hospitality &amp; Interior</a>
         <a href="lifestyle.html">Travel &amp; Films</a>
@@ -68,7 +69,7 @@
   </div>
   <div class="hud" aria-hidden="true">
     <i class="tl"></i><i class="tr"></i>
-    <span class="h-tl"><span class="rec"></span>Kapitel 02 / 05</span>
+    <span class="h-tl"><span class="rec"></span>Kapitel 02 / 06</span>
     <span class="h-tr hide-s">Portfolio</span>
   </div>
   <div class="wrap">
@@ -78,78 +79,58 @@
   </div>
 </section>
 
-<!-- Reiter -->
-<nav class="tabs" id="subnav" aria-label="Unterkategorien">
-  <div class="subnav-inner">
-    <a class="subnav-link" href="#unternehmen" data-target="unternehmen">Unternehmen</a>
-    <a class="subnav-link" href="#events" data-target="events">Events</a>
-  </div>
-</nav>
-
 <!--
   VIDEOS EINTRAGEN: In jedem Platzhalter nur die YouTube-ID zwischen die Anführungszeichen von data-video-id="" setzen.
   Beispiel: https://www.youtube.com/watch?v=mE9RjVjlPCM  →  data-video-id="mE9RjVjlPCM"
   Vorschaubild, Play-Button und Theater-Player kommen dann automatisch – genau wie auf den anderen Seiten.
+  Ist das Video ein Hochformat-Short (9:16), zusätzlich data-ratio="9/16" ergänzen.
 -->
 <div class="wrap">
-    <section class="subsection" id="unternehmen" aria-label="Unternehmen">
+    <section class="subsection" id="videos" aria-label="Brand Stories">
       <header class="sub-head">
         <p class="label zr"><b>01</b> Video</p>
-        <h2 class="subsection-heading zr-lines">Unternehmen</h2>
-        <p class="subsection-text zr">Reportagen, Interviews und Imagefilme für Unternehmen – Menschen, die zeigen, wofür ihre Marke steht.</p>
+        <h2 class="subsection-heading zr-lines">Selected Work</h2>
+        <p class="subsection-text zr">Reportagen, Interviews und Imagefilme für Unternehmen und Events – Menschen, die zeigen, wofür ihre Marke steht.</p>
       </header>
-      <div class="video-grid cols-2">
+      <p class="video-note zr" id="video-note">Videos&nbsp;laden&nbsp;per&nbsp;Klick&nbsp;· Daten&nbsp;an&nbsp;Google&nbsp;· <a href="datenschutz.html">Datenschutz</a></p>
+      <div class="video-grid cols-3">
         <div class="zr">
-          <!-- UNTERNEHMEN VIDEO 1: YouTube-ID hier einsetzen → data-video-id="" -->
-          <div class="yt-facade" data-video-id="" data-cursor="Play" aria-label="Unternehmensfilm 01 abspielen">
+          <!-- BRAND STORY 1 (DeinDach): YouTube-ID hier einsetzen → data-video-id="" (Querformat 16:9) -->
+          <div class="yt-facade" data-video-id="" data-cursor="Play" aria-label="Video abspielen: DeinDach · Employer Branding" aria-describedby="video-note">
             <span class="yt-play" aria-hidden="true"></span>
-            <span class="yt-meta" aria-hidden="true">Film 01</span>
+            <span class="yt-meta" aria-hidden="true">YouTube</span>
             <span class="yt-soon" aria-hidden="true">Coming soon</span>
           </div>
+          <p class="caption">DeinDach&nbsp;· Employer&nbsp;Branding</p>
         </div>
         <div class="zr">
-          <!-- UNTERNEHMEN VIDEO 2: YouTube-ID hier einsetzen → data-video-id="" -->
-          <div class="yt-facade" data-video-id="" data-cursor="Play" aria-label="Unternehmensfilm 02 abspielen">
+          <!-- BRAND STORY 2 (Freezy): YouTube-ID hier einsetzen → data-video-id="" (Querformat 16:9) -->
+          <div class="yt-facade" data-video-id="" data-cursor="Play" aria-label="Video abspielen: Freezy · Unternehmensvorstellung" aria-describedby="video-note">
             <span class="yt-play" aria-hidden="true"></span>
-            <span class="yt-meta" aria-hidden="true">Film 02</span>
+            <span class="yt-meta" aria-hidden="true">YouTube</span>
             <span class="yt-soon" aria-hidden="true">Coming soon</span>
           </div>
-        </div>
-      </div>
-    </section>
-    <section class="subsection" id="events" aria-label="Events">
-      <header class="sub-head">
-        <p class="label zr"><b>02</b> Video</p>
-        <h2 class="subsection-heading zr-lines">Events</h2>
-        <p class="subsection-text zr">Eventfilme und Reportagen mit cineastischen B-Rolls – damit man spürt, wie der Moment war.</p>
-      </header>
-      <div class="video-grid cols-2">
-        <div class="zr">
-          <!-- EVENTS VIDEO 1: YouTube-ID hier einsetzen → data-video-id="" -->
-          <div class="yt-facade" data-video-id="" data-cursor="Play" aria-label="Eventfilm 01 abspielen">
-            <span class="yt-play" aria-hidden="true"></span>
-            <span class="yt-meta" aria-hidden="true">Event 01</span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
-          </div>
+          <p class="caption">Freezy&nbsp;· Unternehmensvorstellung</p>
         </div>
         <div class="zr">
-          <!-- EVENTS VIDEO 2: YouTube-ID hier einsetzen → data-video-id="" -->
-          <div class="yt-facade" data-video-id="" data-cursor="Play" aria-label="Eventfilm 02 abspielen">
+          <!-- BRAND STORY 3 (YouMo): YouTube-ID hier einsetzen → data-video-id="" (Querformat 16:9) -->
+          <div class="yt-facade" data-video-id="" data-cursor="Play" aria-label="Video abspielen: YouMo · Event-Reportage" aria-describedby="video-note">
             <span class="yt-play" aria-hidden="true"></span>
-            <span class="yt-meta" aria-hidden="true">Event 02</span>
+            <span class="yt-meta" aria-hidden="true">YouTube</span>
             <span class="yt-soon" aria-hidden="true">Coming soon</span>
           </div>
+          <p class="caption">YouMo&nbsp;· Event-Reportage</p>
         </div>
       </div>
     </section>
 </div>
 
 <!-- Nächstes Kapitel -->
-<a class="next zr" href="commercial.html" data-cursor="Weiter" aria-label="Nächstes Kapitel: Product & Jewelry">
-  <img src="Images/Portfolio/Product/Prestij1.JPG" alt="" loading="lazy" decoding="async" style="view-transition-name: w-commercial;">
+<a class="next zr" href="events.html" data-cursor="Weiter" aria-label="Nächstes Kapitel: Events">
+  <img src="Images/Portfolio/Events/Stuttgart1.JPG" alt="" loading="lazy" decoding="async" style="view-transition-name: w-events;">
   <span class="next-body">
-    <span class="label">Nächstes Kapitel — 03 / 05</span>
-    <span class="next-title">Product &amp;<br>Jewelry</span>
+    <span class="label">Nächstes Kapitel — 03 / 06</span>
+    <span class="next-title">Events</span>
     <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
   </span>
 </a>
