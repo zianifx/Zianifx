@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>UGC & Ads – ZIANI FX</title>
+<meta name="description" content="UGC & Ads – authentischer Content für Marken von ZIANI FX: UGC-Videos und Ads für Instagram, TikTok und Meta." />
+<meta name="theme-color" content="#232020" />
+
+<!-- Boot: reveal states only while JS is active; safety timer shows everything if zfx.js never boots -->
+<script>(function(){var d=document.documentElement;d.classList.add('js');try{if(d.hasAttribute('data-intro')&&!sessionStorage.getItem('zfxSeen')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('intro-on');sessionStorage.setItem('zfxSeen','1')}}catch(e){}setTimeout(function(){d.classList.add('intro-done');if(!window.zfxReady)d.classList.remove('js')},4500)})();</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
+<!-- Sobald es ein echtes Titelbild gibt, hier zusätzlich vorladen:
+     <link rel="preload" as="image" href="Images/Portfolio/ORDNER/DATEI.JPG" fetchpriority="high"> -->
+<link rel="stylesheet" href="assets/zfx.css?v=4">
+<script src="assets/zfx.js?v=4" defer></script>
+</head>
+<body class="page-sub page-ugc" id="top">
+
+<!-- Header -->
+<header class="site-header" id="navbar">
+  <div class="header-inner">
+    <a href="index.html" class="logo" aria-label="ZIANI FX Home"><span class="ziani">ZIANI</span><span class="fx">FX</span></a>
+    <nav class="nav-links" aria-label="Hauptnavigation">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="index.html#portfolio">Portfolio</a>
+      <a class="nav-link" href="#kontakt">Kontakt</a>
+    </nav>
+    <a class="btn btn-solid btn-sm nav-cta" href="mailto:zianifx@outlook.com">Projekt anfragen</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menü öffnen"><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- Menü (Handy) -->
+<div class="menu" id="menu" aria-hidden="true">
+  <nav aria-label="Menü">
+    <span class="menu-item" style="--i:0"><a class="menu-link" href="index.html"><small>01</small>Home</a></span>
+    <span class="menu-item" style="--i:1"><a class="menu-link" href="index.html#portfolio"><small>02</small>Portfolio</a></span>
+    <span class="menu-item" style="--i:2">
+      <span class="menu-sub">
+        <a href="ugc.html">UGC &amp; Ads</a>
+        <a href="brand-stories.html">Brand Stories</a>
+        <a href="commercial.html">Product &amp; Jewelry</a>
+        <a href="interior.html">Hospitality &amp; Interior</a>
+        <a href="lifestyle.html">Travel &amp; Films</a>
+      </span>
+    </span>
+    <span class="menu-item" style="--i:3"><a class="menu-link" href="#kontakt"><small>03</small>Kontakt</a></span>
+  </nav>
+  <div class="menu-foot">
+    <a href="mailto:zianifx@outlook.com">zianifx@outlook.com</a>
+    <a href="https://instagram.com/zianifx" target="_blank" rel="noopener noreferrer">Instagram @ZianiFX</a>
+    <span>Köln / Bonn</span>
+  </div>
+</div>
+
+<main>
+
+<!-- Kapitel-Cover -->
+<section class="page-hero" aria-label="UGC & Ads">
+  <div class="page-hero-media" aria-hidden="true">
+    <!-- UGC & ADS TITELBILD: Platzhalter. Später diese <div>-Zeile ersetzen durch:
+         <img src="Images/Portfolio/ORDNER/DATEI.JPG" alt="" fetchpriority="high" decoding="async" style="view-transition-name: w-ugc;"> -->
+    <div class="ph-visual ph-portrait" style="view-transition-name: w-ugc;"></div>
+  </div>
+  <div class="hud" aria-hidden="true">
+    <i class="tl"></i><i class="tr"></i>
+    <span class="h-tl"><span class="rec"></span>Kapitel 01 / 05</span>
+    <span class="h-tr hide-s">Portfolio</span>
+  </div>
+  <div class="wrap">
+    <a href="index.html#portfolio" class="back-link">← Zurück zum Portfolio</a>
+    <h1 class="page-title"><span class="tr-mask"><span class="tr-line">UGC &amp;</span></span><span class="tr-mask"><span class="tr-line">Ads</span></span></h1>
+    <p class="page-lead">Authentischer Content für Marken – UGC-Videos und Ads, gemacht für Instagram, TikTok und Meta. Vom ersten Hook bis zum Call-to-Action.</p>
+  </div>
+</section>
+
+<!-- Reiter -->
+<nav class="tabs" id="subnav" aria-label="Unterkategorien">
+  <div class="subnav-inner">
+    <a class="subnav-link" href="#ugc" data-target="ugc">UGC</a>
+    <a class="subnav-link" href="#ads" data-target="ads">Ads</a>
+  </div>
+</nav>
+
+<!--
+  VIDEOS EINTRAGEN: In jedem Platzhalter nur die YouTube-ID zwischen die Anführungszeichen von data-video-id="" setzen.
+  Beispiel: https://youtube.com/shorts/9poqsNXv5ZU  →  data-video-id="9poqsNXv5ZU"
+  Vorschaubild, Play-Button und Theater-Player kommen dann automatisch – genau wie auf den anderen Seiten.
+-->
+<div class="wrap">
+    <section class="subsection" id="ugc" aria-label="UGC">
+      <header class="sub-head">
+        <p class="label zr"><b>01</b> Video</p>
+        <h2 class="subsection-heading zr-lines">UGC</h2>
+        <p class="subsection-text zr">Authentische Videos aus Nutzersicht – im Hochformat, gemacht für Feeds, Reels und Stories.</p>
+      </header>
+      <div class="video-grid cols-3 is-portrait">
+        <div class="zr">
+          <!-- UGC VIDEO 1: YouTube-ID hier einsetzen → data-video-id="" -->
+          <div class="yt-facade" data-video-id="" data-ratio="9/16" data-cursor="Play" aria-label="UGC Video 01 abspielen">
+            <span class="yt-play" aria-hidden="true"></span>
+            <span class="yt-meta" aria-hidden="true">UGC 01</span>
+            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+          </div>
+        </div>
+        <div class="zr">
+          <!-- UGC VIDEO 2: YouTube-ID hier einsetzen → data-video-id="" -->
+          <div class="yt-facade" data-video-id="" data-ratio="9/16" data-cursor="Play" aria-label="UGC Video 02 abspielen">
+            <span class="yt-play" aria-hidden="true"></span>
+            <span class="yt-meta" aria-hidden="true">UGC 02</span>
+            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+          </div>
+        </div>
+        <div class="zr">
+          <!-- UGC VIDEO 3: YouTube-ID hier einsetzen → data-video-id="" -->
+          <div class="yt-facade" data-video-id="" data-ratio="9/16" data-cursor="Play" aria-label="UGC Video 03 abspielen">
+            <span class="yt-play" aria-hidden="true"></span>
+            <span class="yt-meta" aria-hidden="true">UGC 03</span>
+            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="subsection" id="ads" aria-label="Ads">
+      <header class="sub-head">
+        <p class="label zr"><b>02</b> Video</p>
+        <h2 class="subsection-heading zr-lines">Ads</h2>
+        <p class="subsection-text zr">Werbeclips für Instagram, TikTok und Meta – vom ersten Hook bis zum Call-to-Action.</p>
+      </header>
+      <div class="video-grid cols-3 is-portrait">
+        <div class="zr">
+          <!-- ADS VIDEO 1: YouTube-ID hier einsetzen → data-video-id="" -->
+          <div class="yt-facade" data-video-id="" data-ratio="9/16" data-cursor="Play" aria-label="Ad Video 01 abspielen">
+            <span class="yt-play" aria-hidden="true"></span>
+            <span class="yt-meta" aria-hidden="true">Ad 01</span>
+            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+          </div>
+        </div>
+        <div class="zr">
+          <!-- ADS VIDEO 2: YouTube-ID hier einsetzen → data-video-id="" -->
+          <div class="yt-facade" data-video-id="" data-ratio="9/16" data-cursor="Play" aria-label="Ad Video 02 abspielen">
+            <span class="yt-play" aria-hidden="true"></span>
+            <span class="yt-meta" aria-hidden="true">Ad 02</span>
+            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+          </div>
+        </div>
+        <div class="zr">
+          <!-- ADS VIDEO 3: YouTube-ID hier einsetzen → data-video-id="" -->
+          <div class="yt-facade" data-video-id="" data-ratio="9/16" data-cursor="Play" aria-label="Ad Video 03 abspielen">
+            <span class="yt-play" aria-hidden="true"></span>
+            <span class="yt-meta" aria-hidden="true">Ad 03</span>
+            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+</div>
+
+<!-- Nächstes Kapitel -->
+<a class="next zr" href="brand-stories.html" data-cursor="Weiter" aria-label="Nächstes Kapitel: Brand Stories">
+  <!-- BRAND STORIES VORSCHAUBILD (Nächstes Kapitel): Platzhalter. Später diese <div>-Zeile ersetzen durch:
+       <img src="Images/Portfolio/ORDNER/DATEI.JPG" alt="" loading="lazy" decoding="async" style="view-transition-name: w-brand;"> -->
+  <div class="ph-visual ph-landscape" aria-hidden="true" style="view-transition-name: w-brand;"></div>
+  <span class="next-body">
+    <span class="label">Nächstes Kapitel — 02 / 05</span>
+    <span class="next-title">Brand<br>Stories</span>
+    <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </span>
+</a>
+
+</main>
+
+<!-- Kontakt -->
+<section id="kontakt" class="finale" aria-label="Kontakt">
+  <div class="wrap">
+    <p class="label zr">Kontakt</p>
+    <h2 class="display finale-title zr-lines">Lass uns deine<br>Story erzählen</h2>
+    <div class="finale-grid">
+      <div>
+        <a class="mail-link zr" href="mailto:zianifx@outlook.com">zianifx@outlook.com</a>
+        <dl class="contact-list zr">
+          <div><dt>Standort</dt><dd>Köln / Bonn</dd></div>
+          <div><dt>Instagram</dt><dd><a href="https://instagram.com/zianifx" target="_blank" rel="noopener noreferrer">@ZianiFX</a></dd></div>
+          <div><dt>Antwort</dt><dd>Meist innerhalb von 24 Stunden</dd></div>
+        </dl>
+      </div>
+      <a href="mailto:zianifx@outlook.com" class="orb zr" data-magnetic>Projekt<br>anfragen</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-mark" aria-hidden="true"><span class="ziani">ZIANI</span><span class="fx">FX</span></div>
+  <div class="wrap footer-bar">
+    <span>© <span data-year>2026</span> <span class="ziani">ZIANI</span><span class="fx">FX</span> – M. Ziani. Alle Rechte vorbehalten.</span>
+    <span class="footer-clock">Köln <span data-clock>--:--</span></span>
+    <nav aria-label="Rechtliches"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></nav>
+    <a href="#top">Nach oben ↑</a>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Bildvorschau">
+  <button type="button" class="round-btn lightbox-prev" aria-label="Vorheriges Bild">&#8592;</button>
+  <img class="lightbox-img" alt="" decoding="async">
+  <button type="button" class="round-btn lightbox-next" aria-label="Nächstes Bild">&#8594;</button>
+  <button type="button" class="round-btn lightbox-close" aria-label="Schließen">&#10005;</button>
+</div>
+
+</body>
+</html>
