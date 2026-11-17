@@ -80,10 +80,8 @@
 </section>
 
 <!--
-  VIDEOS EINTRAGEN: In jedem Platzhalter nur die YouTube-ID zwischen die Anführungszeichen von data-video-id="" setzen.
-  Beispiel: https://www.youtube.com/watch?v=mE9RjVjlPCM  →  data-video-id="mE9RjVjlPCM"
-  Vorschaubild, Play-Button und Theater-Player kommen dann automatisch – genau wie auf den anderen Seiten.
-  Ist das Video ein Hochformat-Short (9:16), zusätzlich data-ratio="9/16" ergänzen.
+  VIDEOS: Instagram-Reels wie auf ugc.html – lokales Vorschaubild, Instagram lädt erst nach Klick (Zwei-Klick-Lösung, siehe Datenschutz).
+  Zwei Gruppen: Gruppe 1 (Einzelprojekte) und Gruppe 2 (DeinDach). Wo neue Videos hinkommen, steht am Ende jeder Gruppe.
 -->
 <div class="wrap">
     <section class="subsection" id="videos" aria-label="Brand Stories">
@@ -92,35 +90,105 @@
         <h2 class="subsection-heading zr-lines">Selected Work</h2>
         <p class="subsection-text zr">Reportagen, Interviews und Imagefilme für Unternehmen und Events – Menschen, die zeigen, wofür ihre Marke steht.</p>
       </header>
-      <p class="video-note zr" id="video-note">Videos&nbsp;laden&nbsp;per&nbsp;Klick&nbsp;· Daten&nbsp;an&nbsp;Google&nbsp;· <a href="datenschutz.html">Datenschutz</a></p>
-      <div class="video-grid cols-3">
-        <div class="zr">
-          <!-- BRAND STORY 1 (DeinDach): YouTube-ID hier einsetzen → data-video-id="" (Querformat 16:9) -->
-          <div class="yt-facade" data-video-id="" data-cursor="Play" aria-label="Video abspielen: DeinDach · Employer Branding" aria-describedby="video-note">
-            <span class="yt-play" aria-hidden="true"></span>
-            <span class="yt-meta" aria-hidden="true">YouTube</span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+      <p class="video-note zr" id="video-note">Videos&nbsp;laden&nbsp;per&nbsp;Klick&nbsp;· Daten&nbsp;an&nbsp;Meta&nbsp;· <a href="datenschutz.html">Datenschutz</a></p>
+
+      <!-- GRUPPE 1 · Einzelprojekte: eigene Reihe mit genau 2 Videos (mittig) -->
+      <div class="reel-grid">
+        <div class="reel-item zr">
+          <!-- VIDEO 1 · Instagram: Freezy Cutz – Barber-Bus (Unternehmensvorstellung) -->
+          <div class="ig-tile" data-ig-url="https://www.instagram.com/reel/Dd4mxkxoCMP/">
+            <img class="ig-poster" src="Images/Portfolio/BrandStories/FreezyCutz1.JPG" alt="" loading="lazy" decoding="async" width="720" height="1280">
+            <button type="button" class="ig-load" data-cursor="Play">
+              <span class="yt-play" aria-hidden="true"></span>
+            </button>
+            <span class="ig-status" role="status"><span class="rec" aria-hidden="true"></span>Video wird geladen</span>
+            <span class="yt-meta" aria-hidden="true">Instagram</span>
           </div>
-          <p class="caption">DeinDach&nbsp;· Employer&nbsp;Branding</p>
+          <p class="caption">Freezy&nbsp;Cutz&nbsp;· Barber-Bus&nbsp;· Unternehmensvorstellung</p>
         </div>
-        <div class="zr">
-          <!-- BRAND STORY 2 (Freezy): YouTube-ID hier einsetzen → data-video-id="" (Querformat 16:9) -->
-          <div class="yt-facade" data-video-id="" data-cursor="Play" aria-label="Video abspielen: Freezy · Unternehmensvorstellung" aria-describedby="video-note">
-            <span class="yt-play" aria-hidden="true"></span>
-            <span class="yt-meta" aria-hidden="true">YouTube</span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+        <div class="reel-item zr">
+          <!-- VIDEO 2 · Instagram: YouMo – Unity Cup (Event-Reportage) -->
+          <div class="ig-tile" data-ig-url="https://www.instagram.com/reel/DfiAg_DqCjC/">
+            <img class="ig-poster" src="Images/Portfolio/BrandStories/YouMo1.JPG" alt="" loading="lazy" decoding="async" width="720" height="1280">
+            <button type="button" class="ig-load" data-cursor="Play">
+              <span class="yt-play" aria-hidden="true"></span>
+            </button>
+            <span class="ig-status" role="status"><span class="rec" aria-hidden="true"></span>Video wird geladen</span>
+            <span class="yt-meta" aria-hidden="true">Instagram</span>
           </div>
-          <p class="caption">Freezy&nbsp;· Unternehmensvorstellung</p>
+          <p class="caption">YouMo&nbsp;· Unity&nbsp;Cup&nbsp;· Event-Reportage</p>
         </div>
-        <div class="zr">
-          <!-- BRAND STORY 3 (YouMo): YouTube-ID hier einsetzen → data-video-id="" (Querformat 16:9) -->
-          <div class="yt-facade" data-video-id="" data-cursor="Play" aria-label="Video abspielen: YouMo · Event-Reportage" aria-describedby="video-note">
-            <span class="yt-play" aria-hidden="true"></span>
-            <span class="yt-meta" aria-hidden="true">YouTube</span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+        <!-- WEITERE VIDEOS (GRUPPE 1 · Einzelprojekte) HIER ERGÄNZEN (direkt über dieser Zeile): einen Block von <div class="reel-item zr"> bis zum
+             passenden </div> kopieren, dann data-ig-url (Link zum Reel), das Vorschaubild (src der Zeile class="ig-poster",
+             Datei in Images/Portfolio/BrandStories/) und den Text in <p class="caption"> anpassen. -->
+      </div>
+
+      <!-- GRUPPE 2 · DeinDach: beginnt in neuer Reihe, mit größerem Abstand und dezentem Label (Desktop 3 + 2, mittig) -->
+      <p class="label zr" style="justify-content: center; margin: clamp(3.5rem, 8vw, 6rem) 0 clamp(1.25rem, 2.5vw, 1.75rem);">DeinDach&nbsp;· Employer&nbsp;Branding</p>
+      <div class="reel-grid">
+        <div class="reel-item zr">
+          <!-- VIDEO 3 · Instagram: DeinDach – Azubi-Tausch (Employer Branding) -->
+          <div class="ig-tile" data-ig-url="https://www.instagram.com/reel/Dej3IozgqTs/">
+            <img class="ig-poster" src="Images/Portfolio/BrandStories/DeinDach1.JPG" alt="" loading="lazy" decoding="async" width="720" height="1280">
+            <button type="button" class="ig-load" data-cursor="Play">
+              <span class="yt-play" aria-hidden="true"></span>
+            </button>
+            <span class="ig-status" role="status"><span class="rec" aria-hidden="true"></span>Video wird geladen</span>
+            <span class="yt-meta" aria-hidden="true">Instagram</span>
           </div>
-          <p class="caption">YouMo&nbsp;· Event-Reportage</p>
+          <p class="caption">DeinDach&nbsp;· Azubi-Tausch&nbsp;· Employer&nbsp;Branding</p>
         </div>
+        <div class="reel-item zr">
+          <!-- VIDEO 4 · Instagram: DeinDach – Azubi-Tausch (Employer Branding) -->
+          <div class="ig-tile" data-ig-url="https://www.instagram.com/reel/DecNFIRmjuh/">
+            <img class="ig-poster" src="Images/Portfolio/BrandStories/DeinDach2.JPG" alt="" loading="lazy" decoding="async" width="720" height="1280">
+            <button type="button" class="ig-load" data-cursor="Play">
+              <span class="yt-play" aria-hidden="true"></span>
+            </button>
+            <span class="ig-status" role="status"><span class="rec" aria-hidden="true"></span>Video wird geladen</span>
+            <span class="yt-meta" aria-hidden="true">Instagram</span>
+          </div>
+          <p class="caption">DeinDach&nbsp;· Azubi-Tausch&nbsp;· Employer&nbsp;Branding</p>
+        </div>
+        <div class="reel-item zr">
+          <!-- VIDEO 5 · Instagram: DeinDach – Baustellen-Einblick -->
+          <div class="ig-tile" data-ig-url="https://www.instagram.com/reel/DcYqFqdm-8K/">
+            <img class="ig-poster" src="Images/Portfolio/BrandStories/DeinDach3.JPG" alt="" loading="lazy" decoding="async" width="720" height="1280">
+            <button type="button" class="ig-load" data-cursor="Play">
+              <span class="yt-play" aria-hidden="true"></span>
+            </button>
+            <span class="ig-status" role="status"><span class="rec" aria-hidden="true"></span>Video wird geladen</span>
+            <span class="yt-meta" aria-hidden="true">Instagram</span>
+          </div>
+          <p class="caption">DeinDach&nbsp;· Baustellen-Einblick</p>
+        </div>
+        <div class="reel-item zr">
+          <!-- VIDEO 6 · Instagram: DeinDach – Baustellen-Einblick -->
+          <div class="ig-tile" data-ig-url="https://www.instagram.com/reel/DbvS2XeDcS_/">
+            <img class="ig-poster" src="Images/Portfolio/BrandStories/DeinDach4.JPG" alt="" loading="lazy" decoding="async" width="720" height="1280">
+            <button type="button" class="ig-load" data-cursor="Play">
+              <span class="yt-play" aria-hidden="true"></span>
+            </button>
+            <span class="ig-status" role="status"><span class="rec" aria-hidden="true"></span>Video wird geladen</span>
+            <span class="yt-meta" aria-hidden="true">Instagram</span>
+          </div>
+          <p class="caption">DeinDach&nbsp;· Baustellen-Einblick</p>
+        </div>
+        <div class="reel-item zr">
+          <!-- VIDEO 7 · Instagram: DeinDach – Baustellen-Einblick -->
+          <div class="ig-tile" data-ig-url="https://www.instagram.com/reel/Db3cvyuldZh/">
+            <img class="ig-poster" src="Images/Portfolio/BrandStories/DeinDach5.JPG" alt="" loading="lazy" decoding="async" width="720" height="1280">
+            <button type="button" class="ig-load" data-cursor="Play">
+              <span class="yt-play" aria-hidden="true"></span>
+            </button>
+            <span class="ig-status" role="status"><span class="rec" aria-hidden="true"></span>Video wird geladen</span>
+            <span class="yt-meta" aria-hidden="true">Instagram</span>
+          </div>
+          <p class="caption">DeinDach&nbsp;· Baustellen-Einblick</p>
+        </div>
+        <!-- WEITERE VIDEOS (GRUPPE 2 · DeinDach) HIER ERGÄNZEN (direkt über dieser Zeile): einen Block von <div class="reel-item zr"> bis zum
+             passenden </div> kopieren, dann data-ig-url (Link zum Reel), das Vorschaubild (src der Zeile class="ig-poster",
+             Datei in Images/Portfolio/BrandStories/) und den Text in <p class="caption"> anpassen. -->
       </div>
     </section>
 </div>
