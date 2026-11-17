@@ -794,19 +794,22 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* While the next card slides over, the one beneath recedes (scroll-linked, compositor only) */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .stack { timeline-scope: --s2, --s3, --s4, --s5; }
+    .stack { timeline-scope: --s2, --s3, --s4, --s5, --s6; }
     .stack-card:nth-child(2) { view-timeline: --s2 block; }
     .stack-card:nth-child(3) { view-timeline: --s3 block; }
     .stack-card:nth-child(4) { view-timeline: --s4 block; }
     .stack-card:nth-child(5) { view-timeline: --s5 block; }
+    .stack-card:nth-child(6) { view-timeline: --s6 block; }
     .stack-card:nth-child(1) { animation: stack-back linear both; animation-timeline: --s2; animation-range: entry 0% entry 100%; }
     .stack-card:nth-child(2) { animation: stack-back linear both; animation-timeline: --s3; animation-range: entry 0% entry 100%; }
     .stack-card:nth-child(3) { animation: stack-back linear both; animation-timeline: --s4; animation-range: entry 0% entry 100%; }
     .stack-card:nth-child(4) { animation: stack-back linear both; animation-timeline: --s5; animation-range: entry 0% entry 100%; }
+    .stack-card:nth-child(5) { animation: stack-back linear both; animation-timeline: --s6; animation-range: entry 0% entry 100%; }
     .stack-card:nth-child(1)::before { animation: stack-dim linear both; animation-timeline: --s2; animation-range: entry 0% entry 100%; }
     .stack-card:nth-child(2)::before { animation: stack-dim linear both; animation-timeline: --s3; animation-range: entry 0% entry 100%; }
     .stack-card:nth-child(3)::before { animation: stack-dim linear both; animation-timeline: --s4; animation-range: entry 0% entry 100%; }
     .stack-card:nth-child(4)::before { animation: stack-dim linear both; animation-timeline: --s5; animation-range: entry 0% entry 100%; }
+    .stack-card:nth-child(5)::before { animation: stack-dim linear both; animation-timeline: --s6; animation-range: entry 0% entry 100%; }
   }
 }
 @keyframes stack-back { to { scale: 0.94; } }
