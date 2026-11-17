@@ -245,7 +245,7 @@
     var hero = doc.querySelector('section.hero');
     var heroInner = doc.querySelector('.hero-inner');
     var isIndex = !!hero;
-    var isSub = !!doc.getElementById('subnav');
+    var isSub = !!doc.getElementById('subnav') || doc.body.classList.contains('page-sub');
     var kontakt = doc.getElementById('kontakt');
     var portfolio = doc.getElementById('portfolio');
     var kontaktLink = linkFor('#kontakt');
