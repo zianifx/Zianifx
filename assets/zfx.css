@@ -1609,3 +1609,41 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .js .zr, .js .zr-lines, .js .zr-lines .tr-line { opacity: 1 !important; translate: none !important; }
   .site-header, .intro, .hud, .marquee, .tabs { display: none !important; }
 }
+
+/* ============ Moving Stills (Travel & Films): own short MP4 loops, no external services ============ */
+/* Placeholder look comes from .photo-soon; a filled tile (data-still="still-NN") gets .is-ready from zfx.js */
+.still {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r-md);
+  background: var(--bg-deep);
+}
+.still-video {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  transition: transform 1200ms var(--ease-out);
+}
+.still.photo-soon .still-video { display: none; }
+.still.is-ready { cursor: pointer; }
+.still.is-ready::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.45) 100%);
+  pointer-events: none;
+}
+.still.is-ready .soon-icon, .still.is-ready .yt-soon { display: none; }
+@media (hover: hover) and (pointer: fine) { .still.is-ready:hover .still-video { transform: scale(1.03); } }
+/* Large view: same look as the video theater, with the clip instead of a YouTube player */
+.theater-stills .theater-frame { touch-action: none; }
+.theater-stills .theater-frame video { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; background: #000; }

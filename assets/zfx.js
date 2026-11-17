@@ -1066,6 +1066,238 @@
     });
   }
 
+  /* ---------- Moving Stills: own short MP4 loops (Videos/MovingStills/still-NN.mp4 + still-NN.jpg poster).
+     data-still="" stays a "Coming soon" placeholder; data-still="still-01" switches the tile on.
+     Clips play muted in a loop only while on screen (never with reduced motion) and open large in the
+     theater look: close with ×, ESC, a click on the backdrop or a downward swipe. ---------- */
+  function initStills() {
+    var tiles = toArray(doc.querySelectorAll('.still'));
+    if (!tiles.length) return;
+    var BASE = 'Videos/MovingStills/';
+    var active = [];
+    var io = null;
+
+    function asPlaceholder(tile) {
+      tile.classList.remove('is-ready');
+      tile.classList.add('photo-soon');
+      tile.removeAttribute('data-cursor');
+      tile.removeAttribute('tabindex');
+      tile.setAttribute('role', 'img');
+      tile.setAttribute('aria-label', 'Moving Still folgt in Kürze');
+    }
+    function playQuietly(v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+
+    tiles.forEach(function (tile) {
+      var name = (tile.getAttribute('data-still') || '').trim();
+      var video = tile.querySelector('video');
+      if (!name || !video) { asPlaceholder(tile); return; }
+      tile.classList.remove('photo-soon');
+      tile.classList.add('is-ready');
+      tile.setAttribute('role', 'button');
+      tile.setAttribute('tabindex', '0');
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.preload = 'none';
+      video.poster = BASE + name + '.jpg';
+      video.src = BASE + name + '.mp4'; // preload="none": nothing is downloaded before the clip is on screen
+      // A missing poster means the files aren't there yet: fall back to the placeholder instead of a black box
+      var probe = new Image();
+      probe.onerror = function () {
+        video.removeAttribute('src');
+        video.removeAttribute('poster');
+        if (io) io.unobserve(tile);
+        if (active.indexOf(tile) > -1) active.splice(active.indexOf(tile), 1);
+        asPlaceholder(tile);
+      };
+      probe.src = video.poster;
+      active.push(tile);
+    });
+    if (!active.length) return;
+
+    // Autoplay only while visible; with reduced motion the poster stays
+    if (!reduced() && 'IntersectionObserver' in window) {
+      io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var v = e.target.querySelector('video');
+          if (e.isIntersecting && e.intersectionRatio >= 0.35) { if (!isOpen) playQuietly(v); }
+          else if (!v.paused) v.pause();
+        });
+      }, { threshold: [0, 0.35, 0.6] });
+      active.forEach(function (t) { io.observe(t); });
+    }
+
+    // Large view, built from the same classes as the video theater
+    var el, backdrop, frame, btn, big;
+    var current = null;
+    var isOpen = false;
+    var closing = false;
+    var closeTimer = 0;
+    var lastFocus = null;
+
+    function build() {
+      el = doc.createElement('div');
+      el.className = 'theater theater-stills';
+      el.setAttribute('role', 'dialog');
+      el.setAttribute('aria-modal', 'true');
+      el.setAttribute('aria-label', 'Moving Still');
+      el.setAttribute('aria-hidden', 'true');
+      backdrop = doc.createElement('div');
+      backdrop.className = 'theater-backdrop';
+      frame = doc.createElement('div');
+      frame.className = 'theater-frame';
+      big = doc.createElement('video');
+      big.muted = true;
+      big.loop = true;
+      big.playsInline = true;
+      big.setAttribute('muted', '');
+      big.setAttribute('loop', '');
+      big.setAttribute('playsinline', '');
+      frame.appendChild(big);
+      btn = doc.createElement('button');
+      btn.type = 'button';
+      btn.className = 'round-btn theater-close';
+      btn.setAttribute('aria-label', 'Schließen');
+      btn.innerHTML = '&#10005;';
+      el.appendChild(backdrop);
+      el.appendChild(frame);
+      el.appendChild(btn);
+      doc.body.appendChild(el);
+      backdrop.addEventListener('click', close);
+      btn.addEventListener('click', close);
+      initSwipe();
+    }
+    function fromRect(r) {
+      var w = frame.offsetWidth, h = frame.offsetHeight;
+      if (!w || !h || !r.width) return null;
+      var s = Math.max(r.width / w, r.height / h);
+      var tx = r.left + r.width / 2 - (frame.offsetLeft + w / 2);
+      var ty = r.top + r.height / 2 - (frame.offsetTop + h / 2);
+      return 'translate3d(' + tx.toFixed(1) + 'px,' + ty.toFixed(1) + 'px,0) scale(' + s.toFixed(4) + ')';
+    }
+    function open(tile) {
+      if (isOpen || !tile.classList.contains('is-ready')) return;
+      if (!el) build();
+      clearTimeout(closeTimer);
+      if (closing) { unlockScroll(); closing = false; }
+      isOpen = true;
+      current = tile;
+      lastFocus = doc.activeElement;
+      var v = tile.querySelector('video');
+      v.pause();
+      big.poster = v.poster;
+      big.src = v.currentSrc || v.src;
+      big.controls = reduced(); // reduced motion: no autoplay, the visitor starts it
+      if (!reduced()) {
+        try { if (v.currentTime) big.currentTime = v.currentTime; } catch (err) {}
+        playQuietly(big);
+      }
+      lockScroll();
+      el.classList.add('is-visible');
+      el.setAttribute('aria-hidden', 'false');
+      var from = reduced() ? null : fromRect(tile.getBoundingClientRect());
+      frame.style.transition = 'none';
+      frame.style.opacity = from ? '1' : '0';
+      frame.style.transform = from || 'none';
+      void frame.offsetWidth;
+      el.classList.add('open');
+      frame.style.transition = 'transform 520ms ' + EASE_DRAWER + ', opacity 300ms ease';
+      frame.style.transform = 'none';
+      frame.style.opacity = '1';
+      btn.focus({ preventScroll: true });
+    }
+    function close() {
+      if (!isOpen) return;
+      isOpen = false;
+      closing = true;
+      el.classList.remove('open');
+      backdrop.style.opacity = '';
+      var r = current.getBoundingClientRect();
+      var to = (!reduced() && r.bottom > 0 && r.top < window.innerHeight) ? fromRect(r) : null;
+      var dur = 420;
+      if (to) {
+        frame.style.transition = 'transform 420ms ' + EASE_DRAWER;
+        frame.style.transform = to;
+      } else {
+        dur = 220;
+        frame.style.transition = 'opacity 220ms ease';
+        frame.style.opacity = '0';
+      }
+      var tile = current;
+      closeTimer = setTimeout(function () {
+        big.pause();
+        big.removeAttribute('src');
+        big.load();
+        el.classList.remove('is-visible');
+        el.setAttribute('aria-hidden', 'true');
+        frame.style.transition = 'none';
+        frame.style.transform = '';
+        frame.style.opacity = '';
+        unlockScroll();
+        closing = false;
+        if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+        // the tile carries on if it is still on screen
+        var rr = tile.getBoundingClientRect();
+        if (!reduced() && rr.bottom > 0 && rr.top < window.innerHeight) playQuietly(tile.querySelector('video'));
+      }, dur + 30);
+    }
+    // Downward swipe dismisses, like the photo lightbox
+    function initSwipe() {
+      var pid = null, sy = 0, dy = 0, dragging = false, samples = [];
+      frame.addEventListener('pointerdown', function (e) {
+        if (!isOpen || pid !== null) return;
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        pid = e.pointerId;
+        sy = e.clientY;
+        dy = 0;
+        dragging = false;
+        samples = [{ y: sy, t: performance.now() }];
+        try { frame.setPointerCapture(pid); } catch (err) {}
+      });
+      frame.addEventListener('pointermove', function (e) {
+        if (e.pointerId !== pid) return;
+        dy = e.clientY - sy;
+        var now = performance.now();
+        samples.push({ y: e.clientY, t: now });
+        while (samples.length > 2 && now - samples[0].t > 90) samples.shift();
+        if (!dragging && Math.abs(dy) < 8) return;
+        dragging = true;
+        var down = dy > 0 ? dy : dy * 0.25;
+        var p = clamp(down / window.innerHeight, 0, 1);
+        frame.style.transition = 'none';
+        frame.style.transform = 'translate3d(0,' + down.toFixed(1) + 'px,0) scale(' + (1 - p * 0.25).toFixed(4) + ')';
+        backdrop.style.opacity = (1 - p * 1.4).toFixed(3);
+      });
+      function end(e) {
+        if (e.pointerId !== pid) return;
+        pid = null;
+        if (!dragging) return;
+        dragging = false;
+        var a = samples[0], b = samples[samples.length - 1];
+        var vy = (b.y - a.y) / Math.max(1, b.t - a.t);
+        if (e.type === 'pointerup' && (dy > 110 || vy > 0.5)) {
+          close();
+        } else {
+          backdrop.style.opacity = '';
+          frame.style.transition = 'transform 360ms ' + EASE_DRAWER;
+          frame.style.transform = 'none';
+        }
+      }
+      frame.addEventListener('pointerup', end);
+      frame.addEventListener('pointercancel', end);
+    }
+
+    tiles.forEach(function (tile) {
+      tile.addEventListener('click', function () { open(tile); });
+      tile.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(tile); }
+      });
+    });
+    doc.addEventListener('keydown', function (e) {
+      if (isOpen && e.key === 'Escape') { e.preventDefault(); close(); }
+    });
+  }
+
   /* ---------- Small things: year, local time ---------- */
   function initMeta() {
     toArray(doc.querySelectorAll('[data-year]')).forEach(function (el) { el.textContent = new Date().getFullYear(); });
@@ -1093,6 +1325,7 @@
   safe(initHero);
   safe(initMarquee);
   safe(initVideoSlots);
+  safe(initStills);
   safe(initCursor);
   safe(initMagnetic);
   safe(initLightbox);
