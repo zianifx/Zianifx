@@ -14,8 +14,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
 <link rel="preload" as="image" href="Images/Portfolio/Portrait/Yasin2.JPG" fetchpriority="high">
-<link rel="stylesheet" href="assets/zfx.css?v=5">
-<script src="assets/zfx.js?v=5" defer></script>
+<link rel="stylesheet" href="assets/zfx.css?v=11">
+<script src="assets/zfx.js?v=11" defer></script>
 </head>
 <body class="page-sub page-lifestyle" id="top">
 
@@ -81,6 +81,7 @@
   <div class="subnav-inner">
     <a class="subnav-link" href="#films-vlogs" data-target="films-vlogs">Films &amp; Vlogs</a>
     <a class="subnav-link" href="#edits" data-target="edits">Edits</a>
+    <a class="subnav-link" href="#moving-stills" data-target="moving-stills">Moving Stills</a>
     <a class="subnav-link" href="#photography" data-target="photography">Photography</a>
   </div>
 </nav>
@@ -225,9 +226,80 @@
         </div>
       </div>
     </section>
+    <section class="subsection" id="moving-stills" aria-label="Moving Stills">
+      <header class="sub-head">
+        <p class="label zr"><b>03</b> Video</p>
+        <h2 class="subsection-heading zr-lines">Moving Stills</h2>
+        <p class="subsection-text zr">Einzelne Szenen, color-graded und für sich stehend – Momente zwischen Foto und Film.</p>
+      </header>
+      <!--
+        MOVING STILLS: eigene kurze MP4-Clips direkt auf der Website (keine externen Dienste, keine Datenschutz-Zeile nötig).
+        Dateien ablegen in Videos/MovingStills/:  still-01.mp4 (Clip) + still-01.jpg (Posterbild), still-02.mp4 + still-02.jpg usw.
+        Aktivieren: bei der jeweiligen Kachel data-still="" auf data-still="still-01" setzen (Dateiname ohne Endung).
+        Solange data-still leer ist, zeigt die Kachel den „Coming soon“-Platzhalter.
+        Verhalten: Clip läuft stumm in Schleife, nur solange er sichtbar ist; bei „Bewegung reduzieren“ nur das Posterbild.
+        Klick öffnet ihn groß (Schließen: ×, ESC, Klick daneben oder nach unten wischen).
+      -->
+      <div class="video-grid cols-2">
+        <div class="zr">
+          <!-- MOVING STILL 01: still-01.mp4 + still-01.jpg → zum Aktivieren data-still="" auf data-still="still-01" setzen -->
+          <div class="still photo-soon" data-still="" data-cursor="Ansehen" aria-label="Moving Still 01 groß ansehen">
+            <video class="still-video" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="soon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7.5 3.5v17l13-8.5z"/></svg></span>
+            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+            <span class="yt-meta" aria-hidden="true">Still 01</span>
+          </div>
+        </div>
+        <div class="zr">
+          <!-- MOVING STILL 02: still-02.mp4 + still-02.jpg → zum Aktivieren data-still="" auf data-still="still-02" setzen -->
+          <div class="still photo-soon" data-still="" data-cursor="Ansehen" aria-label="Moving Still 02 groß ansehen">
+            <video class="still-video" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="soon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7.5 3.5v17l13-8.5z"/></svg></span>
+            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+            <span class="yt-meta" aria-hidden="true">Still 02</span>
+          </div>
+        </div>
+        <div class="zr">
+          <!-- MOVING STILL 03: still-03.mp4 + still-03.jpg → zum Aktivieren data-still="" auf data-still="still-03" setzen -->
+          <div class="still photo-soon" data-still="" data-cursor="Ansehen" aria-label="Moving Still 03 groß ansehen">
+            <video class="still-video" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="soon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7.5 3.5v17l13-8.5z"/></svg></span>
+            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+            <span class="yt-meta" aria-hidden="true">Still 03</span>
+          </div>
+        </div>
+        <div class="zr">
+          <!-- MOVING STILL 04: still-04.mp4 + still-04.jpg → zum Aktivieren data-still="" auf data-still="still-04" setzen -->
+          <div class="still photo-soon" data-still="" data-cursor="Ansehen" aria-label="Moving Still 04 groß ansehen">
+            <video class="still-video" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="soon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7.5 3.5v17l13-8.5z"/></svg></span>
+            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+            <span class="yt-meta" aria-hidden="true">Still 04</span>
+          </div>
+        </div>
+        <div class="zr">
+          <!-- MOVING STILL 05: still-05.mp4 + still-05.jpg → zum Aktivieren data-still="" auf data-still="still-05" setzen -->
+          <div class="still photo-soon" data-still="" data-cursor="Ansehen" aria-label="Moving Still 05 groß ansehen">
+            <video class="still-video" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="soon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7.5 3.5v17l13-8.5z"/></svg></span>
+            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+            <span class="yt-meta" aria-hidden="true">Still 05</span>
+          </div>
+        </div>
+        <div class="zr">
+          <!-- MOVING STILL 06: still-06.mp4 + still-06.jpg → zum Aktivieren data-still="" auf data-still="still-06" setzen -->
+          <div class="still photo-soon" data-still="" data-cursor="Ansehen" aria-label="Moving Still 06 groß ansehen">
+            <video class="still-video" muted loop playsinline preload="none" aria-hidden="true"></video>
+            <span class="soon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7.5 3.5v17l13-8.5z"/></svg></span>
+            <span class="yt-soon" aria-hidden="true">Coming soon</span>
+            <span class="yt-meta" aria-hidden="true">Still 06</span>
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="subsection" id="photography" aria-label="Photography">
       <header class="sub-head">
-        <p class="label zr"><b>03</b> Fotografie</p>
+        <p class="label zr"><b>04</b> Fotografie</p>
         <h2 class="subsection-heading zr-lines">Photography</h2>
         <p class="subsection-text zr">Reisen, Natur und Orte, die bleiben – Fotografie von unterwegs. Bald hier zu sehen.</p>
       </header>
