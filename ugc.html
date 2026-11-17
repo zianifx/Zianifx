@@ -15,8 +15,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
 <!-- Sobald es ein echtes Titelbild gibt, hier zusätzlich vorladen:
      <link rel="preload" as="image" href="Images/Portfolio/ORDNER/DATEI.JPG" fetchpriority="high"> -->
-<link rel="stylesheet" href="assets/zfx.css?v=5">
-<script src="assets/zfx.js?v=5" defer></script>
+<link rel="stylesheet" href="assets/zfx.css?v=6">
+<script src="assets/zfx.js?v=6" defer></script>
 </head>
 <body class="page-sub page-ugc" id="top">
 
@@ -79,9 +79,9 @@
 </section>
 
 <!--
-  VIDEOS EINTRAGEN: In jedem Platzhalter nur die YouTube-ID zwischen die Anführungszeichen von data-video-id="" setzen.
-  Beispiel: https://youtube.com/shorts/9poqsNXv5ZU  →  data-video-id="9poqsNXv5ZU"  (so wie beim ersten Video unten)
-  Vorschaubild, Play-Button und Theater-Player kommen dann automatisch – genau wie auf den anderen Seiten.
+  VIDEOS: Instagram-Videos laden erst nach Klick auf „Video laden“ (Zwei-Klick-Lösung, siehe Datenschutz).
+  YouTube-Videos laufen wie auf den anderen Seiten über Vorschaubild + Theater-Player.
+  Wo neue Videos hinkommen, steht am Ende der Video-Liste unten.
 -->
 <div class="wrap">
     <section class="subsection" id="videos" aria-label="UGC & Ads">
@@ -90,55 +90,72 @@
         <h2 class="subsection-heading zr-lines">Selected Work</h2>
         <p class="subsection-text zr">Authentische UGC-Videos aus Nutzersicht und Werbeclips im Hochformat – gemacht für Feeds, Reels und Stories.</p>
       </header>
-      <div class="video-grid cols-3 is-portrait">
-        <div class="zr">
-          <!-- UGC & ADS VIDEO 1: YouTube Short 9poqsNXv5ZU (Hochformat 9:16) -->
-          <div class="yt-facade" data-video-id="9poqsNXv5ZU" data-ratio="9/16" data-cursor="Play" aria-label="UGC Video 01 abspielen">
+      <div class="reel-grid">
+        <div class="reel-item zr">
+          <!-- VIDEO 1 · Instagram: Telekom – Duales Studium (UGC) -->
+          <div class="ig-tile" data-ig-url="https://www.instagram.com/p/DeZANfEMKrh/">
+            <button type="button" class="ig-load">
+              <span class="yt-play" aria-hidden="true"></span>
+              <span class="btn btn-solid btn-sm">Video laden</span>
+            </button>
+            <p class="ig-note">Beim Laden werden Daten an Instagram (Meta) übertragen.</p>
+            <span class="ig-status" role="status"><span class="rec" aria-hidden="true"></span>Video wird geladen</span>
+            <span class="yt-meta" aria-hidden="true">Instagram</span>
+          </div>
+          <p class="caption">Telekom · Duales Studium · UGC</p>
+        </div>
+        <div class="reel-item zr">
+          <!-- VIDEO 2 · Instagram: Takis (UGC) -->
+          <div class="ig-tile" data-ig-url="https://www.instagram.com/reel/DbbNjN9i2z6/">
+            <button type="button" class="ig-load">
+              <span class="yt-play" aria-hidden="true"></span>
+              <span class="btn btn-solid btn-sm">Video laden</span>
+            </button>
+            <p class="ig-note">Beim Laden werden Daten an Instagram (Meta) übertragen.</p>
+            <span class="ig-status" role="status"><span class="rec" aria-hidden="true"></span>Video wird geladen</span>
+            <span class="yt-meta" aria-hidden="true">Instagram</span>
+          </div>
+          <p class="caption">Takis · UGC</p>
+        </div>
+        <div class="reel-item zr">
+          <!-- VIDEO 3 · Instagram: Deutsche Bahn × NFL (UGC) -->
+          <div class="ig-tile" data-ig-url="https://www.instagram.com/reel/DfZPEy7DOVN/">
+            <button type="button" class="ig-load">
+              <span class="yt-play" aria-hidden="true"></span>
+              <span class="btn btn-solid btn-sm">Video laden</span>
+            </button>
+            <p class="ig-note">Beim Laden werden Daten an Instagram (Meta) übertragen.</p>
+            <span class="ig-status" role="status"><span class="rec" aria-hidden="true"></span>Video wird geladen</span>
+            <span class="yt-meta" aria-hidden="true">Instagram</span>
+          </div>
+          <p class="caption">Deutsche Bahn × NFL · UGC</p>
+        </div>
+        <div class="reel-item zr">
+          <!-- VIDEO 4 · Instagram: Deutsche Bahn × NFL (UGC) -->
+          <div class="ig-tile" data-ig-url="https://www.instagram.com/reel/DfjiPGuEV7j/">
+            <button type="button" class="ig-load">
+              <span class="yt-play" aria-hidden="true"></span>
+              <span class="btn btn-solid btn-sm">Video laden</span>
+            </button>
+            <p class="ig-note">Beim Laden werden Daten an Instagram (Meta) übertragen.</p>
+            <span class="ig-status" role="status"><span class="rec" aria-hidden="true"></span>Video wird geladen</span>
+            <span class="yt-meta" aria-hidden="true">Instagram</span>
+          </div>
+          <p class="caption">Deutsche Bahn × NFL · UGC</p>
+        </div>
+        <div class="reel-item zr">
+          <!-- VIDEO 5 · YouTube Short 9poqsNXv5ZU (Hochformat 9:16, bisheriges System: Vorschaubild + Theater-Player) -->
+          <div class="yt-facade" data-video-id="9poqsNXv5ZU" data-ratio="9/16" data-cursor="Play" aria-label="UGC Video 05 abspielen">
             <img src="https://i.ytimg.com/vi/9poqsNXv5ZU/oar2.jpg" alt="Video Vorschau" loading="lazy" decoding="async" width="1080" height="1920">
             <span class="yt-play" aria-hidden="true"></span>
-            <span class="yt-meta" aria-hidden="true">Video 01</span>
+            <span class="yt-meta" aria-hidden="true">YouTube</span>
           </div>
         </div>
-        <div class="zr">
-          <!-- UGC & ADS VIDEO 2: YouTube-ID hier einsetzen → data-video-id="" -->
-          <div class="yt-facade" data-video-id="" data-ratio="9/16" data-cursor="Play" aria-label="UGC Video 02 abspielen">
-            <span class="yt-play" aria-hidden="true"></span>
-            <span class="yt-meta" aria-hidden="true">Video 02</span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
-          </div>
-        </div>
-        <div class="zr">
-          <!-- UGC & ADS VIDEO 3: YouTube-ID hier einsetzen → data-video-id="" -->
-          <div class="yt-facade" data-video-id="" data-ratio="9/16" data-cursor="Play" aria-label="UGC Video 03 abspielen">
-            <span class="yt-play" aria-hidden="true"></span>
-            <span class="yt-meta" aria-hidden="true">Video 03</span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
-          </div>
-        </div>
-        <div class="zr">
-          <!-- UGC & ADS VIDEO 4: YouTube-ID hier einsetzen → data-video-id="" -->
-          <div class="yt-facade" data-video-id="" data-ratio="9/16" data-cursor="Play" aria-label="UGC Video 04 abspielen">
-            <span class="yt-play" aria-hidden="true"></span>
-            <span class="yt-meta" aria-hidden="true">Video 04</span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
-          </div>
-        </div>
-        <div class="zr">
-          <!-- UGC & ADS VIDEO 5: YouTube-ID hier einsetzen → data-video-id="" -->
-          <div class="yt-facade" data-video-id="" data-ratio="9/16" data-cursor="Play" aria-label="UGC Video 05 abspielen">
-            <span class="yt-play" aria-hidden="true"></span>
-            <span class="yt-meta" aria-hidden="true">Video 05</span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
-          </div>
-        </div>
-        <div class="zr">
-          <!-- UGC & ADS VIDEO 6: YouTube-ID hier einsetzen → data-video-id="" -->
-          <div class="yt-facade" data-video-id="" data-ratio="9/16" data-cursor="Play" aria-label="UGC Video 06 abspielen">
-            <span class="yt-play" aria-hidden="true"></span>
-            <span class="yt-meta" aria-hidden="true">Video 06</span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
-          </div>
-        </div>
+        <!-- WEITERE VIDEOS HIER ERGÄNZEN (direkt über dieser Zeile, Reihenfolge = Reihenfolge auf der Seite):
+             • Instagram: einen Instagram-Block oben kopieren (von <div class="reel-item zr"> bis zum passenden </div>),
+               dann nur data-ig-url (Link zum Post/Reel) und den Text in <p class="caption"> anpassen.
+             • YouTube: den YouTube-Block (VIDEO 5) kopieren, data-video-id ändern und die <img>-Zeile löschen –
+               das Vorschaubild kommt dann automatisch. Mit data-video-id="" erscheint stattdessen ein „Coming soon“-Platzhalter. -->
       </div>
     </section>
 </div>
