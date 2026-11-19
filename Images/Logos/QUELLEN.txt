@@ -1,6 +1,6 @@
 Markenlogos für ugc.html
 
-Images/Logos/Original/  – Logos in Originalfarbe, als Sticker an den Video-Kacheln
+Images/Logos/Original/  – Logos in Originalfarbe: Sticker an den Video-Kacheln und Leiste "Brands I've worked with"
   DeutscheBahn.svg  Wikimedia Commons, "Deutsche Bahn AG-Logo.svg" (Public Domain)
   NFL.svg           Wikipedia (en), "National Football League logo.svg"
   Telekom.svg       Wikimedia Commons, "Telekom Logo 2013.svg" (Public Domain)
@@ -9,7 +9,7 @@ Images/Logos/Original/  – Logos in Originalfarbe, als Sticker an den Video-Kac
   CrustySlices.png  von Mohamed geliefert, auf 360 px Breite verkleinert
   Glossly und Juwelier Prestij: bewusst ohne Logo auf den Kacheln
 
-Images/Logos/*.svg, *.png – einfarbige Fassungen (#d3d0cb) für die Leiste "Brands I've worked with".
+Images/Logos/*.svg, *.png – einfarbige Fassungen (#d3d0cb), derzeit nicht verwendet (Leiste zeigt jetzt Originalfarben).
   Aus den offiziellen Dateien umgefärbt: Formen unverändert, farbige Flächen -> #d3d0cb,
   weiße Innenflächen -> transparent. CrustySlices.png aus der gelieferten Datei, Helligkeit als Deckkraft
   (wie bei Takis), damit Croissant und Pizza erkennbar bleiben.

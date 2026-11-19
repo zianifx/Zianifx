@@ -1662,11 +1662,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.45));
   transition: rotate 600ms var(--ease-out), translate 600ms var(--ease-out), opacity 400ms ease;
 }
-.sticker.is-left { left: calc(var(--w, 80px) * -0.3); }
-.sticker.is-right { right: calc(var(--w, 80px) * -0.3); }
+/* About a third over the edge, never more than 36px, so large stickers stay on screen */
+.sticker.is-left { left: max(calc(var(--w, 80px) * -0.3), -36px); }
+.sticker.is-right { right: max(calc(var(--w, 80px) * -0.3), -36px); }
 .sticker img { display: block; width: 100%; height: auto; }
 /* Out of the way once the Instagram player has replaced the poster */
 .reel-item:has(.ig-tile.is-loaded) .sticker { opacity: 0; }
+@media (min-width: 769px) and (max-width: 1089px) {
+  .sticker.is-left { left: max(calc(var(--w, 80px) * -0.3), -24px); }
+  .sticker.is-right { right: max(calc(var(--w, 80px) * -0.3), -24px); }
+}
 @media (max-width: 768px) {
   .sticker { width: calc(var(--w, 80px) * 0.85); }
   .sticker.is-left { left: -12px; }
@@ -1678,16 +1683,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* Logo strip below the chapter cover: the start page marquee, slower and with logos */
 .brand-bar { padding-top: clamp(3.5rem, 8vw, 6rem); }
 .brand-bar-label { justify-content: center; margin-bottom: clamp(1rem, 2vw, 1.4rem); }
-.marquee-logos { padding: clamp(1.1rem, 2.2vw, 1.5rem) 0; }
+.marquee-logos { padding: clamp(1.25rem, 2.4vw, 1.75rem) 0; }
 .marquee-logos .marquee-track { animation-duration: 90s; }
-.marquee-logos .brand-logo { flex: none; display: flex; align-items: center; padding: 0 clamp(1.4rem, 3vw, 2.6rem); opacity: 0.55; transition: opacity 300ms ease; }
-.marquee-logos .brand-logo img { display: block; width: auto; height: clamp(22px, 2.2vw, 28px); max-width: 132px; object-fit: contain; }
+.marquee-logos .brand-logo { flex: none; display: flex; align-items: center; padding: 0 clamp(1.8rem, 3.8vw, 3.4rem); }
+.marquee-logos .brand-logo img { display: block; width: auto; height: clamp(33px, 3.3vw, 42px); max-width: 198px; object-fit: contain; }
 .marquee-logos .brand-logo.is-text { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.3em; text-transform: uppercase; white-space: nowrap; color: var(--ink); }
-.marquee-logos .brand-logo img.is-lg { height: clamp(28px, 2.8vw, 35px); }
-.marquee-logos .brand-logo img.is-wide { max-width: 108px; }
-.marquee-logos .brand-logo img.is-xl { height: clamp(36px, 3.6vw, 46px); }
+.marquee-logos .brand-logo img.is-lg { height: clamp(42px, 4.2vw, 52px); }
+.marquee-logos .brand-logo img.is-wide { max-width: 162px; }
+.marquee-logos .brand-logo img.is-xl { height: clamp(54px, 5.4vw, 69px); }
 .marquee-logos .s { width: 6px; }
-@media (hover: hover) and (pointer: fine) { .marquee-logos .brand-logo:hover { opacity: 0.95; } }
 @media (prefers-reduced-motion: reduce) {
   .marquee-logos .marquee-track { width: auto; flex-wrap: wrap; justify-content: center; row-gap: 1.25rem; }
   .marquee-logos .is-dup, .marquee-logos .s { display: none; }
