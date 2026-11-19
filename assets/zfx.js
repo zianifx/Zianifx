@@ -846,7 +846,15 @@
       img.width = portrait ? 1080 : 1280;
       img.height = portrait ? 1920 : 720;
       img.onerror = function () { img.onerror = null; img.src = 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg'; };
-      img.src = portrait ? 'https://i.ytimg.com/vi/' + id + '/oar2.jpg' : 'https://img.youtube.com/vi/' + id + '/maxresdefault.jpg';
+      img.src = portrait ? 'https://i.ytimg.com/vi/' + id + '/sardefault.jpg' : 'https://img.youtube.com/vi/' + id + '/maxresdefault.jpg';
+      if (portrait) {
+        // Shorts: YouTube's stored thumbnail in portrait (sardefault, else oardefault), never the auto frames oar1-3.
+        // Last resort hqdefault, cropped to the middle by the tile. A missing size may answer with a grey 120px image.
+        var tries = ['oardefault', 'hqdefault'];
+        var fallback = function () { var n = tries.shift(); if (n) img.src = 'https://i.ytimg.com/vi/' + id + '/' + n + '.jpg'; else img.onerror = img.onload = null; };
+        img.onerror = fallback;
+        img.onload = function () { if (img.naturalWidth <= 120 && tries.length) fallback(); };
+      }
       f.insertBefore(img, f.firstChild);
     });
   }
