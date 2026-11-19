@@ -1685,6 +1685,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .marquee-logos .brand-logo.is-text { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.3em; text-transform: uppercase; white-space: nowrap; color: var(--ink); }
 .marquee-logos .brand-logo img.is-lg { height: clamp(28px, 2.8vw, 35px); }
 .marquee-logos .brand-logo img.is-wide { max-width: 108px; }
+.marquee-logos .brand-logo img.is-xl { height: clamp(36px, 3.6vw, 46px); }
 .marquee-logos .s { width: 6px; }
 @media (hover: hover) and (pointer: fine) { .marquee-logos .brand-logo:hover { opacity: 0.95; } }
 @media (prefers-reduced-motion: reduce) {

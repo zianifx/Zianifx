@@ -11,5 +11,7 @@ Images/Logos/Original/  – Logos in Originalfarbe, als Sticker an den Video-Kac
 
 Images/Logos/*.svg, *.png – einfarbige Fassungen (#d3d0cb) für die Leiste "Brands I've worked with".
   Aus den offiziellen Dateien umgefärbt: Formen unverändert, farbige Flächen -> #d3d0cb,
-  weiße Innenflächen -> transparent. Glossly.png stammt aus dem Seitenkopf von glossly.de.
-  Crusty Slices und Juwelier Prestij stehen in der Leiste als Schriftzug.
+  weiße Innenflächen -> transparent. CrustySlices.png aus der gelieferten Datei, Helligkeit als Deckkraft
+  (wie bei Takis), damit Croissant und Pizza erkennbar bleiben.
+  Glossly.png (aus dem Seitenkopf von glossly.de) wird derzeit nicht verwendet: Glossly und
+  Juwelier Prestij sind bewusst nicht in der Leiste.
