@@ -1,11 +1,15 @@
-Markenlogos für ugc.html – einfarbig (#d3d0cb) aus den offiziellen Dateien umgefärbt.
-Formen unverändert, nur Farben: farbige Flächen -> #d3d0cb, weiße Innenflächen -> transparent.
+Markenlogos für ugc.html
 
-DeutscheBahn.svg  Wikimedia Commons, "Deutsche Bahn AG-Logo.svg" (Public Domain)
-NFL.svg           Wikipedia (en), "National Football League logo.svg"
-Telekom.svg       Wikimedia Commons, "Telekom Logo 2013.svg" (Public Domain)
-Knorr.svg         Wikimedia Commons, "Knorr Logo 2020.svg" (Public Domain)
-Takis.png         Wikipedia (en), "Takis logo.png" (nur als PNG verfügbar)
-Glossly.png       glossly.de, Logo aus dem Seitenkopf (nur als PNG verfügbar)
+Images/Logos/Original/  – Logos in Originalfarbe, als Sticker an den Video-Kacheln
+  DeutscheBahn.svg  Wikimedia Commons, "Deutsche Bahn AG-Logo.svg" (Public Domain)
+  NFL.svg           Wikipedia (en), "National Football League logo.svg"
+  Telekom.svg       Wikimedia Commons, "Telekom Logo 2013.svg" (Public Domain)
+  Knorr.svg         Wikimedia Commons, "Knorr Logo 2020.svg" (Public Domain)
+  Takis.png         Wikipedia (en), "Takis logo.png" (nur als PNG verfügbar)
+  CrustySlices.png  von Mohamed geliefert, auf 360 px Breite verkleinert
+  Glossly und Juwelier Prestij: bewusst ohne Logo auf den Kacheln
 
-Ohne offizielles Logo (Name in Monospace-Schrift): Crusty Slices, Juwelier Prestij
+Images/Logos/*.svg, *.png – einfarbige Fassungen (#d3d0cb) für die Leiste "Brands I've worked with".
+  Aus den offiziellen Dateien umgefärbt: Formen unverändert, farbige Flächen -> #d3d0cb,
+  weiße Innenflächen -> transparent. Glossly.png stammt aus dem Seitenkopf von glossly.de.
+  Crusty Slices und Juwelier Prestij stehen in der Leiste als Schriftzug.
