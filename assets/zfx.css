@@ -1647,3 +1647,46 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* Large view: same look as the video theater, with the clip instead of a YouTube player */
 .theater-stills .theater-frame { touch-action: none; }
 .theater-stills .theater-frame video { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; background: #000; }
+
+/* ============ UGC & Ads: brand logos (additions) ============ */
+/* One-colour logo files in Images/Logos/ (#d3d0cb); brands without an official file are set in mono type.
+   On the tiles the logo sits bottom-left over the existing dark gradient, opposite the platform label. */
+.brand-mark {
+  position: absolute;
+  left: 26px; bottom: 24px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  max-width: calc(100% - 52px);
+  pointer-events: none;
+  opacity: 0.8;
+  transition: opacity 300ms ease;
+}
+.brand-mark img { display: block; width: auto; height: 24px; max-width: 108px; object-fit: contain; object-position: left center; }
+.brand-mark i { font-style: normal; font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
+.brand-mark.is-text { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink); }
+/* The poster rule (.yt-facade img) must not reach the logo */
+.yt-facade .brand-mark img, .yt-facade:hover .brand-mark img { position: static; inset: auto; height: 24px; width: auto; scale: none; transform: none; transition: none; }
+/* Optical sizes: compact marks a little taller, the wide wordmark a little narrower */
+.brand-mark img.is-lg, .yt-facade .brand-mark img.is-lg { height: 30px; }
+.brand-mark img.is-wide { max-width: 86px; }
+@media (hover: hover) and (pointer: fine) {
+  .ig-tile:hover .brand-mark, .yt-facade:hover .brand-mark { opacity: 1; }
+}
+/* Logo strip below the chapter cover: the start page marquee, slower and with logos */
+.brand-bar { padding-top: clamp(3.5rem, 8vw, 6rem); }
+.brand-bar-label { justify-content: center; margin-bottom: clamp(1rem, 2vw, 1.4rem); }
+.marquee-logos { padding: clamp(1.1rem, 2.2vw, 1.5rem) 0; }
+.marquee-logos .marquee-track { animation-duration: 90s; }
+.marquee-logos .brand-logo { flex: none; display: flex; align-items: center; padding: 0 clamp(1.4rem, 3vw, 2.6rem); opacity: 0.55; transition: opacity 300ms ease; }
+.marquee-logos .brand-logo img { display: block; width: auto; height: clamp(22px, 2.2vw, 28px); max-width: 132px; object-fit: contain; }
+.marquee-logos .brand-logo.is-text { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.3em; text-transform: uppercase; white-space: nowrap; color: var(--ink); }
+.marquee-logos .brand-logo img.is-lg { height: clamp(28px, 2.8vw, 35px); }
+.marquee-logos .brand-logo img.is-wide { max-width: 108px; }
+.marquee-logos .s { width: 6px; }
+@media (hover: hover) and (pointer: fine) { .marquee-logos .brand-logo:hover { opacity: 0.95; } }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-logos .marquee-track { width: auto; flex-wrap: wrap; justify-content: center; row-gap: 1.25rem; }
+  .marquee-logos .is-dup, .marquee-logos .s { display: none; }
+}

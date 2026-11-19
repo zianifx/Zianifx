@@ -1,0 +1,11 @@
+Markenlogos für ugc.html – einfarbig (#d3d0cb) aus den offiziellen Dateien umgefärbt.
+Formen unverändert, nur Farben: farbige Flächen -> #d3d0cb, weiße Innenflächen -> transparent.
+
+DeutscheBahn.svg  Wikimedia Commons, "Deutsche Bahn AG-Logo.svg" (Public Domain)
+NFL.svg           Wikipedia (en), "National Football League logo.svg"
+Telekom.svg       Wikimedia Commons, "Telekom Logo 2013.svg" (Public Domain)
+Knorr.svg         Wikimedia Commons, "Knorr Logo 2020.svg" (Public Domain)
+Takis.png         Wikipedia (en), "Takis logo.png" (nur als PNG verfügbar)
+Glossly.png       glossly.de, Logo aus dem Seitenkopf (nur als PNG verfügbar)
+
+Ohne offizielles Logo (Name in Monospace-Schrift): Crusty Slices, Juwelier Prestij
