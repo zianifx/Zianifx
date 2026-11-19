@@ -6,12 +6,5 @@ Images/Logos/Original/  – Logos in Originalfarbe: Sticker an den Video-Kacheln
   Telekom.svg       Wikimedia Commons, "Telekom Logo 2013.svg" (Public Domain)
   Knorr.svg         Wikimedia Commons, "Knorr Logo 2020.svg" (Public Domain)
   Takis.png         Wikipedia (en), "Takis logo.png" (nur als PNG verfügbar)
-  CrustySlices.png  von Mohamed geliefert, auf 360 px Breite verkleinert
-  Glossly und Juwelier Prestij: bewusst ohne Logo auf den Kacheln
-
-Images/Logos/*.svg, *.png – einfarbige Fassungen (#d3d0cb), derzeit nicht verwendet (Leiste zeigt jetzt Originalfarben).
-  Aus den offiziellen Dateien umgefärbt: Formen unverändert, farbige Flächen -> #d3d0cb,
-  weiße Innenflächen -> transparent. CrustySlices.png aus der gelieferten Datei, Helligkeit als Deckkraft
-  (wie bei Takis), damit Croissant und Pizza erkennbar bleiben.
-  Glossly.png (aus dem Seitenkopf von glossly.de) wird derzeit nicht verwendet: Glossly und
-  Juwelier Prestij sind bewusst nicht in der Leiste.
+  CrustySlices.png  vom Inhaber geliefert, auf 360 px Breite verkleinert
+  Glossly und Juwelier Prestij: bewusst ohne Logo
