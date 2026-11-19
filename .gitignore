@@ -9,3 +9,6 @@ Thumbs.db
 
 # Originale der Moving Stills (sehr große Clips, nie committen – nur die komprimierten Dateien in Videos/MovingStills/)
 /Images/Portfolio/Moving Stills/
+
+# Claude Code (Skills, Einstellungen, Worktrees) – bleibt lokal, wird nicht veröffentlicht
+.claude/
