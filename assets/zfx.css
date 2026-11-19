@@ -1610,8 +1610,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .site-header, .intro, .hud, .marquee, .tabs { display: none !important; }
 }
 
-/* ============ Moving Stills (Travel & Films): own short MP4 loops, no external services ============ */
-/* Placeholder look comes from .photo-soon; a filled tile (data-still="still-NN") gets .is-ready from zfx.js */
+/* ============ Moving Stills (Travel & Films): two self-hosted loop players, no external services ============ */
+/* The tile gets .is-ready from zfx.js; .needs-tap (reduced motion / blocked autoplay) shows the play button */
 .still {
   position: relative;
   isolation: isolate;
@@ -1632,17 +1632,22 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   object-fit: cover;
   transition: transform 1200ms var(--ease-out);
 }
-.still.photo-soon .still-video { display: none; }
 .still.is-ready { cursor: pointer; }
 .still.is-ready::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.45) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 24%, rgba(0, 0, 0, 0) 62%, rgba(0, 0, 0, 0.32) 100%);
   pointer-events: none;
 }
-.still.is-ready .soon-icon, .still.is-ready .yt-soon { display: none; }
+/* Viewfinder HUD: REC dot and place label top-left, small enough to leave the picture alone */
+.still .yt-meta { top: 20px; bottom: auto; left: 22px; right: 22px; z-index: 2; display: flex; align-items: baseline; gap: 0.6em; line-height: 1.6; pointer-events: none; }
+.still .yt-meta .rec { flex: none; transform: translateY(-1px); }
+.still .yt-play { display: none; }
+.still.needs-tap .yt-play { display: grid; }
+.still.needs-tap .yt-meta .rec { animation: none; }
+@media (max-width: 768px) { .still .yt-meta { top: 14px; left: 16px; right: 16px; } }
 @media (hover: hover) and (pointer: fine) { .still.is-ready:hover .still-video { transform: scale(1.03); } }
 /* Large view: same look as the video theater, with the clip instead of a YouTube player */
 .theater-stills .theater-frame { touch-action: none; }

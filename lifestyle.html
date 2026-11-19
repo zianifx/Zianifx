@@ -13,9 +13,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
-<link rel="preload" as="image" href="Images/Portfolio/Portrait/Yasin2.JPG" fetchpriority="high">
-<link rel="stylesheet" href="assets/zfx.css?v=11">
-<script src="assets/zfx.js?v=11" defer></script>
+<link rel="preload" as="image" href="Images/Covers/travel-films.jpg" fetchpriority="high">
+<link rel="stylesheet" href="assets/zfx.css?v=12">
+<script src="assets/zfx.js?v=12" defer></script>
 </head>
 <body class="page-sub page-lifestyle" id="top">
 
@@ -62,7 +62,8 @@
 <!-- Kapitel-Cover -->
 <section class="page-hero" aria-label="Travel & Films">
   <div class="page-hero-media" aria-hidden="true">
-    <img src="Images/Portfolio/Portrait/Yasin2.JPG" alt="" fetchpriority="high" decoding="async" style="view-transition-name: w-lifestyle; object-position: 50% 62%;">
+    <!-- TRAVEL & FILMS COVER: erster Frame von Clip 1 (Lünersee, Vorarlberg) aus den Moving Stills -->
+    <img src="Images/Covers/travel-films.jpg" alt="" fetchpriority="high" decoding="async" style="view-transition-name: w-lifestyle;">
   </div>
   <div class="hud" aria-hidden="true">
     <i class="tl"></i><i class="tr"></i>
@@ -227,66 +228,26 @@
         <p class="subsection-text zr">Einzelne Szenen, color-graded und für sich stehend – Momente zwischen Foto und Film.</p>
       </header>
       <!--
-        MOVING STILLS: eigene kurze MP4-Clips direkt auf der Website (keine externen Dienste, keine Datenschutz-Zeile nötig).
-        Dateien ablegen in Videos/MovingStills/:  still-01.mp4 (Clip) + still-01.jpg (Posterbild), still-02.mp4 + still-02.jpg usw.
-        Aktivieren: bei der jeweiligen Kachel data-still="" auf data-still="still-01" setzen (Dateiname ohne Endung).
-        Solange data-still leer ist, zeigt die Kachel den „Coming soon“-Platzhalter.
-        Verhalten: Clip läuft stumm in Schleife, nur solange er sichtbar ist; bei „Bewegung reduzieren“ nur das Posterbild.
-        Klick öffnet ihn groß (Schließen: ×, ESC, Klick daneben oder nach unten wischen).
+        MOVING STILLS: zwei eigene Loop-Videos (keine externen Dienste, keine Datenschutz-Zeile nötig).
+        Dateien in Videos/MovingStills/: <name>.mp4 (Video) + <name>.jpg (Posterbild), <name> steht in data-still.
+        Die Videos starten von selbst, sobald sie sichtbar sind, und pausieren beim Wegscrollen.
+        Bei „Bewegung reduzieren“ oder blockiertem Autoplay bleibt das Posterbild, Antippen startet das Video.
+        Klick auf ein laufendes Video öffnet es groß (Schließen: ×, ESC, Klick daneben oder nach unten wischen).
+        Erzeugt aus den Originalen in Images/Portfolio/Moving Stills/ (nicht im Repository, siehe .gitignore).
       -->
       <div class="video-grid cols-2">
         <div class="zr">
-          <!-- MOVING STILL 01: still-01.mp4 + still-01.jpg → zum Aktivieren data-still="" auf data-still="still-01" setzen -->
-          <div class="still photo-soon" data-still="" data-cursor="Ansehen" aria-label="Moving Still 01 groß ansehen">
-            <video class="still-video" muted loop playsinline preload="none" aria-hidden="true"></video>
-            <span class="soon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7.5 3.5v17l13-8.5z"/></svg></span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
-            <span class="yt-meta" aria-hidden="true">Still 01</span>
+          <div class="still" data-still="schweiz-oesterreich" data-cursor="Ansehen" aria-label="Moving Stills Schweiz / Österreich groß ansehen">
+            <video class="still-video" muted loop playsinline preload="none" poster="Videos/MovingStills/schweiz-oesterreich.jpg" aria-hidden="true"></video>
+            <span class="yt-play" aria-hidden="true"></span>
+            <span class="yt-meta" aria-hidden="true"><span class="rec"></span>Schweiz / Österreich · Zürich · Vorarlberg</span>
           </div>
         </div>
         <div class="zr">
-          <!-- MOVING STILL 02: still-02.mp4 + still-02.jpg → zum Aktivieren data-still="" auf data-still="still-02" setzen -->
-          <div class="still photo-soon" data-still="" data-cursor="Ansehen" aria-label="Moving Still 02 groß ansehen">
-            <video class="still-video" muted loop playsinline preload="none" aria-hidden="true"></video>
-            <span class="soon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7.5 3.5v17l13-8.5z"/></svg></span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
-            <span class="yt-meta" aria-hidden="true">Still 02</span>
-          </div>
-        </div>
-        <div class="zr">
-          <!-- MOVING STILL 03: still-03.mp4 + still-03.jpg → zum Aktivieren data-still="" auf data-still="still-03" setzen -->
-          <div class="still photo-soon" data-still="" data-cursor="Ansehen" aria-label="Moving Still 03 groß ansehen">
-            <video class="still-video" muted loop playsinline preload="none" aria-hidden="true"></video>
-            <span class="soon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7.5 3.5v17l13-8.5z"/></svg></span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
-            <span class="yt-meta" aria-hidden="true">Still 03</span>
-          </div>
-        </div>
-        <div class="zr">
-          <!-- MOVING STILL 04: still-04.mp4 + still-04.jpg → zum Aktivieren data-still="" auf data-still="still-04" setzen -->
-          <div class="still photo-soon" data-still="" data-cursor="Ansehen" aria-label="Moving Still 04 groß ansehen">
-            <video class="still-video" muted loop playsinline preload="none" aria-hidden="true"></video>
-            <span class="soon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7.5 3.5v17l13-8.5z"/></svg></span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
-            <span class="yt-meta" aria-hidden="true">Still 04</span>
-          </div>
-        </div>
-        <div class="zr">
-          <!-- MOVING STILL 05: still-05.mp4 + still-05.jpg → zum Aktivieren data-still="" auf data-still="still-05" setzen -->
-          <div class="still photo-soon" data-still="" data-cursor="Ansehen" aria-label="Moving Still 05 groß ansehen">
-            <video class="still-video" muted loop playsinline preload="none" aria-hidden="true"></video>
-            <span class="soon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7.5 3.5v17l13-8.5z"/></svg></span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
-            <span class="yt-meta" aria-hidden="true">Still 05</span>
-          </div>
-        </div>
-        <div class="zr">
-          <!-- MOVING STILL 06: still-06.mp4 + still-06.jpg → zum Aktivieren data-still="" auf data-still="still-06" setzen -->
-          <div class="still photo-soon" data-still="" data-cursor="Ansehen" aria-label="Moving Still 06 groß ansehen">
-            <video class="still-video" muted loop playsinline preload="none" aria-hidden="true"></video>
-            <span class="soon-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7.5 3.5v17l13-8.5z"/></svg></span>
-            <span class="yt-soon" aria-hidden="true">Coming soon</span>
-            <span class="yt-meta" aria-hidden="true">Still 06</span>
+          <div class="still" data-still="spanien" data-cursor="Ansehen" aria-label="Moving Stills Spanien groß ansehen">
+            <video class="still-video" muted loop playsinline preload="none" poster="Videos/MovingStills/spanien.jpg" aria-hidden="true"></video>
+            <span class="yt-play" aria-hidden="true"></span>
+            <span class="yt-meta" aria-hidden="true"><span class="rec"></span>Spanien · Barcelona</span>
           </div>
         </div>
       </div>

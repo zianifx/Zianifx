@@ -1066,32 +1066,30 @@
     });
   }
 
-  /* ---------- Moving Stills: own short MP4 loops (Videos/MovingStills/still-NN.mp4 + still-NN.jpg poster).
-     data-still="" stays a "Coming soon" placeholder; data-still="still-01" switches the tile on.
-     Clips play muted in a loop only while on screen (never with reduced motion) and open large in the
-     theater look: close with ×, ESC, a click on the backdrop or a downward swipe. ---------- */
+  /* ---------- Moving Stills: two self-hosted loop players (Videos/MovingStills/<name>.mp4 + <name>.jpg poster,
+     set via data-still="<name>"). They buffer shortly before they come on screen, play muted in a loop only while
+     visible and pause when scrolled away. With reduced motion, or when the browser blocks autoplay (e.g. iPhone in
+     Low Power Mode), the poster stays with a play button and a tap starts the clip. A click on a playing clip opens
+     it large in the theater look: close with ×, ESC, a click on the backdrop or a downward swipe. ---------- */
   function initStills() {
-    var tiles = toArray(doc.querySelectorAll('.still'));
+    var tiles = toArray(doc.querySelectorAll('.still[data-still]'));
     if (!tiles.length) return;
     var BASE = 'Videos/MovingStills/';
     var active = [];
     var io = null;
 
-    function asPlaceholder(tile) {
-      tile.classList.remove('is-ready');
-      tile.classList.add('photo-soon');
-      tile.removeAttribute('data-cursor');
-      tile.removeAttribute('tabindex');
-      tile.setAttribute('role', 'img');
-      tile.setAttribute('aria-label', 'Moving Still folgt in Kürze');
+    function playQuietly(v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); return p; }
+    function needsTap(tile, on) { tile.classList.toggle('needs-tap', !!on); }
+    function autoplay(tile) {
+      var v = tile.querySelector('video');
+      var p = v.play();
+      if (p && p.catch) p.catch(function (err) { if (err && err.name === 'NotAllowedError') needsTap(tile, true); });
     }
-    function playQuietly(v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
 
     tiles.forEach(function (tile) {
       var name = (tile.getAttribute('data-still') || '').trim();
       var video = tile.querySelector('video');
-      if (!name || !video) { asPlaceholder(tile); return; }
-      tile.classList.remove('photo-soon');
+      if (!name || !video) return;
       tile.classList.add('is-ready');
       tile.setAttribute('role', 'button');
       tile.setAttribute('tabindex', '0');
@@ -1099,32 +1097,33 @@
       video.loop = true;
       video.playsInline = true;
       video.preload = 'none';
-      video.poster = BASE + name + '.jpg';
-      video.src = BASE + name + '.mp4'; // preload="none": nothing is downloaded before the clip is on screen
-      // A missing poster means the files aren't there yet: fall back to the placeholder instead of a black box
-      var probe = new Image();
-      probe.onerror = function () {
-        video.removeAttribute('src');
-        video.removeAttribute('poster');
-        if (io) io.unobserve(tile);
-        if (active.indexOf(tile) > -1) active.splice(active.indexOf(tile), 1);
-        asPlaceholder(tile);
-      };
-      probe.src = video.poster;
+      if (!video.getAttribute('poster')) video.poster = BASE + name + '.jpg';
+      video.src = BASE + name + '.mp4'; // preload="none": nothing is downloaded before the player comes close
+      if (reduced()) needsTap(tile, true);
       active.push(tile);
     });
     if (!active.length) return;
 
-    // Autoplay only while visible; with reduced motion the poster stays
-    if (!reduced() && 'IntersectionObserver' in window) {
+    if ('IntersectionObserver' in window) {
+      // Start buffering a little before the player scrolls into view
+      var near = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var v = e.target.querySelector('video');
+          if (!reduced() && v.preload !== 'auto') { v.preload = 'auto'; v.load(); }
+          near.unobserve(e.target);
+        });
+      }, { rootMargin: '400px 0px' });
+      // Play while visible, pause when scrolled away
       io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
           var v = e.target.querySelector('video');
-          if (e.isIntersecting && e.intersectionRatio >= 0.35) { if (!isOpen) playQuietly(v); }
-          else if (!v.paused) v.pause();
+          if (e.isIntersecting && e.intersectionRatio >= 0.35) {
+            if (!isOpen && !reduced() && !e.target.classList.contains('needs-tap')) autoplay(e.target);
+          } else if (!v.paused) v.pause();
         });
       }, { threshold: [0, 0.35, 0.6] });
-      active.forEach(function (t) { io.observe(t); });
+      active.forEach(function (t) { near.observe(t); io.observe(t); });
     }
 
     // Large view, built from the same classes as the video theater
@@ -1140,7 +1139,7 @@
       el.className = 'theater theater-stills';
       el.setAttribute('role', 'dialog');
       el.setAttribute('aria-modal', 'true');
-      el.setAttribute('aria-label', 'Moving Still');
+      el.setAttribute('aria-label', 'Moving Stills');
       el.setAttribute('aria-hidden', 'true');
       backdrop = doc.createElement('div');
       backdrop.className = 'theater-backdrop';
@@ -1238,7 +1237,7 @@
         if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
         // the tile carries on if it is still on screen
         var rr = tile.getBoundingClientRect();
-        if (!reduced() && rr.bottom > 0 && rr.top < window.innerHeight) playQuietly(tile.querySelector('video'));
+        if (!tile.classList.contains('needs-tap') && rr.bottom > 0 && rr.top < window.innerHeight) playQuietly(tile.querySelector('video'));
       }, dur + 30);
     }
     // Downward swipe dismisses, like the photo lightbox
@@ -1287,10 +1286,20 @@
       frame.addEventListener('pointercancel', end);
     }
 
-    tiles.forEach(function (tile) {
-      tile.addEventListener('click', function () { open(tile); });
+    function activate(tile) {
+      var v = tile.querySelector('video');
+      if (tile.classList.contains('needs-tap') && v.paused) {
+        needsTap(tile, false);
+        var p = playQuietly(v);
+        if (p && p.catch) p.catch(function () { needsTap(tile, true); });
+        return;
+      }
+      open(tile);
+    }
+    active.forEach(function (tile) {
+      tile.addEventListener('click', function () { activate(tile); });
       tile.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(tile); }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(tile); }
       });
     });
     doc.addEventListener('keydown', function (e) {
