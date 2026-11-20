@@ -15,3 +15,6 @@ Thumbs.db
 
 # Originale der Reisefotos (groß, mit Metadaten) – nie committen, nur die Web-Versionen in Images/Travel/
 /Images/Travel Fotos/
+
+# Referenzen und Prototypen (nur lokal, nie veröffentlichen)
+/_referenz/

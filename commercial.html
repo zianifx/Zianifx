@@ -17,8 +17,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
 <link rel="preload" as="image" href="Images/Portfolio/Product/Prestij1.JPG" fetchpriority="high">
-<link rel="stylesheet" href="assets/zfx.css?v=5">
-<script src="assets/zfx.js?v=6" defer></script>
+<link rel="stylesheet" href="assets/zfx.css?v=13">
+<link rel="stylesheet" href="assets/zfx-scenes.css?v=1">
+<script src="assets/zfx.js?v=14" defer></script>
+<script src="assets/zfx-scenes.js?v=1" defer></script>
 </head>
 <body class="page-sub page-commercial" id="top">
 
@@ -86,52 +88,34 @@
         <h2 class="subsection-heading zr-lines">Visual Branding</h2>
         <p class="subsection-text zr">Hochwertige Produktfotografie für Websites, Online-Shops und digitale Markenpräsenz – ästhetisch, aufmerksamkeitsstark und markenwirksam.</p>
       </header>
-      <div class="image-group">
-        <div class="series zr"><span><b>Galerie</b></span><span>18 Bilder</span></div>
-              <div class="image-grid" aria-label="Projektgalerie Prestij">
-                <!-- Galerie wie bei Hospitality & Interior: großes Bild (class="big") neben Spalten aus zwei Bildern (div.image-col).
-                     Reihenfolge = Nummer im Dateinamen (auch in der Lightbox). Spalten und große Bilder haben Hochformat-Proportionen,
-                     dadurch wird fast nichts beschnitten. -->
-                <div class="image-row">
-                  <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij1.JPG" width="2560" height="1707" alt="ZIANI FX – Prestij Product" class="zr landscape">
-                  <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij2.JPG" width="2560" height="1707" alt="ZIANI FX – Prestij Product" class="zr landscape">
-                </div>
-                <div class="image-row">
-                  <div class="image-col">
-                    <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij3.JPG" width="1707" height="2560" alt="ZIANI FX – Prestij Product" class="zr portrait">
-                    <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij4.JPG" width="1707" height="2560" alt="ZIANI FX – Prestij Product" class="zr portrait">
-                  </div>
-                  <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij5.JPG" width="1707" height="2560" alt="ZIANI FX – Prestij Product" class="zr big portrait">
-                  <div class="image-col">
-                    <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij7.jpg" width="1666" height="2500" alt="ZIANI FX – Prestij Product" class="zr portrait">
-                    <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij8.jpg" width="1666" height="2500" alt="ZIANI FX – Prestij Product" class="zr portrait">
-                  </div>
-                  <div class="image-col">
-                    <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij9.jpg" width="1666" height="2500" alt="ZIANI FX – Prestij Product" class="zr portrait">
-                    <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij10.jpg" width="1666" height="2500" alt="ZIANI FX – Prestij Product" class="zr portrait">
-                  </div>
-                </div>
-                <div class="image-row">
-                  <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij12.jpg" width="1666" height="2500" alt="ZIANI FX – Prestij Product" class="zr big portrait">
-                  <div class="image-col">
-                    <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij13.jpg" width="1666" height="2500" alt="ZIANI FX – Prestij Product" class="zr portrait">
-                    <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij14.jpg" width="1666" height="2500" alt="ZIANI FX – Prestij Product" class="zr portrait">
-                  </div>
-                  <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij15.jpg" width="1666" height="2500" alt="ZIANI FX – Prestij Product" class="zr big portrait">
-                </div>
-                <div class="image-row">
-                  <div class="image-col">
-                    <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij16.jpg" width="1666" height="2500" alt="ZIANI FX – Prestij Product" class="zr portrait">
-                    <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij17.jpg" width="1666" height="2500" alt="ZIANI FX – Prestij Product" class="zr portrait">
-                  </div>
-                  <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij18.jpg" width="1666" height="2500" alt="ZIANI FX – Prestij Product" class="zr big portrait">
-                  <div class="image-col">
-                    <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij19.jpg" width="1666" height="2500" alt="ZIANI FX – Prestij Product" class="zr portrait">
-                    <img loading="lazy" decoding="async" src="Images/Portfolio/Product/Prestij20.jpg" width="1666" height="2500" alt="ZIANI FX – Prestij Product" class="zr portrait">
-                  </div>
-                </div>
-              </div>
-            </div>
+      <!--
+        DIE NACHTVITRINE (assets/zfx-scenes.css + assets/zfx-scenes.js). Alles steht im JSON-Block unten:
+        - "macro": Foto des Makro-Einstiegs, "focus" = Punkt, auf den hineingezoomt wird (object-position und Zoom-Mittelpunkt).
+        - "rows": die Vitrinenwand, Reihe für Reihe. Ein Foto = { "f": Dateiname, "w": Breite, "h": Höhe }.
+          Die Vitrinennummern (N° 01 …) und der Zähler in der Detailansicht folgen dieser Reihenfolge.
+      -->
+      <div class="zs-vitrine zs-bleed" data-zs="vitrine" aria-label="Prestij – Die Nachtvitrine">
+        <script type="application/json" class="zs-data">
+        {
+          "base": "Images/Portfolio/Product/",
+          "name": "Prestij",
+          "macro": {
+            "f": "Prestij2.JPG", "focus": "66% 55%",
+            "alt": "Goldketten und ein Münz-Anhänger auf Schmuckbüsten in der Vitrine von Juwelier Prestij",
+            "kicker": "Kapitel 04 / 06", "place": "Prestij · Bonn", "label": "Product & Jewelry",
+            "title": "Prestij", "line": "Schmuck im Licht – vom Detail zum ganzen Stück."
+          },
+          "hint": "Bewege die Maus, um das Licht zu führen",
+          "rows": [
+            [ { "f": "Prestij1.JPG", "w": 2560, "h": 1707 }, { "f": "Prestij2.JPG", "w": 2560, "h": 1707 } ],
+            [ { "f": "Prestij3.JPG", "w": 1707, "h": 2560 }, { "f": "Prestij4.JPG", "w": 1707, "h": 2560 }, { "f": "Prestij5.JPG", "w": 1707, "h": 2560 }, { "f": "Prestij7.jpg", "w": 1666, "h": 2500 } ],
+            [ { "f": "Prestij8.jpg", "w": 1666, "h": 2500 }, { "f": "Prestij9.jpg", "w": 1666, "h": 2500 }, { "f": "Prestij10.jpg", "w": 1666, "h": 2500 }, { "f": "Prestij12.jpg", "w": 1666, "h": 2500 } ],
+            [ { "f": "Prestij13.jpg", "w": 1666, "h": 2500 }, { "f": "Prestij14.jpg", "w": 1666, "h": 2500 }, { "f": "Prestij15.jpg", "w": 1666, "h": 2500 }, { "f": "Prestij16.jpg", "w": 1666, "h": 2500 } ],
+            [ { "f": "Prestij17.jpg", "w": 1666, "h": 2500 }, { "f": "Prestij18.jpg", "w": 1666, "h": 2500 }, { "f": "Prestij19.jpg", "w": 1666, "h": 2500 }, { "f": "Prestij20.jpg", "w": 1666, "h": 2500 } ]
+          ]
+        }
+        </script>
+      </div>
     </section>
 </div>
 
