@@ -1201,6 +1201,68 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .image-grid img { display: block; width: 100%; max-width: 100%; height: auto !important; min-height: 10px; margin-bottom: 8px; }
 }
 
+/* Travel Photography (lifestyle.html): destinations as chapters with a jump bar.
+   Rows stay uncropped: every image grows with its aspect ratio (--ar), a column of two by 1 / (h1/w1 + h2/w2). */
+.travel-jump {
+  margin: 0 0 clamp(3rem, 7vw, 5.5rem);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.travel-jump::-webkit-scrollbar { display: none; }
+.travel-jump-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  width: max-content;
+  margin: 0 auto;
+  padding: 0.6rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.travel-jump a { padding: 0.45rem 0; color: var(--muted); transition: color 300ms ease; }
+.travel-jump span { color: var(--accent); }
+@media (hover: hover) and (pointer: fine) { .travel-jump a:hover { color: #fff; } }
+.travel-dest { scroll-margin-top: calc(var(--header-h) + 5rem); }
+.travel-dest + .travel-dest { margin-top: clamp(5rem, 13vw, 11rem); }
+.travel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem 2rem;
+  margin-bottom: clamp(1.1rem, 2.6vw, 1.9rem);
+}
+.travel-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.6vw, 5rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.travel-hud {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--muted);
+}
+.travel-hud b { color: var(--accent); font-weight: 400; }
+@media (min-width: 769px) {
+  .travel-dest .image-row > img { flex: var(--ar) 1 calc(0.75rem * var(--ar)); }
+  .travel-dest .image-row > .image-col { flex: var(--ar) 1 0; }
+}
+@media (max-width: 768px) {
+  .travel-jump { margin-left: calc(var(--gutter) * -1); margin-right: calc(var(--gutter) * -1); }
+  .travel-jump-inner { padding-left: var(--gutter); padding-right: var(--gutter); }
+}
+
 /* Next chapter */
 .next {
   position: relative;

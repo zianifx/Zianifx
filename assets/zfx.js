@@ -575,6 +575,9 @@
     lb.setAttribute('aria-modal', 'true');
 
     var n = thumbs.length;
+    // Browsed set: all gallery images, or only those inside the opened image's [data-lb-group] (one travel destination)
+    var list = thumbs;
+    var frames = false;
     var GAP = 32;
     var roles = { prev: slots[0], cur: slots[1], next: slots[2] };
     var idx = 0;
@@ -585,7 +588,7 @@
 
     function wrap(i) { return (i + n) % n; }
     function setSrc(img, i) {
-      var t = thumbs[i];
+      var t = list[i];
       var src = t.currentSrc || t.src;
       if (img.getAttribute('src') !== src) img.src = src;
       img.alt = t.alt || '';
@@ -603,7 +606,8 @@
       apply(roles.cur, 'translate3d(' + dx + 'px,' + dy + 'px,0) scale(' + s + ')', dur, o.ease);
       apply(roles.next, 'translate3d(' + (w + dx) + 'px,0,0)', o.instant === roles.next ? 0 : dur, o.ease);
     }
-    function updateCounter() { counter.textContent = (idx + 1) + ' / ' + n; }
+    function pad2(x) { return (x < 10 ? '0' : '') + x; }
+    function updateCounter() { counter.textContent = frames ? 'FRAME ' + pad2(idx + 1) + ' / ' + pad2(n) : (idx + 1) + ' / ' + n; }
     function fill() {
       setSrc(roles.cur, idx);
       setSrc(roles.prev, wrap(idx - 1));
@@ -630,7 +634,11 @@
       if (closing) unlockScroll();
       closing = false;
       isOpen = true;
-      idx = i;
+      var group = thumbs[i].closest ? thumbs[i].closest('[data-lb-group]') : null;
+      list = group ? thumbs.filter(function (t) { return group.contains(t); }) : thumbs;
+      frames = !!group;
+      n = list.length;
+      idx = list.indexOf(thumbs[i]);
       lastFocus = doc.activeElement;
       fill();
       lockScroll();
@@ -639,7 +647,7 @@
       layout();
 
       var img = roles.cur;
-      var thumb = thumbs[idx];
+      var thumb = list[idx];
       img.style.opacity = '0';
       var start = function () {
         if (!isOpen) return;
@@ -685,7 +693,7 @@
       backdrop.style.opacity = '';
       lb.classList.remove('open', 'is-dragging', 'is-dragging-y');
       var img = roles.cur;
-      var thumbRect = thumbs[idx].getBoundingClientRect();
+      var thumbRect = list[idx].getBoundingClientRect();
       var to = (!reduced() && inViewport(thumbRect)) ? flipTransform(img, thumbRect) : null;
       var dur = 380;
       if (to) {

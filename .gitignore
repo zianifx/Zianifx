@@ -12,3 +12,6 @@ Thumbs.db
 
 # Claude Code (Skills, Einstellungen, Worktrees) – bleibt lokal, wird nicht veröffentlicht
 .claude/
+
+# Originale der Reisefotos (groß, mit Metadaten) – nie committen, nur die Web-Versionen in Images/Travel/
+/Images/Travel Fotos/
