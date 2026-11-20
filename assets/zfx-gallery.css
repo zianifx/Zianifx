@@ -64,6 +64,35 @@
 /* Ken Burns: a slow push-in while open, eased back out when the panel closes (a transition, so it can be interrupted) */
 .zg-panel.is-open .zg-cover { scale: 1.06; transition: scale 12s linear; }
 
+/* Hover scrub (mouse) / auto-advance (touch): two frame layers above the cover, same size and position */
+.zg-scrub {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: calc((100cqw - (var(--zg-n) - 1) * var(--zg-gap)) * var(--zg-grow) / (var(--zg-n) + var(--zg-grow) - 1));
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  translate: -50% 0;
+  opacity: 0;
+  pointer-events: none;
+}
+/* Position in the album: a thin line along the top edge */
+.zg-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #d3d0cb;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease, transform 160ms var(--ease-out);
+}
+.zg-panel.is-scrub .zg-bar { opacity: 1; }
+
 /* Closed look: darker and desaturated. Two overlays fade (opacity only) instead of animating a filter. */
 .zg-dim, .zg-desat, .zg-grad { position: absolute; inset: 0; pointer-events: none; }
 .zg-desat { background: #7a7676; mix-blend-mode: saturation; opacity: 0.85; transition: opacity var(--zg-dur) var(--ease-out); }
@@ -158,7 +187,7 @@
   .zg-acc { flex-direction: column; height: auto; min-height: 0; }
   .zg-panel { flex: 0 0 var(--zg-band); min-height: 92px; transition: flex-basis var(--zg-dur) var(--ease-drawer); }
   .zg-panel.is-open { flex-grow: 0; flex-basis: var(--zg-band-open); }
-  .zg-cover { left: 0; top: 50%; width: 100%; height: max(var(--zg-band-open), 92px); translate: 0 -50%; }
+  .zg-cover, .zg-scrub { left: 0; top: 50%; width: 100%; height: max(var(--zg-band-open), 92px); translate: 0 -50%; }
   .zg-vlabel { writing-mode: horizontal-tb; rotate: none; left: 1.25rem; bottom: auto; top: 50%; translate: 0 -50%; font-size: 0.66rem; }
   .zg-info { width: calc(100% - 2.5rem); left: 1.25rem; bottom: 1.25rem; gap: 0.7rem; }
   .zg-title { font-size: clamp(2.3rem, 11vw, 3.2rem); }
@@ -462,7 +491,7 @@
 
 /* ---------- Reduced motion: no zooms, no movement, simple fades ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .zg-panel, .zg-cover, .zg-panel.is-open .zg-cover { transition: none; }
+  .zg-panel, .zg-cover, .zg-panel.is-open .zg-cover, .zg-bar { transition: none; }
   .zg-panel.is-open .zg-cover { scale: 1; }
   .zg-info, .zg-panel.is-open .zg-info { translate: none; }
   .zg-a-sheet-inner, .zg-a-sheet.is-open .zg-a-sheet-inner { scale: none; transition: none; }

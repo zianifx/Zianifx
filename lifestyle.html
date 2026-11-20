@@ -18,9 +18,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
 <link rel="preload" as="image" href="Images/Covers/travel-films.jpg" fetchpriority="high">
 <link rel="stylesheet" href="assets/zfx.css?v=13">
-<link rel="stylesheet" href="assets/zfx-gallery.css?v=1">
+<link rel="stylesheet" href="assets/zfx-gallery.css?v=2">
 <script src="assets/zfx.js?v=14" defer></script>
-<script src="assets/zfx-gallery.js?v=1" defer></script>
+<script src="assets/zfx-gallery.js?v=2" defer></script>
 </head>
 <body class="page-sub page-lifestyle" id="top">
 
@@ -268,7 +268,8 @@
         Alle Alben und Bilder stehen im JSON-Block unten, das Layout baut sich daraus selbst:
         - Reihenfolge der Alben im JSON = Reihenfolge der Panels. "cover" = Aufmacherbild, "pos" = Bildausschnitt (object-position).
         - Neues Foto: Web-Version als Images/Travel/<id>/NN.jpg ablegen, Vorschaubild (lange Seite 480 px) als
-          Images/Travel/<id>/thumbs/NN.jpg, und bei "images" eine Zeile { "f": "NN.jpg", "w": Breite, "h": Höhe } ergänzen.
+          Images/Travel/<id>/thumbs/NN.jpg, mittlere Größe fürs Durchblättern im Panel (lange Seite 1280 px) als
+          Images/Travel/<id>/medium/NN.jpg, und bei "images" eine Zeile { "f": "NN.jpg", "w": Breite, "h": Höhe } ergänzen.
         - Direktlink auf ein Foto: lifestyle.html#travel-<id>-NN (NN = Position im Album, z. B. #travel-griechenland-05).
       -->
       <div class="zg zr" data-zg="travel" aria-label="Reisefotografie: Alben">
