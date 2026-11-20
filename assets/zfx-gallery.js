@@ -87,72 +87,23 @@
     var acc = h('div', 'zg-acc');
     acc.style.setProperty('--zg-n', albums.length);
     var openIdx = -1;
-    var openedAt = 0;
     var down = { i: -1, wasOpen: false, t: 0 };
-    var SETTLE = 620;          // scrubbing starts once the panel has finished opening
-    var SCRUB_FADE = 80;       // crossfade while scrubbing with the mouse (max 80 ms)
-    var AUTO_EVERY = 2500;     // touch: auto-advance interval
-    var AUTO_FADE = 600;       // touch: crossfade of the auto-advance
-
-    function canScrub() { return mqHover.matches; }             // a real mouse
-    function mediumUrl(a, k) { return a.dir + 'medium/' + a.images[k].f; }
-    function hudFrames(a) { return (a.code ? a.code + ' — ' : '') + a.images.length + ' Frames'; }
-    function hudFrame(a, k) { return (a.code ? a.code + ' — ' : '') + 'Frame ' + pad(k + 1) + ' / ' + pad(a.images.length); }
-
-    /* Medium images (1280 px) for scrubbing: loaded and decoded before they are shown, so a frame never appears empty */
-    var medium = {};
-    function ensureMedium(a, k) {
-      var u = mediumUrl(a, k);
-      var m = medium[u];
-      if (m) return m;
-      var im = new Image();
-      im.decoding = 'async';
-      m = medium[u] = { url: u, ready: false };
-      m.promise = new Promise(function (res) {
-        var done = function () { m.ready = true; res(m); };
-        im.onload = function () { if (im.decode) im.decode().then(done, done); else done(); };
-        im.onerror = function () { m.failed = true; res(m); };
-      });
-      im.src = u;
-      m.img = im;
-      return m;
-    }
-    function preloadAlbum(i) {
-      var a = albums[i];
-      if (canScrub()) { a.images.forEach(function (x, k) { ensureMedium(a, k); }); }
-      else { ensureMedium(a, 0); ensureMedium(a, 1); }      // touch: only what the auto-advance needs next
-    }
 
     var panels = albums.map(function (a, i) {
       var cover = h('img', 'zg-cover', { src: a.dir + a.cover, alt: '', decoding: 'async', fetchpriority: 'low' });
       cover.style.objectPosition = a.pos || '50% 50%';
-      var layers = [h('img', 'zg-scrub', { alt: '', decoding: 'async', 'aria-hidden': 'true' }),
-                    h('img', 'zg-scrub', { alt: '', decoding: 'async', 'aria-hidden': 'true' })];
-      var bar = h('span', 'zg-bar', { 'aria-hidden': 'true' });
       var corners = h('span', 'zg-corners', { 'aria-hidden': 'true' }, [h('i'), h('i'), h('i'), h('i')]);
       var vlabel = h('span', 'zg-vlabel', { 'aria-hidden': 'true' }, [(a.short || a.title) + ' · ', h('b', null, null, [a.code || ''])]);
-      var hudText = doc.createTextNode(hudFrames(a));
       var info = h('span', 'zg-info', { 'aria-hidden': 'true' }, [
         h('span', 'zg-title', null, [a.title]),
-        h('span', 'zg-hud', null, [h('span', 'zg-rec'), hudText]),
+        h('span', 'zg-hud', null, [h('span', 'zg-rec'), (a.code ? a.code + ' — ' : '') + a.images.length + ' Frames']),
         h('span', 'btn btn-solid btn-sm zg-cta', null, ['Album öffnen ', h('span', 'arr', null, ['→'])])
       ]);
       var hit = h('button', 'zg-hit', { type: 'button', 'aria-label': a.title + ', ' + a.images.length + ' Fotos – Album öffnen' },
-        [cover, layers[0], layers[1], h('span', 'zg-desat'), h('span', 'zg-dim'), h('span', 'zg-grad'), bar, corners, vlabel, info]);
+        [cover, h('span', 'zg-desat'), h('span', 'zg-dim'), h('span', 'zg-grad'), corners, vlabel, info]);
       var el = h('div', 'zg-panel', null, [hit]);
-      var p = { el: el, hit: hit, cover: cover, layers: layers, top: 0, bar: bar, hudText: hudText, frame: -1, pending: -1, active: false, a: a, i: i };
 
       hit.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse' && mqHover.matches) setOpen(i); });
-      hit.addEventListener('pointermove', function (e) {
-        if (e.pointerType !== 'mouse' || !canScrub()) return;
-        if (openIdx !== i || performance.now() - openedAt < (reduced() ? 0 : SETTLE)) return;   // closed panels never scrub
-        var r = el.getBoundingClientRect();
-        var n = a.images.length;
-        var k = Math.min(n - 1, Math.max(0, Math.floor(((e.clientX - r.left) / r.width) * n)));
-        startScrub(p);
-        showPanelFrame(p, k, reduced() ? 0 : SCRUB_FADE);
-      });
-      hit.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') endScrub(p); });
       hit.addEventListener('focus', function () { if (isFocusVisible(hit)) setOpen(i); });
       hit.addEventListener('pointerdown', function () { down = { i: i, wasOpen: openIdx === i, t: Date.now() }; });
       hit.addEventListener('click', function () {
@@ -160,103 +111,17 @@
         var wasOpen = (down.i === i && Date.now() - down.t < 1500) ? down.wasOpen : openIdx === i;
         down.i = -1;
         if (!wasOpen) { setOpen(i); return; }
-        // open on the photo the panel is showing right now (scrub / auto frame, otherwise the cover)
-        openAlbum(i, p.frame >= 0 ? p.frame : a.coverIndex, true);
+        openAlbum(i, 0, true);
       });
       acc.appendChild(el);
-      return p;
+      return { el: el, hit: hit };
     });
-
-    /* Show frame k in a panel: the new layer fades in ON TOP of the previous one (which stays fully visible underneath),
-       so there is never a transparent moment between two frames. */
-    function showPanelFrame(p, k, fade) {
-      if (k === p.frame && p.pending < 0) return;
-      var m = ensureMedium(p.a, k);
-      if (!m.ready) {
-        p.pending = k;
-        m.promise.then(function () { if (p.active && p.pending === k) { p.pending = -1; showPanelFrame(p, k, fade); } });
-        return;
-      }
-      p.pending = -1;
-      if (m.failed || k === p.frame) return;
-      var prev = p.layers[p.top];
-      var next = p.layers[1 - p.top];
-      prev.style.transition = 'none';
-      if (p.frame >= 0) prev.style.opacity = '1';
-      next.style.transition = 'none';
-      next.style.opacity = '0';
-      if (next.getAttribute('src') !== m.url) next.src = m.url;
-      p.hit.insertBefore(next, prev.nextSibling);            // the incoming frame paints above the outgoing one
-      void next.offsetWidth;
-      next.style.transition = fade ? 'opacity ' + fade + 'ms ' + (fade > 100 ? 'ease' : 'linear') : 'none';
-      next.style.opacity = '1';
-      p.top = 1 - p.top;
-      p.frame = k;
-      p.hudText.data = hudFrame(p.a, k);
-      p.bar.style.transform = 'scaleX(' + ((k + 1) / p.a.images.length).toFixed(4) + ')';
-    }
-    function startScrub(p) {
-      if (p.active) return;
-      p.active = true;
-      p.el.classList.add('is-scrub');
-      // pause the Ken Burns push-in where it is
-      var s = getComputedStyle(p.cover).scale;
-      p.cover.style.transition = 'none';
-      p.cover.style.scale = (s && s !== 'none') ? s : '1';
-    }
-    function endScrub(p) {
-      if (!p.active) return;
-      p.active = false;
-      p.pending = -1;
-      p.frame = -1;
-      p.el.classList.remove('is-scrub');
-      p.layers.forEach(function (l) {                          // fade back to the cover underneath
-        l.style.transition = 'opacity ' + (reduced() ? 200 : 380) + 'ms ease';
-        l.style.opacity = '0';
-      });
-      p.hudText.data = hudFrames(p.a);
-      p.cover.style.transition = '';                           // Ken Burns continues from where it paused
-      p.cover.style.scale = '';
-    }
 
     function setOpen(i) {
       if (i === openIdx) return;
-      if (openIdx >= 0) endScrub(panels[openIdx]);
       openIdx = i;
-      openedAt = performance.now();
       panels.forEach(function (p, k) { p.el.classList.toggle('is-open', k === i); });
-      if (accVisible) preloadAlbum(i);
-      scheduleAuto();
     }
-
-    /* Touch (no mouse): the open band pages through its photos on its own, slowly */
-    var autoTimer = 0;
-    var accVisible = false;
-    function stopAuto() { clearTimeout(autoTimer); autoTimer = 0; }
-    function scheduleAuto() {
-      stopAuto();
-      if (canScrub() || reduced() || !accVisible || isOpen || doc.hidden || openIdx < 0) return;
-      autoTimer = setTimeout(function () {
-        var p = panels[openIdx];
-        var n = p.a.images.length;
-        var k = (p.frame + 1) % n;
-        ensureMedium(p.a, (k + 1) % n);                         // keep one frame ahead
-        startScrub(p);
-        showPanelFrame(p, k, AUTO_FADE);
-        scheduleAuto();
-      }, AUTO_EVERY);
-    }
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        accVisible = entries[0].isIntersecting;
-        if (accVisible && openIdx >= 0) preloadAlbum(openIdx);
-        if (accVisible) scheduleAuto(); else stopAuto();
-      }, { rootMargin: '200px 0px' }).observe(acc);
-    } else {
-      accVisible = true;
-    }
-    doc.addEventListener('visibilitychange', function () { if (doc.hidden) stopAuto(); else scheduleAuto(); });
-
     setOpen(0);
     host.appendChild(acc);
 
@@ -499,7 +364,6 @@
       if (!A) buildAlbum();
       if (running) { running.cancel(); running = null; }
       isOpen = true;
-      stopAuto();
       lastFocus = panels[i].hit;
       setOpen(i);
       setAlbum(i);
@@ -538,7 +402,6 @@
         A.album.classList.remove('is-visible');
         if (running) { running.cancel(); running = null; }
         unlockScroll();
-        scheduleAuto();
       };
       if (A.album.animate) {
         running = (r && !reduced())
