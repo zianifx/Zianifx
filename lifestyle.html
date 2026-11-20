@@ -18,7 +18,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
 <link rel="preload" as="image" href="Images/Covers/travel-films.jpg" fetchpriority="high">
 <link rel="stylesheet" href="assets/zfx.css?v=13">
+<link rel="stylesheet" href="assets/zfx-gallery.css?v=1">
 <script src="assets/zfx.js?v=14" defer></script>
+<script src="assets/zfx-gallery.js?v=1" defer></script>
 </head>
 <body class="page-sub page-lifestyle" id="top">
 
@@ -262,214 +264,123 @@
         <p class="subsection-text zr">Reisen, Natur und Orte, die bleiben – Fotografie von unterwegs.</p>
       </header>
       <!--
-        PHOTOGRAPHY: Reiseziele als Kapitel. Bilder: Images/Travel/<ziel>/NN.jpg (Web-Versionen, sRGB, ohne Metadaten/GPS;
-        die Originale liegen in Images/Travel Fotos/ und sind per .gitignore vom Repository ausgeschlossen).
-        Jedes Ziel ist ein <div class="travel-dest" … data-lb-group>: Die Lightbox blättert nur durch die Bilder dieses Ziels,
-        Zähler "FRAME 03 / 13". Die erste Reihe ist der Aufmacher.
-        style="--ar: …" = Seitenverhältnis (Breite / Höhe). Damit ist jede Reihe auf dem Desktop ohne Beschnitt gleich hoch.
-        div.image-col = zwei gleich große Bilder übereinander, --ar = 1 / (Höhe1/Breite1 + Höhe2/Breite2).
+        PHOTOGRAPHY · Galerie-Prototyp (assets/zfx-gallery.css + assets/zfx-gallery.js, wiederverwendbar über data-zg).
+        Alle Alben und Bilder stehen im JSON-Block unten, das Layout baut sich daraus selbst:
+        - Reihenfolge der Alben im JSON = Reihenfolge der Panels. "cover" = Aufmacherbild, "pos" = Bildausschnitt (object-position).
+        - Neues Foto: Web-Version als Images/Travel/<id>/NN.jpg ablegen, Vorschaubild (lange Seite 480 px) als
+          Images/Travel/<id>/thumbs/NN.jpg, und bei "images" eine Zeile { "f": "NN.jpg", "w": Breite, "h": Höhe } ergänzen.
+        - Direktlink auf ein Foto: lifestyle.html#travel-<id>-NN (NN = Position im Album, z. B. #travel-griechenland-05).
       -->
-      <nav class="travel-jump zr" aria-label="Reiseziele">
-        <div class="travel-jump-inner">
-          <a href="#reise-bosnien">Bosnien</a>
-          <span aria-hidden="true">·</span>
-          <a href="#reise-griechenland">Griechenland</a>
-          <span aria-hidden="true">·</span>
-          <a href="#reise-montenegro">Montenegro</a>
-          <span aria-hidden="true">·</span>
-          <a href="#reise-ch-at">CH / AT</a>
-          <span aria-hidden="true">·</span>
-          <a href="#reise-deutschland">Deutschland</a>
-        </div>
-      </nav>
-
-      <div class="travel-dest" id="reise-bosnien" data-lb-group>
-        <header class="travel-head">
-          <h3 class="travel-title zr-lines">Bosnien</h3>
-          <p class="travel-hud zr"><b>BA</b> — 24 Frames</p>
-        </header>
-        <div class="image-grid" aria-label="Reisefotografie Bosnien">
-          <div class="image-row">
-            <img decoding="async" src="Images/Travel/bosnien/02.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-            <img loading="lazy" decoding="async" src="Images/Travel/bosnien/13.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-            <img loading="lazy" decoding="async" src="Images/Travel/bosnien/21.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-          </div>
-          <div class="image-row">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/01.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/12.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/bosnien/07.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/04.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/10.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/bosnien/15.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-          </div>
-          <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Travel/bosnien/06.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/17.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/11.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/bosnien/23.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-          </div>
-          <div class="image-row">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/03.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/09.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/bosnien/20.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/18.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/05.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-            </div>
-            <div class="image-col" style="--ar: 0.3333;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/14.jpg" width="1666" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6664;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/24.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-            </div>
-          </div>
-          <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Travel/bosnien/16.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/19.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/bosnien/08.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/bosnien/22.jpg" width="1667" height="2500" alt="Reisefotografie Bosnien" class="zr" style="--ar: 0.6668;">
-          </div>
-        </div>
-      </div>
-
-      <div class="travel-dest" id="reise-griechenland" data-lb-group>
-        <header class="travel-head">
-          <h3 class="travel-title zr-lines">Griechenland</h3>
-          <p class="travel-hud zr"><b>GR</b> — 16 Frames</p>
-        </header>
-        <div class="image-grid" aria-label="Reisefotografie Griechenland">
-          <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Travel/griechenland/15.jpg" width="2500" height="1667" alt="Reisefotografie Griechenland" class="zr" style="--ar: 1.5;">
-          </div>
-          <div class="image-row">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/griechenland/01.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/griechenland/13.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/griechenland/08.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/griechenland/03.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/griechenland/12.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/griechenland/04.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-          </div>
-          <div class="image-row">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/griechenland/06.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/griechenland/10.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/griechenland/14.jpg" width="2500" height="1667" alt="Reisefotografie Griechenland" class="zr" style="--ar: 1.5;">
-          </div>
-          <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Travel/griechenland/16.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/griechenland/02.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/griechenland/11.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/griechenland/09.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/griechenland/07.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/griechenland/05.jpg" width="1667" height="2500" alt="Reisefotografie Griechenland" class="zr" style="--ar: 0.6668;">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="travel-dest" id="reise-montenegro" data-lb-group>
-        <header class="travel-head">
-          <h3 class="travel-title zr-lines">Montenegro</h3>
-          <p class="travel-hud zr"><b>ME</b> — 13 Frames</p>
-        </header>
-        <div class="image-grid" aria-label="Reisefotografie Montenegro">
-          <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Travel/montenegro/12.jpg" width="1667" height="2500" alt="Reisefotografie Montenegro" class="zr" style="--ar: 0.6668;">
-            <img loading="lazy" decoding="async" src="Images/Travel/montenegro/05.jpg" width="1667" height="2500" alt="Reisefotografie Montenegro" class="zr" style="--ar: 0.6668;">
-            <img loading="lazy" decoding="async" src="Images/Travel/montenegro/09.jpg" width="1667" height="2500" alt="Reisefotografie Montenegro" class="zr" style="--ar: 0.6668;">
-          </div>
-          <div class="image-row">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/montenegro/07.jpg" width="1667" height="2500" alt="Reisefotografie Montenegro" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/montenegro/02.jpg" width="1667" height="2500" alt="Reisefotografie Montenegro" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/montenegro/13.jpg" width="1667" height="2500" alt="Reisefotografie Montenegro" class="zr" style="--ar: 0.6668;">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/montenegro/01.jpg" width="1667" height="2500" alt="Reisefotografie Montenegro" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/montenegro/11.jpg" width="1667" height="2500" alt="Reisefotografie Montenegro" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/montenegro/04.jpg" width="1667" height="2500" alt="Reisefotografie Montenegro" class="zr" style="--ar: 0.6668;">
-          </div>
-          <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Travel/montenegro/06.jpg" width="1667" height="2500" alt="Reisefotografie Montenegro" class="zr" style="--ar: 0.6668;">
-            <img loading="lazy" decoding="async" src="Images/Travel/montenegro/03.jpg" width="1667" height="2500" alt="Reisefotografie Montenegro" class="zr" style="--ar: 0.6668;">
-            <img loading="lazy" decoding="async" src="Images/Travel/montenegro/08.jpg" width="1667" height="2500" alt="Reisefotografie Montenegro" class="zr" style="--ar: 0.6668;">
-            <img loading="lazy" decoding="async" src="Images/Travel/montenegro/10.jpg" width="1667" height="2500" alt="Reisefotografie Montenegro" class="zr" style="--ar: 0.6668;">
-          </div>
-        </div>
-      </div>
-
-      <div class="travel-dest" id="reise-ch-at" data-lb-group>
-        <header class="travel-head">
-          <h3 class="travel-title zr-lines">Schweiz / Österreich</h3>
-          <p class="travel-hud zr"><b>CH · AT</b> — 13 Frames</p>
-        </header>
-        <div class="image-grid" aria-label="Reisefotografie Schweiz / Österreich">
-          <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Travel/schweiz-oesterreich/05.jpg" width="2500" height="1667" alt="Reisefotografie Schweiz / Österreich" class="zr" style="--ar: 1.5;">
-          </div>
-          <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Travel/schweiz-oesterreich/04.jpg" width="2500" height="1667" alt="Reisefotografie Schweiz / Österreich" class="zr" style="--ar: 1.5;">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/schweiz-oesterreich/01.jpg" width="1667" height="2500" alt="Reisefotografie Schweiz / Österreich" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/schweiz-oesterreich/09.jpg" width="1667" height="2500" alt="Reisefotografie Schweiz / Österreich" class="zr" style="--ar: 0.6668;">
-            </div>
-          </div>
-          <div class="image-row">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/schweiz-oesterreich/06.jpg" width="1667" height="2500" alt="Reisefotografie Schweiz / Österreich" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/schweiz-oesterreich/10.jpg" width="1667" height="2500" alt="Reisefotografie Schweiz / Österreich" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/schweiz-oesterreich/03.jpg" width="1667" height="2500" alt="Reisefotografie Schweiz / Österreich" class="zr" style="--ar: 0.6668;">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/schweiz-oesterreich/11.jpg" width="1667" height="2500" alt="Reisefotografie Schweiz / Österreich" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/schweiz-oesterreich/12.jpg" width="1667" height="2500" alt="Reisefotografie Schweiz / Österreich" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/schweiz-oesterreich/07.jpg" width="1667" height="2500" alt="Reisefotografie Schweiz / Österreich" class="zr" style="--ar: 0.6668;">
-          </div>
-          <div class="image-row">
-            <div class="image-col" style="--ar: 0.3334;">
-              <img loading="lazy" decoding="async" src="Images/Travel/schweiz-oesterreich/02.jpg" width="1667" height="2500" alt="Reisefotografie Schweiz / Österreich" class="zr" style="--ar: 0.6668;">
-              <img loading="lazy" decoding="async" src="Images/Travel/schweiz-oesterreich/08.jpg" width="1667" height="2500" alt="Reisefotografie Schweiz / Österreich" class="zr" style="--ar: 0.6668;">
-            </div>
-            <img loading="lazy" decoding="async" src="Images/Travel/schweiz-oesterreich/13.jpg" width="2500" height="1667" alt="Reisefotografie Schweiz / Österreich" class="zr" style="--ar: 1.5;">
-          </div>
-        </div>
-      </div>
-
-      <div class="travel-dest" id="reise-deutschland" data-lb-group>
-        <header class="travel-head">
-          <h3 class="travel-title zr-lines">Unterwegs in Deutschland</h3>
-          <p class="travel-hud zr"><b>DE</b> — 6 Frames</p>
-        </header>
-        <div class="image-grid" aria-label="Reisefotografie Deutschland">
-          <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Travel/deutschland/08.jpg" width="1500" height="2500" alt="Reisefotografie Deutschland" class="zr" style="--ar: 0.6;">
-            <img loading="lazy" decoding="async" src="Images/Travel/deutschland/09.jpg" width="1500" height="2500" alt="Reisefotografie Deutschland" class="zr" style="--ar: 0.6;">
-            <img loading="lazy" decoding="async" src="Images/Travel/deutschland/10.jpg" width="1500" height="2500" alt="Reisefotografie Deutschland" class="zr" style="--ar: 0.6;">
-          </div>
-          <div class="image-row">
-            <img loading="lazy" decoding="async" src="Images/Travel/deutschland/05.jpg" width="1667" height="2500" alt="Reisefotografie Deutschland" class="zr" style="--ar: 0.6668;">
-            <img loading="lazy" decoding="async" src="Images/Travel/deutschland/07.jpg" width="1500" height="2500" alt="Reisefotografie Deutschland" class="zr" style="--ar: 0.6;">
-            <img loading="lazy" decoding="async" src="Images/Travel/deutschland/06.jpg" width="1667" height="2500" alt="Reisefotografie Deutschland" class="zr" style="--ar: 0.6668;">
-          </div>
-        </div>
+      <div class="zg zr" data-zg="travel" aria-label="Reisefotografie: Alben">
+        <script type="application/json" class="zg-data">
+        {
+          "base": "Images/Travel/",
+          "albums": [
+            {
+              "id": "bosnien", "title": "Bosnien", "short": "Bosnien", "code": "BA",
+              "cover": "13.jpg", "pos": "50% 70%",
+              "images": [
+                { "f": "01.jpg", "w": 1667, "h": 2500 },
+                { "f": "02.jpg", "w": 1667, "h": 2500 },
+                { "f": "03.jpg", "w": 1667, "h": 2500 },
+                { "f": "04.jpg", "w": 1667, "h": 2500 },
+                { "f": "05.jpg", "w": 1667, "h": 2500 },
+                { "f": "06.jpg", "w": 1667, "h": 2500 },
+                { "f": "07.jpg", "w": 1667, "h": 2500 },
+                { "f": "08.jpg", "w": 1667, "h": 2500 },
+                { "f": "09.jpg", "w": 1667, "h": 2500 },
+                { "f": "10.jpg", "w": 1667, "h": 2500 },
+                { "f": "11.jpg", "w": 1667, "h": 2500 },
+                { "f": "12.jpg", "w": 1667, "h": 2500 },
+                { "f": "13.jpg", "w": 1667, "h": 2500 },
+                { "f": "14.jpg", "w": 1666, "h": 2500 },
+                { "f": "15.jpg", "w": 1667, "h": 2500 },
+                { "f": "16.jpg", "w": 1667, "h": 2500 },
+                { "f": "17.jpg", "w": 1667, "h": 2500 },
+                { "f": "18.jpg", "w": 1667, "h": 2500 },
+                { "f": "19.jpg", "w": 1667, "h": 2500 },
+                { "f": "20.jpg", "w": 1667, "h": 2500 },
+                { "f": "21.jpg", "w": 1667, "h": 2500 },
+                { "f": "22.jpg", "w": 1667, "h": 2500 },
+                { "f": "23.jpg", "w": 1667, "h": 2500 },
+                { "f": "24.jpg", "w": 1667, "h": 2500 }
+              ]
+            },
+            {
+              "id": "griechenland", "title": "Griechenland", "short": "Griechenland", "code": "GR",
+              "cover": "15.jpg", "pos": "35% 50%",
+              "images": [
+                { "f": "01.jpg", "w": 1667, "h": 2500 },
+                { "f": "02.jpg", "w": 1667, "h": 2500 },
+                { "f": "03.jpg", "w": 1667, "h": 2500 },
+                { "f": "04.jpg", "w": 1667, "h": 2500 },
+                { "f": "05.jpg", "w": 1667, "h": 2500 },
+                { "f": "06.jpg", "w": 1667, "h": 2500 },
+                { "f": "07.jpg", "w": 1667, "h": 2500 },
+                { "f": "08.jpg", "w": 1667, "h": 2500 },
+                { "f": "09.jpg", "w": 1667, "h": 2500 },
+                { "f": "10.jpg", "w": 1667, "h": 2500 },
+                { "f": "11.jpg", "w": 1667, "h": 2500 },
+                { "f": "12.jpg", "w": 1667, "h": 2500 },
+                { "f": "13.jpg", "w": 1667, "h": 2500 },
+                { "f": "14.jpg", "w": 2500, "h": 1667 },
+                { "f": "15.jpg", "w": 2500, "h": 1667 },
+                { "f": "16.jpg", "w": 1667, "h": 2500 }
+              ]
+            },
+            {
+              "id": "montenegro", "title": "Montenegro", "short": "Montenegro", "code": "ME",
+              "cover": "12.jpg", "pos": "50% 60%",
+              "images": [
+                { "f": "01.jpg", "w": 1667, "h": 2500 },
+                { "f": "02.jpg", "w": 1667, "h": 2500 },
+                { "f": "03.jpg", "w": 1667, "h": 2500 },
+                { "f": "04.jpg", "w": 1667, "h": 2500 },
+                { "f": "05.jpg", "w": 1667, "h": 2500 },
+                { "f": "06.jpg", "w": 1667, "h": 2500 },
+                { "f": "07.jpg", "w": 1667, "h": 2500 },
+                { "f": "08.jpg", "w": 1667, "h": 2500 },
+                { "f": "09.jpg", "w": 1667, "h": 2500 },
+                { "f": "10.jpg", "w": 1667, "h": 2500 },
+                { "f": "11.jpg", "w": 1667, "h": 2500 },
+                { "f": "12.jpg", "w": 1667, "h": 2500 },
+                { "f": "13.jpg", "w": 1667, "h": 2500 }
+              ]
+            },
+            {
+              "id": "schweiz-oesterreich", "title": "Schweiz / Österreich", "short": "Schweiz / Österreich", "code": "CH · AT",
+              "cover": "05.jpg", "pos": "50% 45%",
+              "images": [
+                { "f": "01.jpg", "w": 1667, "h": 2500 },
+                { "f": "02.jpg", "w": 1667, "h": 2500 },
+                { "f": "03.jpg", "w": 1667, "h": 2500 },
+                { "f": "04.jpg", "w": 2500, "h": 1667 },
+                { "f": "05.jpg", "w": 2500, "h": 1667 },
+                { "f": "06.jpg", "w": 1667, "h": 2500 },
+                { "f": "07.jpg", "w": 1667, "h": 2500 },
+                { "f": "08.jpg", "w": 1667, "h": 2500 },
+                { "f": "09.jpg", "w": 1667, "h": 2500 },
+                { "f": "10.jpg", "w": 1667, "h": 2500 },
+                { "f": "11.jpg", "w": 1667, "h": 2500 },
+                { "f": "12.jpg", "w": 1667, "h": 2500 },
+                { "f": "13.jpg", "w": 2500, "h": 1667 }
+              ]
+            },
+            {
+              "id": "deutschland", "title": "Unterwegs in Deutschland", "short": "Deutschland", "code": "DE",
+              "cover": "09.jpg", "pos": "50% 35%",
+              "images": [
+                { "f": "05.jpg", "w": 1667, "h": 2500 },
+                { "f": "06.jpg", "w": 1667, "h": 2500 },
+                { "f": "07.jpg", "w": 1500, "h": 2500 },
+                { "f": "08.jpg", "w": 1500, "h": 2500 },
+                { "f": "09.jpg", "w": 1500, "h": 2500 },
+                { "f": "10.jpg", "w": 1500, "h": 2500 }
+              ]
+            }
+          ]
+        }
+        </script>
       </div>
     </section>
 </div>
