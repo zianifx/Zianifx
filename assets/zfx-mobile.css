@@ -142,3 +142,106 @@
   .caption { margin-top: 10px; }
   .next { margin-top: var(--m-section); }
 }
+
+/* ---------- 4 · Navigation und Daumenzone ----------
+   Header 56px + Safe Area, Milchglas, blendet sich beim Runterscrollen aus (html.zm-hide, nur transform).
+   Menü: die 6 Kapitel groß, darunter „Projekt anfragen“ und Instagram. Schwebende Pille .zm-cta (zfx-mobile.js).
+   Pille komplett abschalten: Klasse „zm-no-cta“ an <html> setzen. */
+@media (max-width: 768px) {
+  :root { --header-h: calc(56px + env(safe-area-inset-top, 0px)); }
+  .site-header {
+    padding: env(safe-area-inset-top, 0px) var(--m-safe-r) 0 var(--m-safe-l);
+    transition: transform 280ms var(--m-ease);
+  }
+  .site-header::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: rgba(26, 24, 24, 0.72);
+    -webkit-backdrop-filter: blur(16px) saturate(140%); backdrop-filter: blur(16px) saturate(140%);
+    opacity: 0; transition: opacity 280ms ease;
+  }
+  /* statt harter Kante ein weicher Übergang nach unten */
+  .site-header::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 18px; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(26, 24, 24, 0.42), rgba(26, 24, 24, 0));
+    opacity: 0; transition: opacity 280ms ease;
+  }
+  .site-header.scrolled::before, .site-header.scrolled::after { opacity: 1; }
+  .menu-open .site-header::before, .menu-open .site-header::after { opacity: 0; }
+  .header-inner { height: 56px; max-width: none; padding: 0; gap: 12px; }
+  .header-inner::before { display: none; }
+  .logo { display: inline-flex; align-items: center; min-height: 44px; font-size: 1.45rem; }
+  .menu-toggle { margin-right: -10px; }
+  html.zm-hide:not(.menu-open) .site-header { transform: translate3d(0, -100%, 0); }
+  .tabs { transition: transform 280ms var(--m-ease); }
+  html.zm-hide:not(.menu-open) .tabs { transform: translate3d(0, -44px, 0); }
+
+  /* Vollbild-Menü */
+  .menu {
+    gap: 24px;
+    padding: calc(var(--header-h) + 16px) var(--m-safe-r) calc(20px + env(safe-area-inset-bottom, 0px)) var(--m-safe-l);
+    transition: opacity 280ms var(--m-ease), visibility 0s linear 280ms;
+  }
+  .menu.open { transition: opacity 280ms var(--m-ease); }
+  .menu nav { display: flex; flex-wrap: wrap; align-content: flex-start; column-gap: 22px; }
+  .menu-item { overflow: visible; }
+  .menu-item:nth-child(3) { order: -1; flex-basis: 100%; margin-bottom: 14px; }
+  .menu-item > * { transform: translate3d(0, 12px, 0); opacity: 0; transition: transform 200ms var(--m-ease), opacity 160ms ease; }
+  .menu.open .menu-item > * {
+    transform: none; opacity: 1;
+    transition: transform 320ms var(--m-ease) calc(150ms + var(--i, 0) * 24ms), opacity 260ms ease calc(150ms + var(--i, 0) * 24ms);
+  }
+  .menu .menu-item > .menu-sub, .menu.open .menu-item > .menu-sub { transform: none; opacity: 1; transition: none; }
+  .menu-sub { display: block; margin: 0; padding: 0; counter-reset: zm-ch; border-top: 1px solid var(--line); }
+  .menu-sub a {
+    counter-increment: zm-ch;
+    display: flex; align-items: center; gap: 14px; min-height: 56px; padding: 4px 0;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-display); font-size: clamp(30px, 9vw, 42px); line-height: 1; letter-spacing: 0;
+    text-transform: uppercase; color: var(--m-ink);
+    transform: translate3d(0, 12px, 0); opacity: 0;
+    transition: transform 200ms var(--m-ease), opacity 160ms ease;
+  }
+  .menu-sub a::before {
+    content: counter(zm-ch, decimal-leading-zero); flex: none; width: 26px;
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; color: var(--m-grey-2);
+  }
+  .menu.open .menu-sub a { transform: none; opacity: 1; transition: transform 320ms var(--m-ease), opacity 260ms ease; }
+  .menu.open .menu-sub a:nth-child(1) { transition-delay: 40ms; }
+  .menu.open .menu-sub a:nth-child(2) { transition-delay: 64ms; }
+  .menu.open .menu-sub a:nth-child(3) { transition-delay: 88ms; }
+  .menu.open .menu-sub a:nth-child(4) { transition-delay: 112ms; }
+  .menu.open .menu-sub a:nth-child(5) { transition-delay: 136ms; }
+  .menu.open .menu-sub a:nth-child(6) { transition-delay: 160ms; }
+  .menu-link {
+    display: inline-flex; align-items: center; min-height: 44px;
+    font-family: var(--font-mono); font-size: 12px; line-height: 1; letter-spacing: 0.12em; color: var(--m-grey);
+  }
+  .menu-link small { display: none; }   /* Nummern 01–06 gehören hier den Kapiteln */
+  .menu-foot { gap: 0; padding-top: 0; border-top: 0; font-size: 15px; color: var(--m-grey); }
+  .menu-foot > a, .menu-foot > span { display: flex; align-items: center; min-height: 44px; border-top: 1px solid var(--line); }
+  .menu-foot > .zm-menu-cta { justify-content: center; width: 100%; height: 52px; margin-bottom: 14px; border-top: 0; color: #fff; }
+
+  /* Schwebender Button „Projekt anfragen“ (erst nach dem Hero; weg in Kontakt, Footer, Menü, Lightbox, Player, Sticky-Szenen) */
+  .zm-cta {
+    position: fixed; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 44;
+    display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px 0 18px;
+    border-radius: 999px; background: rgba(26, 24, 24, 0.72);
+    -webkit-backdrop-filter: blur(16px) saturate(140%); backdrop-filter: blur(16px) saturate(140%);
+    box-shadow: inset 0 0 0 1px rgba(211, 208, 203, 0.14), 0 12px 32px -12px rgba(0, 0, 0, 0.7);
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; color: var(--m-ink);
+    opacity: 0; visibility: hidden; transform: translate3d(-50%, 18px, 0);
+    transition: opacity 180ms ease, transform 240ms var(--m-ease), visibility 0s linear 240ms;
+  }
+  .zm-cta.is-on { opacity: 1; visibility: visible; transform: translate3d(-50%, 0, 0); transition: opacity 220ms ease, transform 260ms var(--m-ease); }
+  .zm-cta.is-on:active { transform: translate3d(-50%, 0, 0) scale(0.97); transition-duration: 140ms; }
+  .zm-rec { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(159, 12, 12, 0.25); animation: rec 1.6s steps(1) infinite; }
+  html.zm-no-cta .zm-cta { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header, .tabs { transition: none; }
+    .menu-item > *, .menu.open .menu-item > *, .menu-sub a, .menu.open .menu-sub a { transform: none; transition: opacity 200ms ease; transition-delay: 0ms; }
+    .zm-cta, .zm-cta.is-on { transform: translate3d(-50%, 0, 0); transition: opacity 200ms ease, visibility 0s linear 200ms; }
+    .zm-cta.is-on { transition: opacity 200ms ease; }
+    .zm-rec { animation: none; }
+  }
+}
