@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Seite nicht gefunden | ZIANI FX</title>
+<meta name="description" content="Diese Seite gibt es nicht (mehr). Weiter zur Startseite von ZIANI FX oder direkt zu einem der sechs Kapitel." />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#232020" />
+<!-- 404: wird von GitHub Pages für jede unbekannte Adresse ausgeliefert, deshalb alle Pfade absolut ab / -->
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/zfx.css?v=14">
+<style>
+  .nf { position: relative; min-height: 100vh; min-height: 100svh; display: grid; place-items: center; padding: 5rem var(--gutter); background: var(--bg-deep); }
+  .nf-frame { position: absolute; inset: clamp(1rem, 3vw, 2rem); pointer-events: none; }
+  .nf-frame i { position: absolute; width: 28px; height: 28px; border: 0 solid rgba(211, 208, 203, 0.55); }
+  .nf-frame i:nth-child(1) { left: 0; top: 0; border-left-width: 2px; border-top-width: 2px; }
+  .nf-frame i:nth-child(2) { right: 0; top: 0; border-right-width: 2px; border-top-width: 2px; }
+  .nf-frame i:nth-child(3) { left: 0; bottom: 0; border-left-width: 2px; border-bottom-width: 2px; }
+  .nf-frame i:nth-child(4) { right: 0; bottom: 0; border-right-width: 2px; border-bottom-width: 2px; }
+  .nf-hud { position: absolute; left: clamp(2.5rem, 5vw, 4rem); top: clamp(2.2rem, 4.5vw, 3.4rem); display: flex; align-items: center; gap: 0.6rem;
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .nf-hud b { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .nf-logo { position: absolute; right: clamp(2.5rem, 5vw, 4rem); top: clamp(2rem, 4.2vw, 3.2rem); font-size: 1.4rem; }
+  .nf-inner { max-width: 44rem; text-align: center; display: grid; justify-items: center; gap: 1.4rem; }
+  .nf-inner .display { font-size: clamp(3.4rem, 11vw, 8rem); }
+  .nf-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin-top: 0.6rem; }
+</style>
+</head>
+<body>
+<main class="nf">
+  <div class="nf-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <p class="nf-hud" aria-hidden="true"><b></b>Kein Signal · 404</p>
+  <a class="nf-logo" href="/" aria-label="ZIANI FX – Startseite"><span class="ziani">ZIANI</span><span class="fx">FX</span></a>
+  <div class="nf-inner">
+    <p class="label"><b>404</b> Seite nicht gefunden</p>
+    <h1 class="display">Diese Szene<br>fehlt im Schnitt</h1>
+    <p class="body-text">Die Seite gibt es nicht (mehr) oder die Adresse hat sich geändert. Hier geht es weiter:</p>
+    <a class="btn btn-solid" href="/">Zur Startseite <span class="arr" aria-hidden="true">→</span></a>
+    <nav class="nf-links" aria-label="Kapitel">
+      <a class="btn btn-ghost btn-sm" href="/ugc.html">UGC &amp; Ads</a>
+      <a class="btn btn-ghost btn-sm" href="/brand-stories.html">Brand Stories</a>
+      <a class="btn btn-ghost btn-sm" href="/events.html">Events</a>
+      <a class="btn btn-ghost btn-sm" href="/commercial.html">Product &amp; Jewelry</a>
+      <a class="btn btn-ghost btn-sm" href="/interior.html">Hospitality &amp; Interior</a>
+      <a class="btn btn-ghost btn-sm" href="/lifestyle.html">Travel &amp; Films</a>
+    </nav>
+  </div>
+</main>
+</body>
+</html>

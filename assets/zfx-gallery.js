@@ -74,6 +74,9 @@
     if (!dataEl) return;
     var data;
     try { data = JSON.parse(dataEl.textContent); } catch (err) { return; }
+    // Statische Fassung (für Besucher ohne JS und für Crawler) weg, sobald die Galerie gebaut wird
+    var st = host.querySelector('.zg-static');
+    if (st) st.parentNode.removeChild(st);
     var albums = (data.albums || []).filter(function (a) { return a && a.id && a.images && a.images.length; });
     if (!albums.length) return;
     var key = host.getAttribute('data-zg') || 'gallery';
@@ -90,7 +93,7 @@
     var down = { i: -1, wasOpen: false, t: 0 };
 
     var panels = albums.map(function (a, i) {
-      var cover = h('img', 'zg-cover', { src: a.dir + a.cover, alt: '', decoding: 'async', fetchpriority: 'low' });
+      var cover = h('img', 'zg-cover', { src: a.dir + a.cover, alt: a.images[a.coverIndex].alt || '', decoding: 'async', fetchpriority: 'low' });
       cover.style.objectPosition = a.pos || '50% 50%';
       var corners = h('span', 'zg-corners', { 'aria-hidden': 'true' }, [h('i'), h('i'), h('i'), h('i')]);
       var vlabel = h('span', 'zg-vlabel', { 'aria-hidden': 'true' }, [(a.short || a.title) + ' · ', h('b', null, null, [a.code || ''])]);
@@ -269,7 +272,7 @@
         out.style.transform = '';
         return;
       }
-      inc.alt = 'Reisefotografie ' + a.title + ' – Frame ' + pad(k + 1);
+      inc.alt = a.images[k].alt || 'Reisefotografie ' + a.title + ' – Frame ' + pad(k + 1);
       A.stage.classList.add('is-loading');
       var done = function () {
         if (t !== token) return;

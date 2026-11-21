@@ -467,3 +467,11 @@
   .zg-info, .zg-panel.is-open .zg-info { translate: none; }
   .zg-a-sheet-inner, .zg-a-sheet.is-open .zg-a-sheet-inner { scale: none; transition: none; }
 }
+
+/* ---------- Statische Fassung (.zg-static): ohne JavaScript und für Crawler ----------
+   Mit JavaScript sofort ausgeblendet; zfx-gallery.js entfernt sie, sobald die Galerie gebaut ist. Bilder lazy. */
+.js .zg-static { display: none; }
+.zg-static h3 { margin-top: 2.2rem; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1; text-transform: uppercase; }
+.zg-static h3 span { margin-left: 0.6rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.2em; color: var(--muted); vertical-align: middle; }
+.zg-static-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); gap: 0.5rem; margin-top: 1rem; }
+.zg-static-grid img { width: 100%; height: auto; border-radius: var(--r-md); }

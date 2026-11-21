@@ -26,6 +26,11 @@
     return e;
   }
   function corners() { return h('div', 'zs-vf', { 'aria-hidden': 'true' }, [h('i'), h('i'), h('i'), h('i')]); }
+  // Statische Fassung (für Besucher ohne JS und für Crawler) weg, sobald die Szene gebaut wird
+  function dropStatic(host) {
+    var st = host.querySelector('.zs-static');
+    if (st) st.parentNode.removeChild(st);
+  }
   function readData(host) {
     var el = host.querySelector('.zs-data');
     if (!el) return null;
@@ -220,6 +225,7 @@
   function Vitrine(host) {
     var d = readData(host);
     if (!d || !d.rows) return;
+    dropStatic(host);
     var base = d.base || '';
     var M = d.macro || {};
     var focus = M.focus || '50% 50%';
@@ -253,8 +259,8 @@
       r.style.setProperty('--cols', row.length);
       row.forEach(function (p) {
         var k = items.length;
-        items.push({ src: base + p.f, alt: (d.name || '') + ' – Foto ' + pad(k + 1) });
-        var img = h('img', null, { src: base + p.f, alt: '', loading: 'lazy', decoding: 'async', width: p.w, height: p.h });
+        items.push({ src: base + p.f, alt: p.alt || (d.name || '') + ' – Foto ' + pad(k + 1) });
+        var img = h('img', null, { src: base + p.f, alt: p.alt || '', loading: 'lazy', decoding: 'async', width: p.w, height: p.h });
         var dark = h('span', 'zs-dark');
         dark.style.setProperty('--row', ri);
         var glare = h('span', 'zs-glare');
@@ -373,6 +379,7 @@
   function Enter(host) {
     var d = readData(host);
     if (!d || !d.locations) return;
+    dropStatic(host);
     var base = d.base || '';
     var DOOR = 1.15, STEP = 0.75, HOLD = 0.6;     // scroll lengths in screen heights (door phase, per photo, hold at the end)
     var L = d.locations.length;
@@ -393,11 +400,11 @@
         if (group.length === 1) {
           var p = sizes[group[0]] || { w: 3, h: 2 };
           shot.appendChild(h('img', 'zs-bg', { src: base + group[0], alt: '', loading: 'lazy', decoding: 'async', 'aria-hidden': 'true' }));
-          pan.appendChild(h('img', null, { src: base + group[0], alt: alt, loading: 'lazy', decoding: 'async' }));
+          pan.appendChild(h('img', null, { src: base + group[0], alt: (sizes[group[0]] && sizes[group[0]].alt) || alt, loading: 'lazy', decoding: 'async' }));
           shot.dataset.portrait = p.h > p.w ? '1' : '0';
         } else {
           group.forEach(function (f) {
-            pan.appendChild(h('div', 'zs-cell', null, [h('img', null, { src: base + f, alt: alt, loading: 'lazy', decoding: 'async' })]));
+            pan.appendChild(h('div', 'zs-cell', null, [h('img', null, { src: base + f, alt: (sizes[f] && sizes[f].alt) || alt, loading: 'lazy', decoding: 'async' })]));
           });
         }
         shot.appendChild(pan);
@@ -431,7 +438,7 @@
       scene.style.height = 'calc(' + (U + 1) + ' * 100svh)';   // ignored where svh is unknown, the vh value stays
       scenesWrap.appendChild(scene);
 
-      var photos = (loc.photos || []).map(function (p, k) { return { src: base + p.f, alt: loc.name + ' – Foto ' + pad(k + 1) }; });
+      var photos = (loc.photos || []).map(function (p, k) { return { src: base + p.f, alt: p.alt || loc.name + ' – Foto ' + pad(k + 1) }; });
       all.addEventListener('click', function () { if (photos.length) Viewer.open(photos, 0, { title: loc.name, zoom: false, from: all }); });
 
       return { name: loc.name, scene: scene, stage: stage, els: els, pans: els.map(function (e) { return e.querySelector('.zs-pan'); }),

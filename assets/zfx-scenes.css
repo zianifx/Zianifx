@@ -378,3 +378,14 @@
   .zs-glass, .zs-door-link, .zs-lb-img { transition: opacity 200ms ease; transform: none !important; }
   .zs-glare { display: none; }
 }
+
+/* ---------- Statische Fassung (.zs-static): ohne JavaScript und für Crawler ----------
+   Mit JavaScript (html.js, gesetzt im <head>) sofort ausgeblendet; zfx-scenes.js entfernt sie, sobald die Szene gebaut ist.
+   Die Bilder darin sind lazy und werden ausgeblendet gar nicht geladen. */
+.js .zs-static { display: none; }
+.zs-static { width: 100%; max-width: 1360px; margin: 0 auto; padding: 0 var(--gutter); }
+.zs-static-kicker { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+.zs-static h3 { margin-top: 1.4rem; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1; text-transform: uppercase; }
+.zs-static h3 + p { margin-top: 0.6rem; color: var(--muted); }
+.zs-static-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 0.75rem; margin-top: 1.5rem; }
+.zs-static-grid img { width: 100%; height: auto; border-radius: var(--r-md); }
