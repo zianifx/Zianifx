@@ -155,7 +155,7 @@
   }
   .site-header::before {
     content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-    background: rgba(26, 24, 24, 0.72);
+    background: rgba(26, 24, 24, 0.8);
     -webkit-backdrop-filter: blur(16px) saturate(140%); backdrop-filter: blur(16px) saturate(140%);
     opacity: 0; transition: opacity 280ms ease;
   }
@@ -225,7 +225,7 @@
   .zm-cta {
     position: fixed; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 44;
     display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 22px 0 18px;
-    border-radius: 999px; background: rgba(26, 24, 24, 0.72);
+    border-radius: 999px; background: rgba(26, 24, 24, 0.8);
     -webkit-backdrop-filter: blur(16px) saturate(140%); backdrop-filter: blur(16px) saturate(140%);
     box-shadow: inset 0 0 0 1px rgba(211, 208, 203, 0.14), 0 12px 32px -12px rgba(0, 0, 0, 0.7);
     font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; color: var(--m-ink);
@@ -243,5 +243,72 @@
     .zm-cta, .zm-cta.is-on { transform: translate3d(-50%, 0, 0); transition: opacity 200ms ease, visibility 0s linear 200ms; }
     .zm-cta.is-on { transition: opacity 200ms ease; }
     .zm-rec { animation: none; }
+  }
+}
+
+/* ---------- 5 · Komponenten ---------- */
+@media (max-width: 768px) {
+  /* Tabs als Segment-Leiste: volle Breite, wischbar, 44px hohe Ziele, aktiver Tab rot hinterlegt */
+  .tabs { justify-content: flex-start; padding: 0 var(--m-safe-r) 0 var(--m-safe-l); }
+  .subnav-inner { width: 100%; padding: 4px; scroll-snap-type: x proximity; scroll-padding-inline: 4px; overscroll-behavior-x: contain; }
+  .subnav-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; scroll-snap-align: start; }
+  .subnav-indicator { top: 4px; bottom: 4px; }
+
+  /* Hochformat-Videos: pro Gruppe eine wischbare Reihe, die nächste Karte schaut rechts heraus */
+  .reel-grid {
+    flex-wrap: nowrap; justify-content: flex-start; align-items: flex-start; gap: 10px;
+    max-width: none; margin-left: calc(var(--m-safe-l) * -1); margin-right: calc(var(--m-safe-r) * -1);
+    padding: 2px var(--m-safe-r) 6px var(--m-safe-l);
+    overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-padding-inline: var(--m-safe-l);
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .reel-grid::-webkit-scrollbar { display: none; }
+  .reel-item { flex: 0 0 76vw; min-width: 0; max-width: 360px; scroll-snap-align: start; }
+  /* geladenes Instagram-Video braucht mindestens 326px Breite */
+  .reel-item:has(.ig-tile.is-loaded) { flex-basis: calc(100vw - var(--m-safe-l) - var(--m-safe-r)); min-width: min(326px, 100%); max-width: none; }
+  .reel-grid .sticker.is-left { left: 8px; }
+  .reel-grid .sticker.is-right { right: 8px; }
+  .zm-count {
+    display: flex; align-items: center; gap: 12px; margin: 14px 0 0;
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.12em; font-variant-numeric: tabular-nums; color: var(--m-grey-2);
+  }
+  .zm-count b { font-weight: 400; color: var(--m-ink); }
+  .zm-count i { flex: 1; height: 1px; max-width: 120px; background: var(--line); position: relative; overflow: hidden; }
+  .zm-count i::after { content: ""; position: absolute; inset: 0; background: var(--m-ink); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
+
+  /* Foto-Galerien (Events): zwei Spalten, 8px Abstand, natürliche Formate */
+  .image-grid { display: block; column-count: 2; column-gap: 8px; }
+  .image-row, .image-col { display: contents; }
+  .image-grid img { display: block; width: 100%; margin: 0 0 8px; break-inside: avoid; }
+
+  /* Lightbox und Player: Bedienung unten in Daumenreichweite, Schließen in der Mitte */
+  .lightbox-close, .theater-close, .lightbox-prev, .lightbox-next { top: auto; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: 52px; height: 52px; }
+  .lightbox-close, .theater-close { left: 50%; right: auto; translate: -50% 0; }
+  .lightbox-prev { left: var(--m-safe-l); right: auto; translate: none; }
+  .lightbox-next { right: var(--m-safe-r); left: auto; translate: none; }
+  .lb-counter { top: calc(14px + env(safe-area-inset-top, 0px)); height: 44px; }
+  .lightbox .lightbox-img { max-height: calc(100vh - 190px); max-height: calc(100dvh - 190px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); }
+  .theater-frame.is-portrait { --tw: min(92vw, calc(76svh * 0.5625)); }
+
+  /* Laufbänder ruhiger */
+  .marquee .marquee-track { animation-duration: 60s; }
+  .marquee-logos .marquee-track { animation-duration: 120s; }
+  .marquee-logos .brand-logo { padding: 0 26px; }
+
+  /* Nächstes Kapitel: große Tap-Fläche über die volle Breite */
+  .next { width: calc(100% - var(--m-safe-l) - var(--m-safe-r)); height: min(56svh, 440px); min-height: 300px; }
+  .next-body { gap: 14px; padding: 24px; }
+
+  /* Footer: großzügig, Links als 48px-Zeilen */
+  .footer-bar { flex-direction: column; align-items: stretch; gap: 0; padding-top: 8px; padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
+  .footer-bar > span:first-child { padding: 16px 0 10px; color: var(--m-grey); }
+  .footer-clock { padding-bottom: 14px; color: var(--m-grey-2); }
+  .footer-bar nav { flex-direction: column; gap: 0; }
+  .footer-bar nav a, .footer-bar > a { display: flex; min-height: 48px; border-top: 1px solid var(--line); font-size: 15px; color: var(--m-ink); }
+  .footer-bar > a { border-bottom: 1px solid var(--line); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .zm-count i::after { transition: none; }
   }
 }

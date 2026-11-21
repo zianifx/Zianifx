@@ -112,3 +112,50 @@
     cta();
   });
 })();
+
+/* ---------- Komponenten: Reel-Zähler „01 / 08“, aktiver Tab bleibt sichtbar ---------- */
+(function () {
+  'use strict';
+  if (!window.__zfxMobile) return;
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  window.__zfxMobile.add(function (z) {
+    var doc = z.doc;
+    // Zähler unter jeder wischbaren Reel-Reihe
+    Array.prototype.forEach.call(doc.querySelectorAll('.reel-grid'), function (grid) {
+      var items = Array.prototype.filter.call(grid.children, function (c) { return c.classList.contains('reel-item'); });
+      var n = items.length;
+      if (n < 2) return;
+      var c = z.made(doc.createElement('p'));
+      c.className = 'zm-count';
+      c.setAttribute('aria-hidden', 'true');
+      c.innerHTML = '<span><b>01</b> / ' + pad(n) + '</span><i></i>';
+      grid.parentNode.insertBefore(c, grid.nextSibling);
+      var b = c.querySelector('b'), bar = c.querySelector('i'), t = false;
+      function upd() {
+        t = false;
+        var max = grid.scrollWidth - grid.clientWidth;
+        var step = items[1].offsetLeft - items[0].offsetLeft || 1;
+        var i = max > 0 && grid.scrollLeft >= max - 4 ? n : Math.min(n, Math.round(grid.scrollLeft / step) + 1);
+        b.textContent = pad(i);
+        bar.style.setProperty('--p', max > 0 ? (grid.scrollLeft / max).toFixed(3) : '1');
+      }
+      z.on(grid, 'scroll', function () { if (!t) { t = true; window.requestAnimationFrame(upd); } }, { passive: true });
+      upd();
+    });
+    // Segment-Leiste: den aktiven Tab ins Sichtfeld schieben, wenn er wechselt
+    var inner = doc.querySelector('.subnav-inner');
+    if (inner && window.MutationObserver) {
+      var follow = function () {
+        var a = inner.querySelector('.subnav-link.active');
+        if (!a) return;
+        var left = a.offsetLeft - 4, right = a.offsetLeft + a.offsetWidth + 4;
+        if (left < inner.scrollLeft || right > inner.scrollLeft + inner.clientWidth) {
+          inner.scrollTo({ left: Math.max(0, left), behavior: z.reduced() ? 'auto' : 'smooth' });
+        }
+      };
+      var mo = new MutationObserver(follow);
+      mo.observe(inner, { subtree: true, attributes: true, attributeFilter: ['class'] });
+      z.cleanups.push(function () { mo.disconnect(); });
+    }
+  });
+})();
