@@ -1,0 +1,40 @@
+/* ==========================================================================
+   ZIANI FX – Handy-Feinschliff (nur ≤ 768 px)
+   Desktop bleibt unverändert: JEDE Regel in dieser Datei steht in
+   @media (max-width: 768px). Letztes Stylesheet auf jeder Seite.
+   Gehört zu assets/zfx-mobile.js (tut am Desktop nichts).
+   zfx.css / zfx.js bleiben eingefroren – hier wird nur überschrieben.
+   ========================================================================== */
+
+/* ---------- 1 · Plattform-Basis ---------- */
+@media (max-width: 768px) {
+  :root {
+    color-scheme: dark;
+    --gutter: clamp(18px, 5.3vw, 24px);          /* ein Seitenrand für alles */
+    --m-safe-l: max(var(--gutter), env(safe-area-inset-left, 0px));
+    --m-safe-r: max(var(--gutter), env(safe-area-inset-right, 0px));
+    --m-ink: #d3d0cb;
+    --m-grey: #a39e98;                           /* 6,2:1 auf #232020 */
+    --m-grey-2: #8f8a85;                         /* 4,9:1 – kleinste Labels */
+    --muted: var(--m-grey);
+    --faint: var(--m-grey-2);
+    --m-ease: cubic-bezier(0.32, 0.72, 0, 1);
+    --m-tap: 140ms;
+  }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; background: var(--bg); }
+  .wrap { padding-left: var(--m-safe-l); padding-right: var(--m-safe-r); }
+
+  /* Tippen: kein grauer Kasten, dafür ein kurzes, sichtbares Feedback */
+  a, button, summary, [role="button"] { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+  button, summary, .btn, .menu-toggle, .subnav-link, .round-btn, .ig-load, .yt-facade, .zg-hit { -webkit-user-select: none; user-select: none; }
+  .btn:active, .subnav-link:active, .next:active, .faq-item summary:active, .back-link:active,
+  .footer-bar a:active, .contact-list a:active, .menu-sub a:active, .zs-door-link:active, .zs-all:active {
+    transform: scale(0.97);
+  }
+  .subnav-link, .next, .faq-item summary, .footer-bar a, .contact-list a, .menu-sub a { transition-property: color, opacity, transform; transition-duration: 250ms, 250ms, var(--m-tap); transition-timing-function: ease, ease, var(--ease-out); }
+  .back-link { transition: color 250ms ease, transform var(--m-tap) var(--ease-out); }
+  .footer-bar a, .contact-list a, .back-link { display: inline-flex; align-items: center; }
+
+  /* Hover-Zustände dürfen auf Touch nicht hängen bleiben (einzige ungeschützte Regel in zfx.css) */
+  .legal-text a:hover { color: inherit; border-color: var(--line); }
+}
