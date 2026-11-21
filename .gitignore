@@ -18,3 +18,6 @@ Thumbs.db
 
 # Referenzen und Prototypen (nur lokal, nie veröffentlichen)
 /_referenz/
+
+# Screenshots als Vorlage (z. B. Video-Frames für Cover) – nur lokal, die fertigen Cover liegen in Images/Covers/
+/Images/screenshots/
