@@ -38,3 +38,70 @@
   /* Hover-Zustände dürfen auf Touch nicht hängen bleiben (einzige ungeschützte Regel in zfx.css) */
   .legal-text a:hover { color: inherit; border-color: var(--line); }
 }
+
+/* ---------- 2 · Typografie ----------
+   Fließtext   Arimo 17/1.55 #d3d0cb · Nebentext Arimo 17/1.55 #a39e98
+   Einleitung  Arimo 19–20/1.45
+   Kleintext   Arimo 14/1.45 #a39e98 (Bildunterschriften, Footer)
+   Mono-Label  12px, Großbuchstaben, 0.12em (HUD 11px) – nie unter 11px
+   Titel       Seite clamp(64px,19vw,104px) · Sektion clamp(44px,12.5vw,64px) · Zwischentitel clamp(28px,8vw,40px)
+   Rot nur für Punkte, Linien, Flächen – nie für kleinen Text. */
+@media (max-width: 768px) {
+  body { font-size: 17px; line-height: 1.55; }
+
+  /* Fließtext */
+  .body-text, .subsection-text, .approach-copy .body-text, .legal-text, .faq-a, .zs-static h3 + p {
+    font-size: 17px; line-height: 1.55; font-weight: 400; letter-spacing: 0; color: var(--m-ink);
+  }
+  .service p, .process p { font-size: 17px; line-height: 1.55; color: var(--m-grey); }
+  .facts li, .contact-list dd { font-size: 17px; line-height: 1.45; }
+
+  /* Einleitungen */
+  .page-lead, .hero-lead, .legal-intro { font-size: 19px; line-height: 1.45; letter-spacing: 0; }
+  .about-lead { font-size: 20px; line-height: 1.42; }
+
+  /* Kleintext */
+  .caption { font-family: var(--font-body); font-size: 14px; line-height: 1.45; letter-spacing: 0; text-transform: none; color: var(--m-grey); }
+  .footer-bar { font-size: 14px; line-height: 1.45; letter-spacing: 0; }
+
+  /* Mono-Labels: 12px, enger gesperrt */
+  .label, .stack-top, .facts span, .contact-list dt, .service-num, .faq-num, .process span, .series, .travel-hud,
+  .travel-jump-inner, .footer-clock, .back-link, .yt-meta, .ig-status, .lb-counter, .zs-mono, .zs-static-kicker,
+  .zg-hud, .zg-a-title, .zg-a-count, .zg-vlabel, .zg-a-end-kicker, .menu-link small, .nf-hud, .hero-kicker,
+  .marquee-logos .brand-logo.is-text {
+    font-size: 12px; letter-spacing: 0.12em;
+  }
+  .hud { font-size: 11px; letter-spacing: 0.12em; }
+  .video-note { font-size: 11px; line-height: 1.7; letter-spacing: 0.12em; color: var(--m-grey-2); }
+  .zg-a-thumb span, .zg-a-cell .zg-a-no { font-size: 11px; letter-spacing: 0.1em; }
+  .hero-kicker { font-family: var(--font-mono); white-space: normal; }
+  .back-link { font-size: 12px; }
+
+  /* Bedienelemente */
+  .btn { font-size: 13px; letter-spacing: 0.1em; }
+  .btn-sm { font-size: 12px; }
+  .subnav-link { font-size: 12px; letter-spacing: 0.1em; }
+  .orb { font-size: 13px; letter-spacing: 0.12em; }
+
+  /* Rot nie für kleinen Text: Nummern in Hellgrau/Weiß, Rot bleibt für Punkte und Linien */
+  .label b, .series b, .travel-hud b, .travel-jump span, .menu-link small, .zg-static h3 span { color: var(--m-ink); }
+  .process span, .faq-item[open] .faq-num { color: var(--m-grey); }
+
+  /* League Gothic: fluide Größen, ausgewogene Umbrüche, keine Silbentrennung */
+  .page-title, .legal .page-title {
+    font-size: clamp(64px, 19vw, 104px); line-height: 0.88; letter-spacing: 0;
+  }
+  .display, .subsection-heading, .about-name, .nf-inner .display, .next-title {
+    font-size: clamp(44px, 12.5vw, 64px); line-height: 0.9; letter-spacing: 0;
+  }
+  .finale-title { font-size: clamp(48px, 14vw, 72px); line-height: 0.88; letter-spacing: 0; }
+  .service h3, .process h3, .faq-q, .legal-heading, .zs-static h3, .zg-static h3 {
+    font-size: clamp(28px, 8vw, 40px); line-height: 0.95; letter-spacing: 0;
+  }
+  .statement { font-size: clamp(30px, 8.6vw, 42px); line-height: 1; letter-spacing: 0; }
+  .mail-link { font-size: clamp(28px, 8vw, 40px); letter-spacing: 0; }
+  .page-title, .display, .subsection-heading, .finale-title, .service h3, .process h3, .faq-q, .legal-heading,
+  .statement, .next-title, .stack-title, .zs-static h3 {
+    text-wrap: balance; -webkit-hyphens: none; hyphens: none; font-weight: 400; font-synthesis: none;
+  }
+}
