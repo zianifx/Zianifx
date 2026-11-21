@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=League+Gothic&family=Arimo:wght@400;500;600;700&display=swap">
-<link rel="preload" as="image" href="Images/Portfolio/Events/Stuttgart13.JPG" fetchpriority="high">
+<link rel="preload" as="image" href="Images/Portfolio/Product/Prestij2.JPG" fetchpriority="high">
 <link rel="stylesheet" href="assets/zfx.css?v=10">
 <script src="assets/zfx.js?v=11" defer></script>
 </head>
@@ -74,12 +74,15 @@
 <!-- Hero -->
 <section class="hero" aria-label="Hero">
   <div class="hero-media" aria-hidden="true">
-    <!-- HERO-SLIDESHOW: ein Slide pro Kapitel in Kapitel-Reihenfolge. UGC & Ads und Brand Stories fehlen noch,
-         weil es dort keine Fotos in Vollbild-Auflösung gibt (nur Video-Cover im Hochformat). -->
-    <img class="hero-slide is-active" src="Images/Portfolio/Events/Stuttgart13.JPG" data-label="Events" alt="" fetchpriority="high" decoding="async">
-    <img class="hero-slide" data-src="Images/Portfolio/Product/Prestij2.JPG" data-label="Product &amp; Jewelry" alt="" decoding="async">
+    <!-- HERO-SLIDESHOW: Reihenfolge hier = Reihenfolge der Slideshow, sie startet immer mit dem ersten Bild:
+         Product & Jewelry → Hospitality & Interior → Travel & Films → Brand Stories → Events.
+         Nur das erste Bild lädt sofort, die übrigen (data-src) kurz bevor sie dran sind (zfx.js initHero).
+         Brand Stories zeigt auf Hochformat-Bildschirmen nur den rechten Frame, sonst läge die Fuge mitten im Bild. -->
+    <img class="hero-slide is-active" src="Images/Portfolio/Product/Prestij2.JPG" data-label="Product &amp; Jewelry" alt="" fetchpriority="high" decoding="async">
     <img class="hero-slide" data-src="Images/Portfolio/Interieur/Espresso10.JPG" data-label="Hospitality &amp; Interior" alt="" decoding="async">
     <img class="hero-slide" data-src="Images/Covers/travel-films.jpg" data-label="Travel &amp; Films" alt="" decoding="async">
+    <picture><source media="(orientation: portrait)" srcset="Images/Covers/brand-stories-mobile.jpg?v=4"><img class="hero-slide" data-src="Images/Covers/brand-stories.jpg?v=5" data-label="Brand Stories" alt="" fetchpriority="low" decoding="async"></picture>
+    <img class="hero-slide" data-src="Images/Portfolio/Events/Stuttgart13.JPG" data-label="Events" alt="" decoding="async">
   </div>
   <div class="hero-shade" aria-hidden="true"></div>
   <div class="hero-grain" aria-hidden="true"></div>
@@ -88,7 +91,7 @@
     <i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i>
     <span class="h-tl"><span class="rec"></span>REC <span data-timecode>00:00:00:00</span></span>
     <span class="h-tr hide-s">Köln / Bonn — DE</span>
-    <span class="h-bl" data-slide-label>01 / 04 — Events</span>
+    <span class="h-bl" data-slide-label>01 / 05 — Product &amp; Jewelry</span>
     <span class="h-br hide-s">Scroll ↓</span>
   </div>
 
@@ -102,7 +105,7 @@
     </div>
   </div>
 
-  <div class="hero-ticks" aria-hidden="true"><b></b><b></b><b></b><b></b></div>
+  <div class="hero-ticks" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b></div>
 </section>
 
 <!-- Laufband -->
