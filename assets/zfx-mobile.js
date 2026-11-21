@@ -58,7 +58,10 @@
     function update() {
       ticking = false;
       var y = Math.max(0, window.pageYOffset), d = y - lastY;
-      if (root.classList.contains('menu-open') || y < 120) { root.classList.remove('zm-hide'); lastY = y; }
+      var stack = doc.querySelector('.stack'), inStack = false;
+      if (stack) { var sr = stack.getBoundingClientRect(); inStack = sr.top < window.innerHeight * 0.5 && sr.bottom > window.innerHeight * 0.5; }
+      // Im Kartenstapel bleibt der Header stehen: die Karten haften direkt darunter
+      if (root.classList.contains('menu-open') || y < 120 || inStack) { root.classList.remove('zm-hide'); lastY = y; }
       else if (d > 8) { root.classList.add('zm-hide'); lastY = y; }
       else if (d < -8) { root.classList.remove('zm-hide'); lastY = y; }
       if (cta) cta();
