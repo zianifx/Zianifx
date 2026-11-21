@@ -356,3 +356,11 @@
   .nf-logo { display: inline-flex; align-items: center; min-height: 44px; }
   .page-hero { padding-bottom: 40px; }
 }
+
+/* ---------- 7 · Feinschliff nach der Prüfung ---------- */
+@media (max-width: 768px) {
+  /* Link im Video-Hinweis: 44px Tap-Höhe ohne sichtbare Änderung */
+  .video-note a { display: inline-block; padding: 14px 0; margin: -14px 0; }
+  /* Nummern im Türen-Index (Eintreten) mit ausreichendem Kontrast */
+  .zs-door-link .zs-mono { color: var(--m-grey); }
+}
